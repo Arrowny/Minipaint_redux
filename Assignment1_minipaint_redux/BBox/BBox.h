@@ -10,10 +10,13 @@
 
 class BBox {
 private:
-
+	vert min;
+	vert max;
 public:
 	BBox();
+	BBox(vert)
 	~BBox();
+
 };
 
 #endif /* BBOX_H_ */

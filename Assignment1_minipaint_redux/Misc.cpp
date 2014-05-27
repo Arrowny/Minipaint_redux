@@ -4,7 +4,7 @@
  *  Created on: May 27, 2014
  *      Author: DavidsMac
  *
- *  file used for extraneous structures
+ *  file used for miscellaneous structures
  */
 
 struct vert {
