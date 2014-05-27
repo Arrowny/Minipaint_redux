@@ -8,12 +8,16 @@
 #ifndef BBOX_H_
 #define BBOX_H_
 
+
 class BBox {
 private:
-
+	vert min;
+	vert max;
 public:
 	BBox();
+	BBox(vert min, vert max);
 	~BBox();
+
 };
 
 #endif /* BBOX_H_ */
