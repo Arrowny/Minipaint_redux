@@ -9,9 +9,11 @@
 #define BBOX_H_
 
 class BBox {
+private:
+
 public:
 	BBox();
-	virtual ~BBox();
+	~BBox();
 };
 
 #endif /* BBOX_H_ */
