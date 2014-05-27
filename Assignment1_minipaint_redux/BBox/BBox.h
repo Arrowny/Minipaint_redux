@@ -8,16 +8,17 @@
 #ifndef BBOX_H_
 #define BBOX_H_
 
-
 class BBox {
 private:
-	vert min;
-	vert max;
+	Point min;
+	Point max;
 public:
 	BBox();
-	BBox(vert min, vert max);
+	BBox(Point min, Point max);
 	~BBox();
-
+	bool unionBBox(BBox uBox);
+	bool insideBBox(Point testPt);
+	void expand(float );
 };
 
 #endif /* BBOX_H_ */
