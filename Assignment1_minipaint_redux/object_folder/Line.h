@@ -9,14 +9,7 @@
 #define LINE_H_
 
 #include "Object.h"
-#include <assert.h>
-#include <cmath>
-#include <iostream>
-#include <vector>
-#include <windows.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/glu.h>
+
 
 
 class Line: public virtual Object {

@@ -8,6 +8,17 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
+
+#include <string>
+#include <assert.h>
+#include <cmath>
+#include <iostream>
+#include <vector>
+#include <windows.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
+
 class Object {
 public:
 	Object();
