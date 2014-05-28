@@ -12,7 +12,13 @@
  * Simple 2D point struct. Represents point (x,y)
  */
 struct Point{
+public:
 	float x, y;
+
+	Point() {
+		x = 0.0;
+		y = 0.0;
+	}
 
 	Point(float x, float y) {
 		this->x = x;
