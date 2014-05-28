@@ -7,6 +7,8 @@
 
 #ifndef BBOX_H_
 #define BBOX_H_
+#include "Misc.h"
+
 
 /**
  * Generates a 2D box with that streches from Point min(x,y) to Point max(x,y)
