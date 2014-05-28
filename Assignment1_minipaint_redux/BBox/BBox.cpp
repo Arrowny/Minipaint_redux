@@ -97,6 +97,19 @@ BBox::BBox(Point a, Point b) {
 	setMinMaxY(a, b, min, max);
 }
 
+/**
+ * Updated assignment operator. Ensures proper copying of BBoxes
+ *
+ * @param other
+ * @return
+
+BBox& BBox::operator=( const BBox& other ) {
+	min.update(other.getMin().y, other.getMin().x);
+	max.update(other.getMax().y, other.getMax().x);
+	return *this;
+}
+*/
+
 BBox::~BBox() {
 
 }
@@ -153,7 +166,7 @@ BBox BBox::expandBBox(float expX, float expY) {
  *
  * @return copy of min for this BBox's bounding box.
  */
-Point BBox::getMin() {
+Point BBox::getMin() const {
 	Point tmpMin;
 	tmpMin.x = min.x;
 	tmpMin.y = min.y;
@@ -164,7 +177,7 @@ Point BBox::getMin() {
  *
  * @return copy of max for this BBox's bounding box.
  */
-Point BBox::getMax() {
+Point BBox::getMax() const {
 	Point tmpMax;
 	tmpMax.x = max.x;
 	tmpMax.y = max.y;

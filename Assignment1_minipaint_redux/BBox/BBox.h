@@ -19,13 +19,13 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
-	BBox
+	//BBox& BBox::operator=( const BBox& other );
 	BBox unionBBox(Point uPoint);
 	BBox unionBBox(BBox uBox);
 	BBox expandBBox(float expX, float expY);
 	bool insideBBox(Point testPt);
-	Point getMin();
-	Point getMax();
+	Point getMin() const;
+	Point getMax() const;
 };
 
 #endif /* BBOX_H_ */
