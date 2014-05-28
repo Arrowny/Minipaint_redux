@@ -18,7 +18,7 @@ public:
 	~BBox();
 	bool unionBBox(BBox uBox);
 	bool insideBBox(Point testPt);
-	void expand(float );
+	void expandBBox(float expX, float expY);
 };
 
 #endif /* BBOX_H_ */
