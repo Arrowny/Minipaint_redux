@@ -46,7 +46,7 @@ all: Assignment1_minipaint_redux
 Assignment1_minipaint_redux: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C++ Linker'
-	g++  -o "Assignment1_minipaint_redux" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L"C:\Windows\System32\dll" -o "Assignment1_minipaint_redux" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
