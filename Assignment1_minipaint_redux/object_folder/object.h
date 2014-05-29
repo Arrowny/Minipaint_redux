@@ -1,17 +1,29 @@
 /*
- * object.h
+ * Object.h
  *
- *  Created on: May 27, 2014
- *      Author: DavidsMac
+ *  Created on: 2014Äê5ÔÂ27ÈÕ
+ *      Author: yellow
  */
 
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-class object {
+
+#include <string>
+#include <assert.h>
+#include <cmath>
+#include <iostream>
+#include <vector>
+#include <windows.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include "Misc.h"
+
+class Object {
 public:
-	object();
-	virtual ~object();
+	Object();
+	virtual ~Object();
 	virtual void draw() = 0;
 	virtual void rotate() = 0;
 };

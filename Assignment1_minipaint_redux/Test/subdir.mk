@@ -4,24 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../BBox/BBox.cpp 
+../Canvas.cpp \
+../GUI.cpp 
 
 OBJS += \
-./BBox/BBox.o 
+./Canvas.o \
+./GUI.o 
 
 CPP_DEPS += \
-./BBox/BBox.d 
+./Canvas.d \
+./GUI.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-BBox/%.o: ../BBox/%.cpp
+%.o: ../%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-<<<<<<< HEAD
 	g++ -I"C:\Users\Joe\Documents\GitHub\Minipaint_redux\Assignment1_minipaint_redux\Misc" -I"C:\Users\Joe\Documents\GitHub\Minipaint_redux\Assignment1_minipaint_redux\BBox" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
-=======
-	g++ -I"E:\2ndSemester\3DS\Github\Minipaint_redux\Assignment1_minipaint_redux\Misc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
->>>>>>> origin/Sherry
 	@echo 'Finished building: $<'
 	@echo ' '
 

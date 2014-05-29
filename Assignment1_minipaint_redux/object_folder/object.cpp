@@ -1,18 +1,18 @@
 /*
- * object.cpp
+ * Object.cpp
  *
- *  Created on: May 27, 2014
- *      Author: DavidsMac
+ *  Created on: 2014Äê5ÔÂ27ÈÕ
+ *      Author: yellow
  */
 
-#include "object.h"
-
-object::object() {
+#include "Object.h"
+using namespace std;
+Object::Object() {
 	// TODO Auto-generated constructor stub
 
 }
 
-object::~object() {
+Object::~Object() {
 	// TODO Auto-generated destructor stub
 }
 

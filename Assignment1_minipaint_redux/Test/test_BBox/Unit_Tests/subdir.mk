@@ -2,11 +2,10 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-USER_OBJS :=
+# Add inputs and outputs from these tool invocations to the build variables 
+O_SRCS += \
+../test_BBox/Unit_Tests/test_BBox.o 
 
-<<<<<<< HEAD
-LIBS := -lgdi32 -lglu32 -lglut32 -lopengl32
-=======
-LIBS := -lglut32 -lglu32 -lgdi32 -lopengl32
->>>>>>> origin/Sherry
+
+# Each subdirectory must supply rules for building sources it contributes
 
