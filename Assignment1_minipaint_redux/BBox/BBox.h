@@ -7,7 +7,12 @@
 
 #ifndef BBOX_H_
 #define BBOX_H_
+#include "Misc.h"
 
+
+/**
+ * Generates a 2D box with that streches from Point min(x,y) to Point max(x,y)
+ */
 class BBox {
 private:
 	Point min;
@@ -16,9 +21,14 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
-	bool unionBBox(BBox uBox);
-	bool insideBBox(Point testPt);
-	void expand(float );
+	//BBox& BBox::operator=( const BBox& other );
+	BBox unionBBox(Point uPoint) const;
+	BBox unionBBox(BBox uBox) const;
+	BBox expandBBox(float expX, float expY) const;
+	bool insideBBox(Point testPt) const;
+	Point* getCorners() const;
+	Point getMin() const;
+	Point getMax() const;
 };
 
 #endif /* BBOX_H_ */

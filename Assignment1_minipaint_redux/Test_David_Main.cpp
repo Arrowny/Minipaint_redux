@@ -10,3 +10,12 @@
 	#include <GL/glut.h>
 	#include <GL/glu.h>
 #endif
+
+#include<iostream>
+
+
+int main() {
+
+	std::cout<<"Welcome to David Main"<<std::endl;
+	return 0;
+}
