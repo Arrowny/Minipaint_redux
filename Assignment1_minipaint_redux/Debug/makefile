@@ -8,30 +8,34 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include test_BBox/object_folder/subdir.mk
+-include test_BBox/Unit_Tests/subdir.mk
+-include test_BBox/BBox/subdir.mk
+-include test_BBox/subdir.mk
 -include object_folder/subdir.mk
--include Misc/subdir.mk
+-include Unit_Tests/subdir.mk
 -include BBox/subdir.mk
 -include subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(C++_DEPS)),)
--include $(C++_DEPS)
-endif
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
 ifneq ($(strip $(CC_DEPS)),)
 -include $(CC_DEPS)
 endif
-ifneq ($(strip $(CPP_DEPS)),)
--include $(CPP_DEPS)
+ifneq ($(strip $(C++_DEPS)),)
+-include $(C++_DEPS)
+endif
+ifneq ($(strip $(C_UPPER_DEPS)),)
+-include $(C_UPPER_DEPS)
 endif
 ifneq ($(strip $(CXX_DEPS)),)
 -include $(CXX_DEPS)
 endif
-ifneq ($(strip $(C_UPPER_DEPS)),)
--include $(C_UPPER_DEPS)
+ifneq ($(strip $(CPP_DEPS)),)
+-include $(CPP_DEPS)
+endif
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
 endif
 endif
 
@@ -46,13 +50,13 @@ all: Assignment1_minipaint_redux
 Assignment1_minipaint_redux: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C++ Linker'
-	g++  -o "Assignment1_minipaint_redux" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L"C:\Windows\System32\dll" -o "Assignment1_minipaint_redux" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(C++_DEPS)$(OBJS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) Assignment1_minipaint_redux
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) Assignment1_minipaint_redux
 	-@echo ' '
 
 .PHONY: all clean dependents
