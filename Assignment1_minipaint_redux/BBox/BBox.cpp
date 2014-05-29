@@ -108,6 +108,7 @@ BBox& BBox::operator=( const BBox& other ) {
 	min.update(other.getMin().y, other.getMin().x);
 	max.update(other.getMax().y, other.getMax().x);
 	return *this;
+
 }
 */
 
