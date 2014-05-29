@@ -18,7 +18,7 @@ Rectangle::~Rectangle() {
 
 /*Draw rectangle, for now we can only draw in one direction*/
 
-void Rectangle(Point start_p, Point end_p) {
+void Rectangle::draw(Point start_p, Point end_p) {
 	glBegin(GL_LINES);
 		glVertex2f(start_p.x,start_p.y);
 		glVertex2f(end_p.x,start_p.y);

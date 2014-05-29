@@ -81,7 +81,7 @@ void FourPointSymmetry(Point start_p, float x, float y)
 //}
 
 
-void Ellipse(Point start_p, float rx, float ry)
+void Ellipse::draw(Point start_p, float rx, float ry)
 {
 	float rxSq = rx * rx;
 	float rySq = ry * ry;

@@ -14,6 +14,7 @@ class Ellipse: public Object {
 public:
 	Ellipse();
 	virtual ~Ellipse();
+	void draw(Point start_p, float rx, float ry);
 };
 
 #endif /* ELLIPSE_H_ */
