@@ -44,13 +44,13 @@ void EightPointSymmetry(Point start_p, float x, float y){
  */
 void MidPointCircle(float p, float x, float y){
 	if (p<0) {
-				++x;
-				p+=2*x+1;
-			}else {
-				p+=2*x-2*y+5;
-				++x;
-				--y;
-			}
+		++x;
+		p+=2*x+1;
+	}else {
+		p+=2*x-2*y+5;
+		++x;
+		--y;
+	}
 }
 }
 /**
