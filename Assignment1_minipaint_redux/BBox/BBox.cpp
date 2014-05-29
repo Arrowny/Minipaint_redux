@@ -11,11 +11,7 @@
 namespace {
 
 	/**
-<<<<<<< HEAD
-	 * Sets the min and max y value for BBox based on points a and b
-=======
 	 * Sets the min and max y value for BBox based on points a and b.
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
 	 *
 	 * @param a first point
 	 * @param b second point
@@ -34,11 +30,7 @@ namespace {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Sets the min and max y value for BBox based on points a and b
-=======
 	 * Sets the min and max y value for BBox based on points a and b.
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
 	 *
 	 * @param a first point
 	 * @param b second point
@@ -55,25 +47,6 @@ namespace {
 			max.y = a.y;
 		}
 	}
-<<<<<<< HEAD
-}
-
-BBox::BBox() {
-	this->min.x = 0; this->max.x = 0;
-	this->min.y = 0; this->min.y = 0;
-}
-
-/**
- * Basic bounding box constructor that takes two input points. Will create a
- * bounding box "BBox" based on the minimum and maximum Points (x,y) of a and b.
- *
- * @param a first input point
- * @param b second input point
- */
-BBox::BBox(Point a, Point b) {
-	setMinMaxX(a, b, min, max);
-	setMinMaxY(a, b, min, max);
-=======
 
 	/**
 	 * Finds minimum of uMin and min sets this value into tmpMin.
@@ -135,14 +108,12 @@ BBox& BBox::operator=( const BBox& other ) {
 	min.update(other.getMin().y, other.getMin().x);
 	max.update(other.getMax().y, other.getMax().x);
 	return *this;
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
+
 }
 */
 
 BBox::~BBox() {
 
-<<<<<<< HEAD
-=======
 }
 
 /**
@@ -256,6 +227,5 @@ Point BBox::getMax() const {
 	tmpMax.x = max.x;
 	tmpMax.y = max.y;
 	return tmpMax;
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
 }
 

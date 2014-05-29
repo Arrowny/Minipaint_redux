@@ -21,7 +21,10 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Sherry
 	//BBox& BBox::operator=( const BBox& other );
 	BBox unionBBox(Point uPoint) const;
 	BBox unionBBox(BBox uBox) const;
@@ -30,7 +33,10 @@ public:
 	Point* getCorners() const;
 	Point getMin() const;
 	Point getMax() const;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Sherry
 };
 
 #endif /* BBOX_H_ */

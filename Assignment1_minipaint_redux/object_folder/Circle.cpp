@@ -1,11 +1,7 @@
 /*
  * Circle.cpp
- *
-<<<<<<< HEAD
- *  Created on: 2014Äê5ÔÂ27ÈÕ
-=======
+
  *  Created on: 05/29/2014
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
  *      Author: yellow
  */
 
@@ -28,7 +24,7 @@ namespace {
  * @param x
  * @param y
  */
-void EightPointSymmetry(Point start_p, float x, float y){
+void EightPointSymmetry(Point &start_p, float &x, float &y){
 	glBegin(GL_POINTS);
 	glVertex2f(start_p.x+x, start_p.y+y);
 	glVertex2f(start_p.x-x, start_p.y+y);
@@ -42,11 +38,12 @@ void EightPointSymmetry(Point start_p, float x, float y){
 }
 /**
  * Midpoint circle algorithm
+ *
  * @param p: decision factor
  * @param x
  * @param y
  */
-void MidPointCircle(float p, float x, float y){
+void MidPointCircle(float &p, float &x, float &y){
 	if (p<0) {
 		++x;
 		p+=2*x+1;
@@ -58,17 +55,18 @@ void MidPointCircle(float p, float x, float y){
 }
 }
 /**
+ * The main function of drawing circles
  *
  * @param start_p: the starting point where we click
  * @param r: the radius of the circle
  */
-void circle(Point start_p, float r) {
+void Circle(Point start_p, float r) {
 	float x=0.0, y=r;
 	float p=1.25-r;
 	while (x<=y) {
 		EightPointSymmetry(start_p, x, y);
 		MidPointCircle(p,x,y);
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
+
 	}
 }
 
