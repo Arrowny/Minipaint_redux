@@ -29,8 +29,12 @@ public:
 		this->x = x;
 		this->y = y;
 	}
-};
 
+	bool isEqual(Point b) {
+		;
+	}
+
+};
 
 
 #endif /* MISC_H_ */
