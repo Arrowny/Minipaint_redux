@@ -42,6 +42,7 @@ void EightPointSymmetry(Point start_p, float x, float y){
 }
 /**
  * Midpoint circle algorithm
+ *
  * @param p: decision factor
  * @param x
  * @param y
@@ -58,6 +59,7 @@ void MidPointCircle(float p, float x, float y){
 }
 }
 /**
+ * The main function of drawing circles
  *
  * @param start_p: the starting point where we click
  * @param r: the radius of the circle
