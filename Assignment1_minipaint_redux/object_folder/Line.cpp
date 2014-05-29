@@ -7,15 +7,8 @@
 
 #include "Line.h"
 
-//Line::Line() {
-//	// TODO Auto-generated constructor stub
-//
-//}
-//
-//Line::~Line() {
-//	// TODO Auto-generated constructor stub
-//}
 namespace{
+
 /**
  * This function defines the way to draw lines according to the slop, which equals to dy/dx.
  *
@@ -62,6 +55,7 @@ void DrawLine(int line_type,float larger, float smaller, Point start_p, Point en
 	}
 
 }
+
 /**
  * This function is used to swap the coordinates of start point and end point
  *
@@ -75,32 +69,46 @@ void SwapPoints(Point &start_p, Point &end_p){
 
 }//namespace
 
+Line::Line() {
+	start.update(0.0,0.0);
+	end.update(0.0,0.0);
+}
+
+Line::Line(Point lineStart, Point lineEnd) {
+	start = lineStart;
+	end = lineEnd;
+}
+
+Line::~Line() {
+
+}
+
+
 /**
  *  This function judges the type of the line first and then use Breseman algorithm to draw lines.
  *
  * @param start_p: the start point
  * @param end_p: the end point
  */
-void Line(Point start_p, Point end_p) {
+void Line::draw() {
+
+	Point start_p = start;
+	Point end_p = end;
+
 	glBegin(GL_POINTS);
+		float dy=abs(end_p.y-start_p.y);
+		float dx=abs(end_p.x-start_p.x);
+		if (dx>=dy) {// slop <=1
+			int line_type=1;
+			DrawLine(line_type,dx,dy, start_p, end_p);
 
-	if (start_p.x>end_p.x) {
-		SwapPoints(start_p,end_p);
-	}
-
-	float dy=abs(end_p.y-start_p.y);
-	float dx=abs(end_p.x-start_p.x);
-	if (dx>=dy) {// slop <=1
-		int line_type=1;
-		DrawLine(line_type,dx,dy, start_p, end_p);
-
-	}else { //slop>1
-		int line_type=2;
-		if (start_p.y>end_p.y) {
-			SwapPoints(start_p,end_p);
+		}else { //slop>1
+			int line_type=2;
+			if (start_p.y>end_p.y) {
+				SwapPoints(start_p,end_p);
+			}
+			DrawLine(line_type,dy,dx,start_p,end_p);
 		}
-		DrawLine(line_type,dy,dx,start_p,end_p);
-	}
 	glEnd();
 }
 

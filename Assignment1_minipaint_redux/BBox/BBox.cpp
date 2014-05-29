@@ -11,7 +11,7 @@
 namespace {
 
 	/**
-	 * Sets the min and max y value for BBox based on points a and b.
+	 * Sets the min and max x value for BBox based on points a and b.
 	 *
 	 * @param a first point
 	 * @param b second point
@@ -97,20 +97,6 @@ BBox::BBox(Point a, Point b) {
 	setMinMaxX(a, b, min, max);
 	setMinMaxY(a, b, min, max);
 }
-
-/**
- * Updated assignment operator. Ensures proper copying of BBoxes
- *
- * @param other
- * @return
-
-BBox& BBox::operator=( const BBox& other ) {
-	min.update(other.getMin().y, other.getMin().x);
-	max.update(other.getMax().y, other.getMax().x);
-	return *this;
-
-}
-*/
 
 BBox::~BBox() {
 

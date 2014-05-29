@@ -10,10 +10,11 @@
 
 #include "object.h"
 
-class Rectangle: public virtual Object {
+class Rectangle: public Object {
 public:
 	Rectangle();
 	virtual ~Rectangle();
+	void draw(Point start_p, Point end_p);
 };
 
 #endif /* RECTANGLE_H_ */

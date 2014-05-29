@@ -18,14 +18,18 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/glu.h>
+#include "BBox.h"
 #include "Misc.h"
 
 class Object {
+private:
+	BBox bbox;
+	virtual BBox updateBBox() = 0;
 public:
 	Object();
 	virtual ~Object();
 	virtual void draw() = 0;
-	virtual void rotate() = 0;
+	virtual void translate() = 0;
 };
 
 #endif /* OBJECT_H_ */
