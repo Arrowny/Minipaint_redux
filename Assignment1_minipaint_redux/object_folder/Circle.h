@@ -12,16 +12,9 @@
 #ifndef CIRCLE_H_
 #define CIRCLE_H_
 
-<<<<<<< HEAD
-#include "Object.h"
-
-
-class Circle: public virtual Object {
-=======
 #include "object.h"
 
-class Circle: public virtual object {
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
+class Circle: public virtual Object {
 public:
 	Circle();
 	virtual ~Circle();

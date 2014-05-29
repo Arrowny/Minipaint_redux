@@ -8,9 +8,7 @@
 #ifndef LINE_H_
 #define LINE_H_
 
-#include "Object.h"
-
-
+#include "object.h"
 
 class Line: public virtual Object {
 public:
