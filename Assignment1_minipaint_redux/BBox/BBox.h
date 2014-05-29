@@ -21,11 +21,7 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
-<<<<<<< HEAD
-	bool unionBBox(BBox uBox);
-	bool insideBBox(Point testPt);
-	void expandBBox(float expX, float expY);
-=======
+
 	//BBox& BBox::operator=( const BBox& other );
 	BBox unionBBox(Point uPoint) const;
 	BBox unionBBox(BBox uBox) const;
@@ -34,7 +30,7 @@ public:
 	Point* getCorners() const;
 	Point getMin() const;
 	Point getMax() const;
->>>>>>> ca1f7edfe47a1cfe6a467b8cdb923ce761ee8c6c
+
 };
 
 #endif /* BBOX_H_ */
