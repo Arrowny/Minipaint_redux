@@ -23,7 +23,7 @@
 
 class Object {
 private:
-	BBox bbox;
+	BBox* bbox;
 	virtual BBox updateBBox() = 0;
 public:
 	Object();

@@ -12,10 +12,12 @@
 
 class Ellipse: public Object {
 private:
-	void updateBBox();
+	Point start;
+	Point end;
 public:
 	Ellipse();
-	virtual ~Ellipse();
+	Ellipse(Point ellStart, Point ellEnd);
+	~Ellipse();
 	void draw(Point start_p, float rx, float ry);
 };
 
