@@ -23,8 +23,8 @@ public:
 	void draw();
 	Point getStart();
 	Point getEnd();
-	Point setStart();
-	Point setEnd();
+	void setStart(Point new_start);
+	void setEnd( Point new_end);
 
 };
 

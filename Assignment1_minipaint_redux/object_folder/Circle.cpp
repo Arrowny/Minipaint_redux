@@ -61,7 +61,7 @@ void MidPointCircle(float &p, float &x, float &y){
  * @param start_p: the starting point where we click
  * @param r: the radius of the circle
  */
-void Circle::draw(Point start_p, float r) {
+void Circle::draw (Point start_p, float r) {
 	float x=0.0, y=r;
 	float p=1.25-r;
 	while (x<=y) {

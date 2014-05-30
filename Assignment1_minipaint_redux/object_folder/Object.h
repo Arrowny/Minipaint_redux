@@ -27,6 +27,7 @@ protected:
 	BBox* bbox;
 	void updateBBox(Point a, Point b);
 
+
 public:
 	Object();
 	virtual ~Object();
