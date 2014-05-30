@@ -9,6 +9,9 @@
 #define TRANSFORMATION_H_
 #include "vmath.h"
 
+/**
+ * Provides support for 2d transformations.
+ */
 class Transformation {
 private:
 	vmath::Tmat4<float> Translation;

@@ -7,7 +7,7 @@
 
 #include "Line.h"
 
-namespace{
+namespace {
 
 /**
  * This function defines the way to draw lines according to the slop, which equals to dy/dx.
@@ -18,38 +18,38 @@ namespace{
  * @param start_p : the start point.
  * @param end_p : the end point.
  */
-void DrawLine(int line_type,float larger, float smaller, Point start_p, Point end_p){
-	if (line_type==1){
-		float incy=(smaller!=0?smaller/(end_p.y-start_p.y):0);
-		float p=2*smaller-larger;
-		float dy2=2*smaller;
-		float dd2=2*(smaller-larger);
-		float x, y=start_p.y;
-		for (x=start_p.x+1; x<=end_p.x; ++x) {
-			if (p<0) {
+void DrawLine(int line_type, float larger, float smaller, Point start_p,
+		Point end_p) {
+	if (line_type == 1) {
+		float incy = (smaller != 0 ? smaller / (end_p.y - start_p.y) : 0);
+		float p = 2 * smaller - larger;
+		float dy2 = 2 * smaller;
+		float dd2 = 2 * (smaller - larger);
+		float x, y = start_p.y;
+		for (x = start_p.x + 1; x <= end_p.x; ++x) {
+			if (p < 0) {
 				glVertex2f(x, y);
-				p+=dd2;
-			}else {
-				y+=incy;
+				p += dd2;
+			} else {
+				y += incy;
 				glVertex2f(x, y);
-				p+=dd2;
+				p += dd2;
 			}
 		}
-	}
-	else if(line_type==2){
-		float incx=(smaller!=0?smaller/(end_p.x-start_p.x):0);
-		float p=2*smaller-larger;
-		float dx2=2*smaller;
-		float dd2=2*(smaller-larger);
-		float x=start_p.x, y;
-		for (y=start_p.y+1; y<=end_p.y; ++y) {
-			if (p<0) {
+	} else if (line_type == 2) {
+		float incx = (smaller != 0 ? smaller / (end_p.x - start_p.x) : 0);
+		float p = 2 * smaller - larger;
+		float dx2 = 2 * smaller;
+		float dd2 = 2 * (smaller - larger);
+		float x = start_p.x, y;
+		for (y = start_p.y + 1; y <= end_p.y; ++y) {
+			if (p < 0) {
 				glVertex2f(x, y);
-				p+=dd2;
-			}else {
-				x+=incx;
+				p += dd2;
+			} else {
+				x += incx;
 				glVertex2f(x, y);
-				p+=dd2;
+				p += dd2;
 			}
 		}
 	}
@@ -62,11 +62,12 @@ void DrawLine(int line_type,float larger, float smaller, Point start_p, Point en
  * @param start_p: start point
  * @param end_p: end point
  */
-void SwapPoints(Point &start_p, Point &end_p){
+void SwapPoints(Point &start_p, Point &end_p) {
 	std::swap(start_p.x, end_p.x);
 	std::swap(start_p.y, end_p.y);
 }
 
+<<<<<<< HEAD
 void exchangePoints(Point &old_point, Point new_point){
 	old_point.x=new_point.x;
 	old_point.y=new_point.y;
@@ -78,6 +79,13 @@ Line::Line() {
 	start.update(0.0,0.0);
 	end.update(0.0,0.0);
 	bbox = new BBox(0.0,0.0);
+=======
+} //namespace
+
+Line::Line() {
+	start.update(0.0, 0.0);
+	end.update(0.0, 0.0);
+>>>>>>> origin/DavidWin
 }
 
 Line::Line(Point lineStart, Point lineEnd) {
@@ -90,7 +98,6 @@ Line::~Line() {
 
 }
 
-
 /**
  *  This function judges the type of the line first and then use Breseman algorithm to draw lines.
  *
@@ -102,23 +109,24 @@ void Line::draw() {
 	Point start_p = start;
 	Point end_p = end;
 
-	glBegin(GL_POINTS);
-		float dy=abs(end_p.y-start_p.y);
-		float dx=abs(end_p.x-start_p.x);
-		if (dx>=dy) {// slop <=1
-			int line_type=1;
-			DrawLine(line_type,dx,dy, start_p, end_p);
+	glBegin (GL_POINTS);
+	float dy = abs(end_p.y - start_p.y);
+	float dx = abs(end_p.x - start_p.x);
+	if (dx >= dy) { // slop <=1
+		int line_type = 1;
+		DrawLine(line_type, dx, dy, start_p, end_p);
 
-		}else { //slop>1
-			int line_type=2;
-			if (start_p.y>end_p.y) {
-				SwapPoints(start_p,end_p);
-			}
-			DrawLine(line_type,dy,dx,start_p,end_p);
+	} else { //slop>1
+		int line_type = 2;
+		if (start_p.y > end_p.y) {
+			SwapPoints(start_p, end_p);
 		}
+		DrawLine(line_type, dy, dx, start_p, end_p);
+	}
 	glEnd();
 }
 
+<<<<<<< HEAD
 /**
  * This getStart is used to get the position of the start point of the line.
  *
@@ -157,3 +165,5 @@ void Line::setEnd(Point new_end){
 	updateBBox(start,end);
 }
 
+=======
+>>>>>>> origin/DavidWin
