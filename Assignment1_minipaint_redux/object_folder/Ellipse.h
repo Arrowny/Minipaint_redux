@@ -10,7 +10,7 @@
 
 #include "object.h"
 
-class Ellipse: public Object {
+class Ellipse: public object {
 public:
 	Ellipse();
 	virtual ~Ellipse();

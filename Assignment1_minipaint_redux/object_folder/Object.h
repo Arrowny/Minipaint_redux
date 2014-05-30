@@ -22,13 +22,22 @@
 #include "Misc.h"
 
 class Object {
-private:
-	BBox bbox;
-	virtual BBox updateBBox() = 0;
+protected:
+	BBox* bbox;
+	void updateBBox(Point a, Point b);
+
 public:
 	Object();
 	virtual ~Object();
+
+	/**
+	 * object draw function. Draws object to screen
+	 */
 	virtual void draw() = 0;
+
+	/**
+	 * Moves object across screen.
+	 */
 	virtual void translate() = 0;
 };
 
