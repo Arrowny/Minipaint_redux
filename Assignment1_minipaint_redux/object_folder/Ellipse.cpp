@@ -7,22 +7,24 @@
 
 #include "Ellipse.h"
 
-#include "../Misc/Misc.h"
-#include "C:/MinGW/include/GL/gl.h"
+#include "Misc.h"
+#include "GL/gl.h"
 
 Ellipse::Ellipse() {
-	bbox = new bbox(0.0,0.0);
+	bbox = new bbox(0.0, 0.0);
 	start.update(0.0, 0.0);
-	float x = 0.0;
-	float y = 0.0;
+	float rx = 0.0;
+	float ry = 0.0;
+	vmath::mat4 Trans = new Transformation(0.0, 0.0, 0.0, 0.0, 0.0);
 }
 
 Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 	ellStart = start;
 	ellEnd = end;
-	bbox = new bbox(ellStart,ellEnd);
-	float rx = abs(ellStart.x - ellEnd.x)/2;
-	float ry = abs(ellStart.x - ellEnd.x)/2;
+	bbox = new bbox(ellStart, ellEnd);
+	float rx = abs(ellStart.x - ellEnd.x) / 2;
+	float ry = abs(ellStart.x - ellEnd.x) / 2;
+	transform = new Transformation(0.0, 0.0, 0.0, ellStart, ellEnd);
 }
 
 Ellipse::~Ellipse() {
@@ -39,7 +41,7 @@ namespace {
  * @param y y-coordinate
  */
 void FourPointSymmetry(Point start_p, float x, float y) {
-	glBegin (GL_POINTS);
+	glBegin(GL_POINTS);
 	glVertex2i(start_p.x + x, start_p.y + y);
 	glVertex2i(start_p.x - x, start_p.y + y);
 	glVertex2i(start_p.x + x, start_p.y - y);
@@ -97,8 +99,7 @@ void Ellipse::draw(Point start_p, float rx, float ry) {
 
 }
 
-void Ellipse::update(Point ellStart, Point ellEnd)
-{
-	bbox = new bbox(ellStart,ellEnd);
+void Ellipse::update(Point ellStart, Point ellEnd) {
+	bbox = new bbox(ellStart, ellEnd);
 
 }

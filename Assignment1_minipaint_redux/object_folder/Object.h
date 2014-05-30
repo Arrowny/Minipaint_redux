@@ -8,7 +8,6 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-
 #include <string>
 #include <assert.h>
 #include <cmath>
@@ -20,11 +19,13 @@
 #include <GL/glu.h>
 #include "BBox.h"
 #include "Misc.h"
+#include "Transformation.h"
 
 class Object {
 
 protected:
 	BBox* bbox;
+	Transformation* transform;
 	void updateBBox(Point a, Point b);
 
 
@@ -40,7 +41,18 @@ public:
 	/**
 	 * Moves object across screen.
 	 */
-	virtual void translate() = 0;
+	//virtual void translate() = 0;
+	virtual void setTranslation(float xTrans, float yTrans) = 0;
+
+	/**
+	 * Rotate objects in a direction
+	 */
+	virtual void setRotation(float theta) = 0;
+
+	/**
+	 * Increase/Decrease size of an object
+	 */
+	virtual void setScale(float xScale, float yScale) = 0;
 };
 
 #endif /* OBJECT_H_ */
