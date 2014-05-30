@@ -42,6 +42,8 @@ public:
 		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )";
 	}
 
+	//TODO Add assignment, addition, subtraction, multiplication operations if time allows
+
 };
 
 
