@@ -41,7 +41,6 @@ public:
 	/**
 	 * Moves object across screen.
 	 */
-	//virtual void translate() = 0;
 	virtual void setTranslation(float xTrans, float yTrans) = 0;
 
 	/**

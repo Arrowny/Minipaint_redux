@@ -103,3 +103,45 @@ void Ellipse::update(Point ellStart, Point ellEnd) {
 	bbox = new bbox(ellStart, ellEnd);
 
 }
+
+void Ellipse::setTranslation(float rx, float ry)
+{
+
+	transform = setTranslation(rx,ry);
+
+}
+
+void Ellipse::setRotation(float theta)
+{
+
+	transform = setRotation(theta);
+
+}
+
+void Ellipse::setScale(float rx, float ry)
+{
+
+	transform = setScale(rx,ry);
+
+}
+
+void Ellipse::getTranslation()
+{
+
+	transform = getTranslation();
+
+}
+
+void Ellipse::getRotation()
+{
+
+	transform = getRotation();
+
+}
+
+void Ellipse::getScale()
+{
+
+	transform = getScale();
+
+}
