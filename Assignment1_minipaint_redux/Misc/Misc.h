@@ -38,6 +38,9 @@ public:
 		else
 		{return false;}
 	}
+	void printP(){
+		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )";
+	}
 
 };
 

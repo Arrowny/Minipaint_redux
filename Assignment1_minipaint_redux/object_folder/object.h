@@ -23,8 +23,8 @@
 
 class Object {
 private:
-	BBox bbox;
-	virtual BBox updateBBox() = 0;
+	BBox* bbox;
+	void updateBBox(Point a,Point b);
 public:
 	Object();
 	virtual ~Object();

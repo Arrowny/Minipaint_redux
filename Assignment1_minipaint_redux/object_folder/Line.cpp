@@ -67,16 +67,23 @@ void SwapPoints(Point &start_p, Point &end_p){
 	std::swap(start_p.y, end_p.y);
 }
 
+void exchangePoints(Point &old_point, Point new_point){
+	old_point.x=new_point.x;
+	old_point.y=new_point.y;
+}
+
 }//namespace
 
 Line::Line() {
 	start.update(0.0,0.0);
 	end.update(0.0,0.0);
+	bbox = new BBox(0.0,0.0);
 }
 
 Line::Line(Point lineStart, Point lineEnd) {
 	start = lineStart;
 	end = lineEnd;
+	bbox = new BBox(lineStart,lineEnd);
 }
 
 Line::~Line() {
@@ -113,3 +120,24 @@ void Line::draw() {
 }
 
 
+Point Line::getStart(){
+	start.printP();
+	return start;
+}
+
+Point Line::getEnd(){
+	end.printP();
+	return end;
+}
+void Line::setStart(Point new_start){
+	exchangePoints(start, new_start);
+	updateBBox(start,end);
+}
+void Line::setEnd(Point new_end){
+	exchangePoints(end, new_end);
+	updateBBox(start,end);
+}
+
+void updateBBox(Point new_start, Point new_end){
+	BBox newBBox(new_start, new_end);
+}
