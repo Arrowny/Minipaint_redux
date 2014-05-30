@@ -15,7 +15,7 @@
  */
 BBoxObject::BBoxObject() {
 
-	bbox = new BBox(0.0, 0.0);
+	bbox = new BBox();
 }
 
 BBoxObject::BBoxObject(Point a, Point b) {

@@ -14,7 +14,7 @@ class BBoxObject: public Object {
 
 public:
 	BBoxObject();
-	BBoxObject(Point a, Point b)
+	BBoxObject(Point a, Point b);
 	virtual ~BBoxObject();
 	void draw();
 	void translate(float xTrans, float yTrans);

@@ -15,15 +15,12 @@ Transformation::Transformation() {
 }
 
 Transformation::Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale) {
-<<<<<<< HEAD
-
-=======
 	Translation = vmath::translate(xTrans, yTrans, 0.0f);
 	Rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	Scale = vmath::scale(xScale, yScale, 0.0f);
 	Transform.identity();
 	Transform = Translation * Rotation * Scale;
->>>>>>> origin/DavidWin
+
 }
 
 Transformation::~Transformation() {
@@ -51,7 +48,7 @@ void Transformation::setTranslation(float xTrans, float yTrans){
 vmath::mat4 Transformation::getTranslation(){
 	return Translation;
 }
-=======
+/**
  * sets the rotation matrix of transformation.
  *
  * @param theta rotation of 2d point
@@ -108,4 +105,3 @@ vmath::mat4 Transformation::getTransformation() {
 }
 
 
->>>>>>> origin/DavidWin

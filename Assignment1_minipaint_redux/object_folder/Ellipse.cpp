@@ -100,5 +100,4 @@ void Ellipse::draw(Point start_p, float rx, float ry) {
 void Ellipse::update(Point ellStart, Point ellEnd)
 {
 	bbox = new bbox(ellStart,ellEnd);
-
 }

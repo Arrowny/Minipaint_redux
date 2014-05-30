@@ -39,7 +39,7 @@ public:
 		{return false;}
 	}
 	void printP(){
-		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )";
+		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )"<<std::endl;
 	}
 
 	//TODO Add assignment, addition, subtraction, multiplication operations if time allows
