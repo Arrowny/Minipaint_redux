@@ -11,10 +11,6 @@
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<<<<<<< HEAD
-=======
-					<extension id="org.eclipse.cdt.core.MachO64" point="org.eclipse.cdt.core.BinaryParser"/>
->>>>>>> origin/Sherry
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -27,17 +23,11 @@
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug.605271884" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug">
 								<option id="macosx.cpp.link.option.libs.1803876151" name="Libraries (-l)" superClass="macosx.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="gdi32"/>
-<<<<<<< HEAD
 									<listOptionValue builtIn="false" value="glu32"/>
 									<listOptionValue builtIn="false" value="glut32"/>
 									<listOptionValue builtIn="false" value="opengl32"/>
 								</option>
 								<option id="macosx.cpp.link.option.paths.2090003936" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths">
-=======
-									<listOptionValue builtIn="false" value="opengl32"/>
-								</option>
-								<option id="macosx.cpp.link.option.paths.1042036947" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths">
->>>>>>> origin/Sherry
 									<listOptionValue builtIn="false" value="&quot;C:\Windows\System32\dll&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.807712942" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
@@ -52,15 +42,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.debug.414444705" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.debug">
 								<option id="gnu.cpp.compilermacosx.exe.debug.option.optimization.level.799785196" name="Optimization Level" superClass="gnu.cpp.compilermacosx.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.macosx.exe.debug.option.debugging.level.771623954" name="Debug Level" superClass="gnu.cpp.compiler.macosx.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-<<<<<<< HEAD
-								<option id="gnu.cpp.compiler.option.include.paths.273101185" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Assignment1_minipaint_redux/BBox}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Assignment1_minipaint_redux/Misc}&quot;"/>
-=======
-								<option id="gnu.cpp.compiler.option.include.paths.2119917196" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1233507610" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Assignment1_minipaint_redux/Misc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Assignment1_minipaint_redux/BBox}&quot;"/>
->>>>>>> origin/Sherry
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1102178835" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -85,10 +69,6 @@
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<<<<<<< HEAD
-=======
-					<extension id="org.eclipse.cdt.core.MachO64" point="org.eclipse.cdt.core.BinaryParser"/>
->>>>>>> origin/Sherry
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -128,18 +108,6 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="Assignment1_minipaint_redux.cdt.managedbuild.target.macosx.exe.1339830900" name="Executable" projectType="cdt.managedbuild.target.macosx.exe"/>
 	</storageModule>
-<<<<<<< HEAD
-=======
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/Assignment1_minipaint_redux"/>
-		</configuration>
-		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/Assignment1_minipaint_redux"/>
-		</configuration>
-	</storageModule>
->>>>>>> origin/Sherry
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.macosx.exe.debug.357034024;cdt.managedbuild.config.gnu.macosx.exe.debug.357034024.;cdt.managedbuild.tool.gnu.c.compiler.macosx.exe.debug.824588114;cdt.managedbuild.tool.gnu.c.compiler.input.123541122">
@@ -155,9 +123,6 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-<<<<<<< HEAD
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope"/>
-=======
->>>>>>> origin/Sherry
 </cproject>
