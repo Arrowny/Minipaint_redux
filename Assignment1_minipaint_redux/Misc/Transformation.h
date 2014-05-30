@@ -14,7 +14,7 @@ private:
 	vmath::mat4 Translation;
 	vmath::mat4 Rotation;
 	vmath::mat4 Scale;
-	vmath::mat4 Transformation;
+	vmath::mat4 Transform;
 public:
 	Transformation();
 	Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale);

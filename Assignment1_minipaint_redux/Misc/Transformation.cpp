@@ -8,8 +8,10 @@
 #include "Transformation.h"
 
 Transformation::Transformation() {
-	// TODO Auto-generated constructor stub
-
+	Translation.identity();
+	Rotation.identity();
+	Scale.identity();
+	Transform.identity();
 }
 
 Transformation::~Transformation() {
