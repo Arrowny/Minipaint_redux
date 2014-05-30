@@ -11,10 +11,10 @@
 
 class Transformation {
 private:
-	vmath::mat4 Translation;
-	vmath::mat4 Rotation;
-	vmath::mat4 Scale;
-	vmath::mat4 Transform;
+	vmath::Tmat4<float> Translation;
+	vmath::Tmat4<float> Rotation;
+	vmath::Tmat4<float> Scale;
+	vmath::Tmat4<float> Transform;
 public:
 	Transformation();
 	Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale);
