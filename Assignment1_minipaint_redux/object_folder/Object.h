@@ -22,6 +22,7 @@
 #include "Misc.h"
 
 class Object {
+
 protected:
 	BBox* bbox;
 	void updateBBox(Point a, Point b);

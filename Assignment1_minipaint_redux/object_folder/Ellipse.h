@@ -10,11 +10,16 @@
 
 #include "object.h"
 
-class Ellipse: public object {
+class Ellipse: public Object {
+private:
+	Point start;
+	Point end;
 public:
 	Ellipse();
-	virtual ~Ellipse();
+	Ellipse(Point ellStart, Point ellEnd);
+	~Ellipse();
 	void draw(Point start_p, float rx, float ry);
+	void update(Point ellStart, Point ellEnd);
 };
 
 #endif /* ELLIPSE_H_ */

@@ -7,82 +7,47 @@
 
 #include "Ellipse.h"
 
-Ellipse::Ellipse() {
-	// TODO Auto-generated constructor stub
+#include "../Misc/Misc.h"
+#include "C:/MinGW/include/GL/gl.h"
 
+Ellipse::Ellipse() {
+	bbox = new bbox(0.0,0.0);
+	start.update(0.0, 0.0);
+	float x = 0.0;
+	float y = 0.0;
+}
+
+Ellipse::Ellipse(Point ellStart, Point ellEnd) {
+	ellStart = start;
+	ellEnd = end;
+	bbox = new bbox(ellStart,ellEnd);
+	float rx = abs(ellStart.x - ellEnd.x)/2;
+	float ry = abs(ellStart.x - ellEnd.x)/2;
 }
 
 Ellipse::~Ellipse() {
-	// TODO Auto-generated destructor stub
+
 }
 
-namespace{
+namespace {
 
-void FourPointSymmetry(Point start_p, float x, float y)
-{
-	glBegin(GL_POINTS);
-	glVertex2i(start_p.x+x, start_p.y+y);
-	glVertex2i(start_p.x-x, start_p.y+y);
-	glVertex2i(start_p.x+x, start_p.y-y);
-	glVertex2i(start_p.x-x, start_p.y-y);
+/**
+ * Draws 4 points on the canvas
+ *
+ * @param start_p starting point
+ * @param x	x-coordinate
+ * @param y y-coordinate
+ */
+void FourPointSymmetry(Point start_p, float x, float y) {
+	glBegin (GL_POINTS);
+	glVertex2i(start_p.x + x, start_p.y + y);
+	glVertex2i(start_p.x - x, start_p.y + y);
+	glVertex2i(start_p.x + x, start_p.y - y);
+	glVertex2i(start_p.x - x, start_p.y - y);
 	glEnd();
 }
-//void MidPointEllipseRegionOne(Point start_p,float x,float y, float p,float px,float py,float rxSq,float rySq ){
-//	p = rySq - (rxSq * start_p.y) + (0.25 * rxSq);
-//	while (px < py)
-//	    {
-//		FourPointSymmetry(start_p,x,y);
-//	        x++;
-//	        px = px + 2 * rySq;
-//
-//	        if (p < 0){
-//	            p = p + rySq + px;
-//	        }
-//	        else{
-//	            y--;
-//	            py = py - 2 * rxSq;
-//	            p = p + rySq + px - py;
-//	        }
-//
-//	    }
-//}
-//
-//void MidPointEllipseRegionTwo(Point start_p,float x,float y, float p,float px,float py,float rxSq,float rySq){
-//	p = rySq*(x+0.5)*(x+0.5) + rxSq*(y-1)*(y-1) - rxSq*rySq;
-//		while (y > 0)
-//		{
-//			FourPointSymmetry(start_p,x,y);
-//
-//			y--;
-//			py = py - 2 * rxSq;
-//			if (p > 0){
-//				p = p + rxSq - py;
-//			}
-//			else{
-//				x++;
-//				px = px + 2 * rySq;
-//				p = p + rxSq - py + px;
-//			}
-//		}
-//}
-//
-}
-//void Ellipse(Point start_p, float rx, float ry)
-//{
-//	float rxSq = rx * rx;
-//	float rySq = ry * ry;
-//	float x = 0, y = ry, p;
-//	float px = 0, py = 2 * rxSq * y;
-//
-//	MidPointEllipseRegionOne(start_p,x,y,p,px,py,rxSq,rySq);
-//	MidPointEllipseRegionTwo(start_p,x,y,p,px,py,rxSq,rySq);
-//
-//
-//}
 
-
-void Ellipse::draw(Point start_p, float rx, float ry)
-{
+void Ellipse::draw(Point start_p, float rx, float ry) {
 	float rxSq = rx * rx;
 	float rySq = ry * ry;
 	float x = 0, y = ry, p;
@@ -90,21 +55,18 @@ void Ellipse::draw(Point start_p, float rx, float ry)
 
 	//Region 1
 	p = rySq - (rxSq * ry) + (0.25 * rxSq);
-	//p = (ry * ry) - (rx * rx * ry) + (0.25 * rx * rx);
 
-	while (px < py)
-	{
-		FourPointSymmetry(start_p,x,y);
+	while (px < py) {
+		FourPointSymmetry(start_p, x, y);
+
 		x++;
 		px = px + 2 * rySq;
 
-		if (p < 0)
-		{
+		if (p < 0) {
 			p = p + rySq + px;
 		}
 
-		else
-		{
+		else {
 			y--;
 			py = py - 2 * rxSq;
 			p = p + rySq + px - py;
@@ -113,27 +75,30 @@ void Ellipse::draw(Point start_p, float rx, float ry)
 	}
 
 	//Region 2
-	p = rySq*(x+0.5)*(x+0.5) + rxSq*(y-1)*(y-1) - rxSq*rySq;
+	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
 
-	while (y > 0)
-	{
-		FourPointSymmetry(start_p,x,y);
+	while (y > 0) {
+		FourPointSymmetry(start_p, x, y);
 
 		y--;
 		py = py - 2 * rxSq;
 
-		if (p > 0)
-		{
+		if (p > 0) {
 			p = p + rxSq - py;
 		}
 
-		else
-		{
+		else {
 			x++;
 			px = px + 2 * rySq;
 			p = p + rxSq - py + px;
 		}
 
 	}
+
+}
+
+void Ellipse::update(Point ellStart, Point ellEnd)
+{
+	bbox = new bbox(ellStart,ellEnd);
 
 }
