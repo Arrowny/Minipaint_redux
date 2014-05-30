@@ -20,13 +20,14 @@
 #include <GL/glu.h>
 #include "BBox.h"
 #include "Misc.h"
+#include "Transformation.h"
 
 class Object {
 
 protected:
 	BBox* bbox;
+	Transformation* transform;
 	void updateBBox(Point a, Point b);
-
 
 public:
 	Object();

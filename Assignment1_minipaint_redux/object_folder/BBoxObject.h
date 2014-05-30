@@ -14,10 +14,10 @@ class BBoxObject: public Object {
 
 public:
 	BBoxObject();
-	BBoxObject(Point a, Point b)
+	BBoxObject(Point a, Point b);
+	BBoxObject(BBox newBBox);
 	virtual ~BBoxObject();
 	void draw();
-	void translate(float xTrans, float yTrans);
 	Point* getCorners();
 	bool inside(Point a);
 	void update(Point a, Point b);
