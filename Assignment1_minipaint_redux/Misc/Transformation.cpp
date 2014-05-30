@@ -16,7 +16,7 @@ Transformation::Transformation() {
 
 Transformation::Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale) {
 	Translation = vmath::translate(theta, xTrans, 0.0f);
-	Rotation = vmath::scale(xScale, yScale, 0.0 );
+	Rotation = vmath::scale(xScale, yScale, 0.0f );
 }
 
 Transformation::~Transformation() {
