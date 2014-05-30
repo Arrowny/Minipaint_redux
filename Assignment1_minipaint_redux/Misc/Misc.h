@@ -30,8 +30,13 @@ public:
 		this->y = y;
 	}
 
-	bool isEqual(Point b) {
-		;
+	bool isApproxEqual(Point b) {
+		if( (b.x <= x + .00001) && (b.x >= x -.00001)
+			&&
+			(b.y <= y + .00001) && (b.y >= y -.00001) )
+		{return true;}
+		else
+		{return false;}
 	}
 
 };

@@ -14,10 +14,11 @@
 
 #include "object.h"
 
-class Circle: public virtual Object {
+class Circle: public Object {
 public:
 	Circle();
 	virtual ~Circle();
+	void draw(Point start_p, Point end_p);
 };
 
 #endif /* CIRCLE_H_ */
