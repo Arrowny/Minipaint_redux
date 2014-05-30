@@ -11,10 +11,16 @@
 #include "object.h"
 
 class Rectangle: public Object {
+
 public:
 	Rectangle();
+	Rectangle(Point a, Point b)
 	virtual ~Rectangle();
-	void draw(Point start_p, Point end_p);
+	void draw();
+	void translate(float xTrans, float yTrans);
+	Point* getCorners();
+	bool inside(Point a);
+	void update(Point a, Point b);
 };
 
 #endif /* RECTANGLE_H_ */

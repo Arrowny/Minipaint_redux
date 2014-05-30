@@ -108,7 +108,7 @@ BBox::~BBox() {
  * @param uPoint point to be unioned with this BBox's bounding box
  * @return new BBox representing the union of this BBox's bounding box with point uPoint
  */
-BBox BBox::unionBBox(Point uPoint) const{
+BBox BBox::unionBBox(Point uPoint) {
 	Point tmpMin;
 	Point tmpMax;
 
@@ -125,7 +125,7 @@ BBox BBox::unionBBox(Point uPoint) const{
  * @param uBox input bounding box to union with this bounding box
  * @return unioned bounding box
  */
-BBox BBox::unionBBox(BBox uBox) const{
+BBox BBox::unionBBox(BBox uBox) {
 	Point uMin = uBox.getMin();
 	Point uMax = uBox.getMax();
 	Point tmpMin;
@@ -147,7 +147,7 @@ BBox BBox::unionBBox(BBox uBox) const{
  * @param expY expansion in the y axis
  * @return new expanded bounding box
  */
-BBox BBox::expandBBox(float expX, float expY) const{
+BBox BBox::expandBBox(float expX, float expY) {
 	Point tmpMin = min;
 	Point tmpMax = max;
 
@@ -164,7 +164,7 @@ BBox BBox::expandBBox(float expX, float expY) const{
  * @param testPt Point to test insidedness on
  * @return boolean representing whether or not Point is inside BBox's bounding box
  */
-bool BBox::insideBBox(Point testPt) const {
+bool BBox::insideBBox(Point testPt) {
 
 	if(	testPt.x <= max.x &&
 		testPt.x >= min.x &&
@@ -181,7 +181,7 @@ bool BBox::insideBBox(Point testPt) const {
  *
  * @return Point array representing 4 corners of BBox's bounding box
  */
-Point* BBox::getCorners() const {
+Point* BBox::getCorners() {
 	Point corners[4];
 
 	corners[0].update(min.x,min.y);
@@ -193,25 +193,16 @@ Point* BBox::getCorners() const {
 }
 
 /**
- *
- * @return copy of min for this BBox's bounding box.
+ * return min of bounding box
  */
-Point BBox::getMin() const {
-
-	Point tmpMin;
-	tmpMin.x = min.x;
-	tmpMin.y = min.y;
-	return tmpMin;
+Point BBox::getMax() {
+	return min;
 }
 
 /**
- *
- * @return copy of max for this BBox's bounding box.
+ * return max of bounding box
  */
-Point BBox::getMax() const {
-	Point tmpMax;
-	tmpMax.x = max.x;
-	tmpMax.y = max.y;
-	return tmpMax;
+Point BBox::getMin() {
+	return max;
 }
 

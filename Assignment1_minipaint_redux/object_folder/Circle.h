@@ -8,7 +8,7 @@ class Circle: public Ellipse {
 public:
 	Circle();
 	virtual ~Circle();
-	void draw(Point start_p, Point end_p);
+	void draw(Point start_p, float r);
 };
 
 #endif /* CIRCLE_H_ */

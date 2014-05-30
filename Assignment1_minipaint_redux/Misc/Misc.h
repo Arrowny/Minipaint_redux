@@ -39,6 +39,8 @@ public:
 		{return false;}
 	}
 
+	//TODO Add assignment, addition, subtraction, multiplication operations if time allows
+
 };
 
 
