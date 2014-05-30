@@ -22,16 +22,11 @@
 #include "Misc.h"
 
 class Object {
-<<<<<<< HEAD:Assignment1_minipaint_redux/object_folder/Object.h
-private:
-	BBox* bbox;
-	virtual BBox updateBBox() = 0;
-=======
+
 protected:
 	BBox* bbox;
 	void updateBBox(Point a, Point b);
 
->>>>>>> origin/DavidWin:Assignment1_minipaint_redux/object_folder/Object.h
 public:
 	Object();
 	virtual ~Object();
