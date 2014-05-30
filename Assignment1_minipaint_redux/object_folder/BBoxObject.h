@@ -10,12 +10,12 @@
 
 #include "object.h"
 
-class Rectangle: public Object {
+class BBoxObject: public Object {
 
 public:
-	Rectangle();
-	Rectangle(Point a, Point b)
-	virtual ~Rectangle();
+	BBoxObject();
+	BBoxObject(Point a, Point b)
+	virtual ~BBoxObject();
 	void draw();
 	void translate(float xTrans, float yTrans);
 	Point* getCorners();

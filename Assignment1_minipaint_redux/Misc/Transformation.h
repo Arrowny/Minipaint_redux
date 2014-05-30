@@ -9,12 +9,15 @@
 #define TRANSFORMATION_H_
 #include "vmath.h"
 
+/**
+ * Provides support for 2d transformations.
+ */
 class Transformation {
 private:
-	vmath::mat4<float> Translation;
-	vmath::mat4<float> Rotation;
-	vmath::mat4<float> Scale;
-	vmath::mat4<float> Transform;
+	vmath::Tmat4<float> Translation;
+	vmath::Tmat4<float> Rotation;
+	vmath::Tmat4<float> Scale;
+	vmath::Tmat4<float> Transform;
 public:
 	Transformation();
 	Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale);
