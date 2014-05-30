@@ -14,7 +14,8 @@
 
 #include "object.h"
 
-class Circle: public Object {
+class Circle: public Ellipse {
+
 public:
 	Circle();
 	virtual ~Circle();

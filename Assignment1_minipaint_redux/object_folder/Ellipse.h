@@ -11,6 +11,8 @@
 #include "object.h"
 
 class Ellipse: public Object {
+private:
+	void updateBBox();
 public:
 	Ellipse();
 	virtual ~Ellipse();
