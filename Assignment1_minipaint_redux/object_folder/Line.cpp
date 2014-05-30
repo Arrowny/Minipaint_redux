@@ -119,21 +119,38 @@ void Line::draw() {
 	glEnd();
 }
 
-
+/**
+ * This getStart is used to get the position of the start point of the line.
+ *
+ */
 Point Line::getStart(){
 	start.printP();
 	return start;
 }
 
+/**
+ * This getEnd is used to get the position of the end point of the line.
+ * @return
+ */
 Point Line::getEnd(){
 	end.printP();
 	return end;
 }
+
+/**
+ * This setStart is used to set the new start point of the line, and then update the bounding box.
+ * @param new_start
+ */
 void Line::setStart(Point new_start){
 	start = new_start;
 	//exchangePoints(start, new_start);
 	updateBBox(start,end);
 }
+
+/**
+ * This setEnd is used to set the new end point of the current line, and then update the bounding box
+ * @param new_end
+ */
 void Line::setEnd(Point new_end){
 	end=new_end;
 	//exchangePoints(end, new_end);
