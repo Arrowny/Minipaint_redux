@@ -130,14 +130,13 @@ Point Line::getEnd(){
 	return end;
 }
 void Line::setStart(Point new_start){
-	exchangePoints(start, new_start);
+	start = new_start;
+	//exchangePoints(start, new_start);
 	updateBBox(start,end);
 }
 void Line::setEnd(Point new_end){
-	exchangePoints(end, new_end);
+	end=new_end;
+	//exchangePoints(end, new_end);
 	updateBBox(start,end);
 }
 
-void updateBBox(Point new_start, Point new_end){
-	BBox newBBox(new_start, new_end);
-}
