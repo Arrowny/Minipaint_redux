@@ -49,6 +49,21 @@ public:
 	 */
 	void setEnd( Point new_end);
 
+	/**
+	 * Moves object across screen.
+	 */
+	void setTranslation(float xTrans, float yTrans) = 0;
+
+	/**
+	 * Rotate objects in a direction
+	 */
+	void setRotation(float theta) = 0;
+
+	/**
+	 * Increase/Decrease size of an object
+	 */
+	void setScale(float xScale, float yScale) = 0;
+
 };
 
 #endif /* LINE_H_ */

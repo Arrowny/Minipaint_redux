@@ -67,7 +67,6 @@ void SwapPoints(Point &start_p, Point &end_p) {
 	std::swap(start_p.y, end_p.y);
 }
 
-<<<<<<< HEAD
 
 void exchangePoints(Point &old_point, Point &new_point){
 	old_point.x=new_point.x;
@@ -81,13 +80,7 @@ Line::Line() {
 	end.update(0.0,0.0);
 	bbox = new BBox( start, end);
 
-=======
-} //namespace
 
-Line::Line() {
-	start.update(0.0, 0.0);
-	end.update(0.0, 0.0);
->>>>>>> origin/Joe
 }
 
 Line::Line(Point lineStart, Point lineEnd) {
@@ -127,7 +120,7 @@ void Line::draw() {
 	glEnd();
 }
 
-<<<<<<< HEAD
+
 
 /**
  * This getStart is used to get the position of the start point of the line.
@@ -167,5 +160,4 @@ void Line::setEnd(Point new_end){
 	updateBBox(start,end);
 }
 
-=======
->>>>>>> origin/Joe
+

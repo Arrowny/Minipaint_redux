@@ -15,40 +15,25 @@ Transformation::Transformation() {
 }
 
 Transformation::Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale) {
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/Joe
 	Translation = vmath::translate(xTrans, yTrans, 0.0f);
 	Rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	Scale = vmath::scale(xScale, yScale, 0.0f);
 	Transform.identity();
 	Transform = Translation * Rotation * Scale;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Joe
 }
 
 Transformation::~Transformation() {
 	// TODO Auto-generated destructor stub
 }
 
-<<<<<<< HEAD
-/**
-<<<<<<< HEAD
- *  This setTranslation is used to move objects along vector ( xTrans , yTrans ), and then set the new Transformation matrix
- *
- * @param xTrans : the amount of translations along x direction
- * @param yTrans : the amount of translations along y direction
- */
-=======
+
+
 /**  This setTranslation is used to move objects along vector ( xTrans , yTrans ), and then set the new Transformation matrix
 *
 * @param xTrans : the amount of translations along x direction
 * @param yTrans : the amount of translations along y direction
 */
->>>>>>> origin/Joe
 void Transformation::setTranslation(float xTrans, float yTrans){
 
 	Translation = vmath::translate(xTrans, yTrans, 0.0f);
@@ -57,7 +42,6 @@ void Transformation::setTranslation(float xTrans, float yTrans){
 }
 
 /**
-<<<<<<< HEAD
  * This getTranslation is use to get the current Translation matrix
  *
  * @return
@@ -66,8 +50,6 @@ vmath::mat4 Transformation::getTranslation(){
 	return Translation;
 }
 /**
-=======
->>>>>>> origin/Joe
  * sets the rotation matrix of transformation.
  *
  * @param theta rotation of 2d point
@@ -133,7 +115,3 @@ vmath::mat4 Transformation::getTransformation() {
 	return Transform;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Joe
