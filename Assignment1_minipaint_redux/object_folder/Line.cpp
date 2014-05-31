@@ -7,6 +7,7 @@
 
 #include "Line.h"
 #include <math.h>
+
 #define PI 3.14159265
 
 namespace {
@@ -117,10 +118,12 @@ Line::~Line() {
  * @param start_p: the start point
  * @param end_p: the end point
  */
-void Line::draw() {
+std::vector<PointAndColor>  Line::draw() {
 
 	Point start_p ;
 	Point end_p ;
+	std::vector<PointAndColor> linePointColor;
+
 	start_vec.Tvec4(-1.0f , 0.0f, 0.0f, 1.0f);
 	end_vec.Tvec4(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -148,6 +151,7 @@ void Line::draw() {
 	}
 	glEnd();
 
+	return linePointColor;
 }
 
 /**

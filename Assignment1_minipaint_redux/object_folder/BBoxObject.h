@@ -15,7 +15,6 @@ class BBoxObject: public Object {
 public:
 	BBoxObject();
 	BBoxObject(Point a, Point b);
-
 	BBoxObject(BBox newBBox);
 	virtual ~BBoxObject();
 	std::vector<PointAndColor> draw();

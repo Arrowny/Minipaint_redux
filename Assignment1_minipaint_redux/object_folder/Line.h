@@ -25,7 +25,7 @@ public:
 	/**
 	 * inherit object draw function. Draws lines to screen
 	 */
-	void draw();
+	std::vector<PointAndColor>  draw();
 
 	/**
 	 * get the position of start point and return its coordinate.
