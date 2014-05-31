@@ -19,7 +19,7 @@ public:
 	Ellipse(Point ellStart, Point ellEnd);
 	~Ellipse();
 	//void draw(Point start_p, float rx, float ry);
-	void draw();
+	std::vector<PointAndColor> draw();
 	void update(Point ellStart, Point ellEnd);
 	void setTranslation(float xTrans, float yTrans);
 	void setRotation(float theta);

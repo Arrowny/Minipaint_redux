@@ -5,4 +5,11 @@
  *      Author: Joe
  */
 
+#include <iostream>
+#include "math.h"
+#include "Ellipse.h"
+#include <cassert>
 
+void test_EllipseDraw() {
+
+}
