@@ -58,6 +58,7 @@ public:
 };
 
 struct PointAndColor {
+public:
 	Point point;
 	Color color;
 
@@ -66,6 +67,5 @@ struct PointAndColor {
 		this->color = color;
 	}
 };
-
 
 #endif /* MISC_H_ */

@@ -17,7 +17,7 @@ public:
 	BBoxObject(Point a, Point b);
 	BBoxObject(BBox newBBox);
 	virtual ~BBoxObject();
-	void draw();
+	std::vector<PointAndColor> draw();
 	Point* getCorners();
 	bool inside(Point a);
 	void update(Point a, Point b);

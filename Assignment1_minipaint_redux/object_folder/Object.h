@@ -35,7 +35,7 @@ public:
 	/**
 	 * object draw function. Draws object to screen
 	 */
-	virtual void draw() = 0;
+	virtual std::vector<PointAndColor> draw() = 0;
 
 	/**
 	 * Moves object across screen.
