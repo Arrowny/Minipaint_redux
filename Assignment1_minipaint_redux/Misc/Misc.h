@@ -46,5 +46,26 @@ public:
 
 };
 
+struct Color {
+public:
+	float red, green, blue;
+
+	Color(float red, float green, float blue) {
+		this->red = red;
+		this->green = green;
+		this->blue = blue;
+	}
+};
+
+struct PointAndColor {
+	Point point;
+	Color color;
+
+	PointAndColor(Point point, Color color) {
+		this->point = point;
+		this->color = color;
+	}
+};
+
 
 #endif /* MISC_H_ */
