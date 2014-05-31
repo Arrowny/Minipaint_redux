@@ -10,56 +10,40 @@
 #include "Misc.h"
 #include "GL/gl.h"
 
-Ellipse::Ellipse() {
-	bbox = new bbox(0.0, 0.0);
-	start.update(0.0, 0.0);
-	float rx = 0.0;
-	float ry = 0.0;
-	vmath::mat4 Trans = new Transformation(0.0, 0.0, 0.0, 0.0, 0.0);
-}
-
-Ellipse::Ellipse(Point ellStart, Point ellEnd) {
-	ellStart = start;
-	ellEnd = end;
-	bbox = new bbox(ellStart, ellEnd);
-	float rx = abs(ellStart.x - ellEnd.x) / 2;
-	float ry = abs(ellStart.x - ellEnd.x) / 2;
-	transform = new Transformation(0.0, 0.0, 0.0, ellStart, ellEnd);
-}
-
-Ellipse::~Ellipse() {
-
-}
-
 namespace {
 
-/**
- * Draws 4 points on the canvas
- *
- * @param start_p starting point
- * @param x	x-coordinate
- * @param y y-coordinate
- */
-void FourPointSymmetry(Point start_p, float x, float y) {
-	glBegin(GL_POINTS);
-	glVertex2i(start_p.x + x, start_p.y + y);
-	glVertex2i(start_p.x - x, start_p.y + y);
-	glVertex2i(start_p.x + x, start_p.y - y);
-	glVertex2i(start_p.x - x, start_p.y - y);
-	glEnd();
-}
+	//void GetMidPoint(BBox* bbox, Point start, Point end) {
+	//	Point translate;
+	//	Point midpoint = bbox->getMin;
+	//
+	//	float rx = abs(start.x - end.x) / 2;
+	//	float ry = abs(start.y - end.y) / 2;
+	//	translate.x = midpoint.x + rx;
+	//	translate.y = midpoint.y + ry;
+	//
+	//}
 
-void Ellipse::draw(Point start_p, float rx, float ry) {
-	float rxSq = rx * rx;
-	float rySq = ry * ry;
-	float x = 0, y = ry, p;
-	float px = 0, py = 2 * rxSq * y;
+	/**
+	 * Draws 4 points on the canvas
+	 *
+	 * @param fourPoints four points of the object to be drawn.
+	 */
+	void drawFourPoints(vmath::vec4* fourPoints) {
+		glBegin(GL_POINTS);
+		glVertex2i(fourPoints[0][0], fourPoints[0][1]);
+		glVertex2i(fourPoints[1][0], fourPoints[1][1]);
+		glVertex2i(fourPoints[2][0], fourPoints[2][1]);
+		glVertex2i(fourPoints[3][0], fourPoints[3][1]);
+		glEnd();
+	}
 
-	//Region 1
-	p = rySq - (rxSq * ry) + (0.25 * rxSq);
+	vmath::vec4* FindPointOctant2(Point start_p, float rx, float ry, float rxSq, float rySq,
+			float x, float y, float px, float py, float p) {
 
-	while (px < py) {
-		FourPointSymmetry(start_p, x, y);
+		//Region 1: 2nd Octant of 1st Quadrant
+		vmath::vec4 fourPoints[4];
+
+		p = rySq - (rxSq * ry) + (0.25 * rxSq);
 
 		x++;
 		px = px + 2 * rySq;
@@ -74,13 +58,20 @@ void Ellipse::draw(Point start_p, float rx, float ry) {
 			p = p + rySq + px - py;
 		}
 
+		fourPoints[0] = new vmath::vec4(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
+		fourPoints[1] = new vmath::vec4(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
+		fourPoints[2] = new vmath::vec4(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
+		fourPoints[3] = new vmath::vec4(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
+
+		return fourPoints;
+
 	}
 
-	//Region 2
-	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
+	vmath::vec4* FindPointOctant1(Point start_p, float rx, float ry, float rxSq, float rySq,
+			float x, float y, float px, float py, float p) {
 
-	while (y > 0) {
-		FourPointSymmetry(start_p, x, y);
+		//Region 2: 1st Octant of 1st Quadrant
+		vmath::vec4 fourPoints[4];
 
 		y--;
 		py = py - 2 * rxSq;
@@ -95,7 +86,87 @@ void Ellipse::draw(Point start_p, float rx, float ry) {
 			p = p + rxSq - py + px;
 		}
 
+		fourPoints[0] = new vmath::vec4(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
+		fourPoints[1] = new vmath::vec4(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
+		fourPoints[2] = new vmath::vec4(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
+		fourPoints[3] = new vmath::vec4(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
+
+		return fourPoints;
 	}
+
+}
+
+void Ellipse::draw() {
+
+	Point A;
+	Point B;
+	vmath::vec4* ellPoints;
+	vmath::vec4 vecX = (1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::vec4 vecY = (0.0f, 1.0f, 0.0f, 1.0f);
+
+	vecX = vecX * transform->getScale();
+	vecY = vecY * transform->getScale();
+
+	A.x = vecX[1];
+	A.y = vecX[2];
+	B.x = vecY[1];
+	B.y = vecY[2];
+
+	float rx = abs(start.x - end.x) / 2;
+	float ry = abs(start.y - end.y) / 2;
+	float rxSq = rx * rx;
+	float rySq = ry * ry;
+	float x = 0, y = ry, p;
+	float px = 0, py = 2 * rxSq * y;
+
+	p = rySq - (rxSq * ry) + (0.25 * rxSq);
+	while (px < py) {
+		ellPoints = FindPointOctant2(start, A.x, B.y, rxSq, rySq, x, y, px, py, p);
+		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		drawFourPoints(ellPoints);
+	}
+
+	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
+	while (y > 0) {
+		ellPoints = FindPointOctant1(start, A.x, B.y, rxSq, rySq, x, y, px, py, p);
+		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		drawFourPoints(ellPoints);
+	}
+}
+
+Ellipse::Ellipse() {
+	bbox = new bbox(0.0, 0.0);
+	start.update(0.0, 0.0);
+	float rx = 0.0;
+	float ry = 0.0;
+	transform = new Transformation(0.0, 0.0, 0.0, rx, ry);
+}
+
+Ellipse::Ellipse(Point ellStart, Point ellEnd) {
+
+	start = ellStart;
+	end = ellEnd;
+	bbox = new bbox(ellStart, ellEnd);
+
+	Point translate;
+	Point midpoint = bbox->getMin;
+
+	float rx = abs(ellStart.x - ellEnd.x) / 2;
+	float ry = abs(ellStart.y - ellEnd.y) / 2;
+	translate.x = midpoint.x + rx;
+	translate.y = midpoint.y + ry;
+
+	transform = new Transformation(0.0, translate.x, translate.y, rx, ry);
+
+}
+
+Ellipse::~Ellipse() {
 
 }
 
@@ -104,44 +175,38 @@ void Ellipse::update(Point ellStart, Point ellEnd) {
 
 }
 
-void Ellipse::setTranslation(float rx, float ry)
-{
+void Ellipse::setTranslation(float rx, float ry) {
 
-	transform = setTranslation(rx,ry);
-
-}
-
-void Ellipse::setRotation(float theta)
-{
-
-	transform = setRotation(theta);
+	transform->setTranslation(rx, ry);
 
 }
 
-void Ellipse::setScale(float rx, float ry)
-{
+void Ellipse::setRotation(float theta) {
 
-	transform = setScale(rx,ry);
-
-}
-
-void Ellipse::getTranslation()
-{
-
-	transform = getTranslation();
+	transform->setRotation(theta);
 
 }
 
-void Ellipse::getRotation()
-{
+void Ellipse::setScale(float rx, float ry) {
 
-	transform = getRotation();
+	transform->setScale(rx, ry);
 
 }
 
-void Ellipse::getScale()
-{
+void Ellipse::getTranslation() {
 
-	transform = getScale();
+	transform->getTranslation();
+
+}
+
+void Ellipse::getRotation() {
+
+	transform->getRotation();
+
+}
+
+void Ellipse::getScale() {
+
+	transform->getScale();
 
 }
