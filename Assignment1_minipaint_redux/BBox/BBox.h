@@ -22,12 +22,6 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
-<<<<<<< HEAD
-
-	//BBox& BBox::operator=( const BBox& other );
-
-=======
->>>>>>> origin/DavidWin
 	BBox unionBBox(Point uPoint);
 	BBox unionBBox(BBox uBox);
 	BBox expandBBox(float expX, float expY);
@@ -35,10 +29,7 @@ public:
 	Point* getCorners();
 	Point getMax();
 	Point getMin();
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/DavidWin
 };
 
 #endif /* BBOX_H_ */
