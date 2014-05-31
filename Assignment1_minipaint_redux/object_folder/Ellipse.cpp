@@ -10,18 +10,11 @@
 #include "Misc.h"
 #include "GL/gl.h"
 
-namespace {
+/////////////////////////////////////////////////////////////////Namespace/////////////////////////////////////////////////////////////////
 
-	//void GetMidPoint(BBox* bbox, Point start, Point end) {
-	//	Point translate;
-	//	Point midpoint = bbox->getMin;
-	//
-	//	float rx = abs(start.x - end.x) / 2;
-	//	float ry = abs(start.y - end.y) / 2;
-	//	translate.x = midpoint.x + rx;
-	//	translate.y = midpoint.y + ry;
-	//
-	//}
+//Helper Functions
+
+namespace {
 
 	/**
 	 * Draws 4 points on the canvas
@@ -96,50 +89,13 @@ namespace {
 
 }
 
-void Ellipse::draw() {
+/////////////////////////////////////////////////////////////////End_Namespace/////////////////////////////////////////////////////////////////
 
-	Point A;
-	Point B;
-	vmath::vec4* ellPoints;
-	vmath::vec4 vecX = (1.0f, 0.0f, 0.0f, 1.0f);
-	vmath::vec4 vecY = (0.0f, 1.0f, 0.0f, 1.0f);
+//Constructors & Destructor
 
-	vecX = vecX * transform->getScale();
-	vecY = vecY * transform->getScale();
-
-	A.x = vecX[0];
-	A.y = vecX[1];
-	B.x = vecY[0];
-	B.y = vecY[1];
-
-	float rx = abs(start.x - end.x) / 2;
-	float ry = abs(start.y - end.y) / 2;
-	float rxSq = rx * rx;
-	float rySq = ry * ry;
-	float x = 0, y = ry, p;
-	float px = 0, py = 2 * rxSq * y;
-
-	p = rySq - (rxSq * ry) + (0.25 * rxSq);
-	while (px < py) {
-		ellPoints = FindPointOctant2(start, A.x, B.y, rxSq, rySq, x, y, px, py, p);
-		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		drawFourPoints(ellPoints);
-	}
-
-	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
-	while (y > 0) {
-		ellPoints = FindPointOctant1(start, A.x, B.y, rxSq, rySq, x, y, px, py, p);
-		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		drawFourPoints(ellPoints);
-	}
-}
-
+/** Default constructor for ellipse
+ *
+ */
 Ellipse::Ellipse() {
 	bbox = new bbox(0.0, 0.0);
 	start.update(0.0, 0.0);
@@ -148,6 +104,11 @@ Ellipse::Ellipse() {
 	transform = new Transformation(0.0, 0.0, 0.0, rx, ry);
 }
 
+/**Constructor for ellipse with a specified start and end point
+ *
+ * @param ellStart (x,y) coordinates of Start point
+ * @param ellEnd (x,y) coordinates of End point
+ */
 Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 
 	start = ellStart;
@@ -166,8 +127,65 @@ Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 
 }
 
+/**Destructor for ellipse
+ *
+ */
 Ellipse::~Ellipse() {
 
+}
+
+
+//Functions
+
+/**Draws Ellipse with parameters specified in the constructor
+ *
+ */
+std::vector<PointAndColor> Ellipse::draw() {
+
+	Point A;
+	Point B;
+	Color ellColor = glColor3f(0.5f, 0.0f, 1.0f);
+	PointAndColor ellPointColor;
+	vmath::vec4* ellPoints;
+	vmath::vec4 vecX = (1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::vec4 vecY = (0.0f, 1.0f, 0.0f, 1.0f);
+
+	vecX = vecX * transform->getScale();
+	vecY = vecY * transform->getScale();
+
+	A.x = vecX[0];
+	A.y = vecX[1];
+	B.x = vecY[0];
+	B.y = vecY[1];
+
+	float rx = abs(A.x - B.x) / 2;
+	float ry = abs(A.y - B.y) / 2;
+	float rxSq = rx * rx;
+	float rySq = ry * ry;
+	float x = 0, y = ry, p;
+	float px = 0, py = 2 * rxSq * y;
+
+	p = rySq - (rxSq * ry) + (0.25 * rxSq);
+	while (px < py) {
+		ellPoints = FindPointOctant2(start, rx, ry, rxSq, rySq, x, y, px, py, p);
+		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		drawFourPoints(ellPoints);
+	}
+
+	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
+	while (y > 0) {
+		ellPoints = FindPointOctant1(start, rx, ry, rxSq, rySq, x, y, px, py, p);
+		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		drawFourPoints(ellPoints);
+	}
+
+	return ellPointColor;
 }
 
 
