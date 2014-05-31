@@ -15,9 +15,12 @@ class BBoxObject: public Object {
 public:
 	BBoxObject();
 	BBoxObject(Point a, Point b);
+<<<<<<< HEAD
+=======
+	BBoxObject(BBox newBBox);
+>>>>>>> origin/DavidWin
 	virtual ~BBoxObject();
-	void draw();
-	void translate(float xTrans, float yTrans);
+	std::vector<PointAndColor> draw();
 	Point* getCorners();
 	bool inside(Point a);
 	void update(Point a, Point b);
