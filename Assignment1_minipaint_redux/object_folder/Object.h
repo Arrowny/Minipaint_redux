@@ -28,7 +28,6 @@ protected:
 	Transformation* transform;
 	void updateBBox(Point a, Point b);
 
-
 public:
 	Object();
 	virtual ~Object();

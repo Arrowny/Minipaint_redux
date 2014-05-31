@@ -18,8 +18,18 @@ BBoxObject::BBoxObject() {
 	bbox = new BBox(0.0, 0.0);
 }
 
+/**
+ * sets min and max vertex to minVert(min(a.x, b.x),min(a.y,b.y)), maxVert(max(a.x, b.x), max(a.y,b.y))
+ *
+ * @param a
+ * @param b
+ */
 BBoxObject::BBoxObject(Point a, Point b) {
 	bbox = new BBox(a, b);
+}
+
+BBoxObject::BBoxObject(BBox newBBox) {
+	bbox = newBBox;
 }
 
 BBoxObject::~BBoxObject() {
@@ -43,7 +53,7 @@ void BBoxObject::draw() {
 }
 
 /**
- * returns the 4 vertices representing the 4 corners of the Rectangle. Corners are inserted
+ * returns the 4 vertices representing the 4 corners of the BBoxObject. Corners are inserted
  * into a Point array in the following order: [0]bottom-left, [1]bottom-right, [2]top-right, [3] top-left.
  *
  * @return Point array representing 4 corners of Rectangle's bounding box
@@ -53,7 +63,8 @@ Point* BBoxObject::getCorners() {
 }
 
 /**
- * Const function tests whether or not a Point "testPt" is within the Rectangle's bounding box
+ * function tests whether or not a Point "testPt" is within the BBoxObject's
+ * bounding box
  *
  * @param testPt Point to test insidedness on bounding box.
  * @return boolean representing whether or not Point is inside Rectangle's bounding box
@@ -63,25 +74,7 @@ bool BBoxObject::inside(Point a) {
 }
 
 /**
- * translates Rectangle based on x translate and y translate
- *
- * @param xTrans x translation
- * @param yTrans y translation
- */
-void BBoxObject::translate(float xTrans, float yTrans) {
-	Point tmpMin = bbox->getMin();
-	Point tmpMax = bbox->getMax();
-
-	//TODO if add addition/ addition assignment operator to misc allows update code
-	//TODO if add subtraction/ subtraction assignment operator to misc update code
-	tmpMin.x += xTrans; tmpMin.y = yTrans;
-	tmpMax.x += xTrans; tmpMax.y = yTrans;
-
-	updateBBox(tmpMin,tmpMax);
-}
-
-/**
- * Sets up a rectangle based on the two points a and b.
+ * updates BBoxObject to minVert(min(a.x, b.x),min(a.y,b.y)), maxVert(max(a.x, b.x), max(a.y,b.y)).
  *
  * @param a
  * @param b
