@@ -22,8 +22,8 @@ public:
 	Transformation();
 	Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale);
 	virtual ~Transformation();
-	void setRotation(float theta);
 	void setTranslation(float xTrans, float yTrans);
+	void setRotation(float theta);
 	void setScale(float xScale, float yScale);
 	vmath::mat4 getTransformation();
 	vmath::mat4 getTranslation();

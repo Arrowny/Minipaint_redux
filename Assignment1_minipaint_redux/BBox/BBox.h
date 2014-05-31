@@ -9,7 +9,6 @@
 #define BBOX_H_
 #include "Misc.h"
 
-
 /**
  * Generates a 2D box with that streches from Point min(x,y) to Point max(x,y). And rocksteady.
  */
@@ -33,7 +32,10 @@ public:
 	Point* getCorners();
 	Point getMax();
 	Point getMin();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Joe
 };
 
 #endif /* BBOX_H_ */
