@@ -7,7 +7,7 @@
 
 #ifndef MISC_H_
 #define MISC_H_
-
+#include <iostream>
 /**
  * Simple 2D point struct. Represents point (x,y)
  */
@@ -50,13 +50,18 @@ struct Color {
 public:
 	float red, green, blue;
 
+	Color(){
+		red = 0.0f;
+		green = 0.0f;
+		blue = 0.0f;
+	}
+
 	Color(float red, float green, float blue) {
 		this->red = red;
 		this->green = green;
 		this->blue = blue;
 	}
 };
-
 struct PointAndColor {
 public:
 	Point point;
