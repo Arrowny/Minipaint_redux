@@ -76,16 +76,26 @@ void exchangePoints(Point &old_point, Point &new_point){
 }//namespace
 
 Line::Line() {
-	start.update(0.0,0.0);
-	end.update(0.0,0.0);
-	bbox = new BBox( start, end);
+	start.update(-1.0f, 0.0f);
+	end.update(0.0f, 1.0f);
+//	start_vec.Tvec4(0.0f,0.0f,0.0f,1.0f);
+//	end_vec.Tvec4(0.0f,0.0f,0.0f,1.0f);
 
+	bbox = new BBox( start, end);
+	//transform = new Transformation(0.0f,0.0f,0.0f,1.0f,1.0f);
 
 }
 
 Line::Line(Point lineStart, Point lineEnd) {
 	start = lineStart;
 	end = lineEnd;
+	if(start.x > end.x)
+//	start_vec.Tvec4(start.x, start.y, 0.0f, 1.0f);
+//	end_vec.Tvec4(end.x, end.y, 0.0f, 1.0f);
+
+	bbox = new BBox( start, end);
+
+	transform = new Transformation(0.0f, (start.x + end.x)/2, (start.y + end.y)/2,1.0f,1.0f);
 }
 
 Line::~Line() {
@@ -118,6 +128,8 @@ void Line::draw() {
 		DrawLine(line_type, dy, dx, start_p, end_p);
 	}
 	glEnd();
+
+	//=============================用get 的function 新建向量 然后做矩阵乘法
 }
 
 
@@ -160,4 +172,25 @@ void Line::setEnd(Point new_end){
 	updateBBox(start,end);
 }
 
+/**
+ * Moves object across screen.
+ */
+void Line::setTranslation(float xTrans, float yTrans){
+	transform = setTranslation(xTrans, yTrans);
+
+}
+
+/**
+ * Rotate objects in a direction
+ */
+void Line::setRotation(float theta){
+	transform = setRotation(theta);
+}
+
+/**
+ * Increase/Decrease size of an object
+ */
+void Line::setScale(float xScale, float yScale){
+	transform = setScale(xScale, yScale);
+}
 

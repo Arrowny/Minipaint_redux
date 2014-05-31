@@ -42,14 +42,6 @@ void Transformation::setTranslation(float xTrans, float yTrans){
 }
 
 /**
- * This getTranslation is use to get the current Translation matrix
- *
- * @return
- */
-vmath::mat4 Transformation::getTranslation(){
-	return Translation;
-}
-/**
  * sets the rotation matrix of transformation.
  *
  * @param theta rotation of 2d point

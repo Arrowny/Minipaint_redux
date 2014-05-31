@@ -61,10 +61,10 @@ public:
 	 * Note: this transformation requires that points be represented in the form
 	 * 		 [x,y,0.0f,1.0f].
 	 */
-	virtual vmath::mat4 getTransformation();
-	virtual vmath::mat4 getTranslation();
-	virtual vmath::mat4 getRotation();
-	virtual vmath::mat4 getScale();
+	vmath::mat4 getTransformation();
+	vmath::mat4 getTranslation();
+	vmath::mat4 getRotation();
+	vmath::mat4 getScale();
 };
 
 #endif /* OBJECT_H_ */
