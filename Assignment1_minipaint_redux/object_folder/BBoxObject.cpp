@@ -36,7 +36,7 @@ BBoxObject::~BBoxObject() {
 
 }
 
-void BBoxObject::draw() {
+std::vector<PointAndColor> BBoxObject::draw() {
 	Point start_p = bbox->getMin();
 	Point end_p = bbox->getMax();
 
@@ -50,6 +50,8 @@ void BBoxObject::draw() {
 	glVertex2f(start_p.x, end_p.y);
 	glVertex2f(start_p.x, start_p.y);
 	glEnd();
+
+	return NULL;
 }
 
 /**
