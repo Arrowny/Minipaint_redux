@@ -107,10 +107,10 @@ void Ellipse::draw() {
 	vecX = vecX * transform->getScale();
 	vecY = vecY * transform->getScale();
 
-	A.x = vecX[1];
-	A.y = vecX[2];
-	B.x = vecY[1];
-	B.y = vecY[2];
+	A.x = vecX[0];
+	A.y = vecX[1];
+	B.x = vecY[0];
+	B.y = vecY[1];
 
 	float rx = abs(start.x - end.x) / 2;
 	float ry = abs(start.y - end.y) / 2;
@@ -170,15 +170,10 @@ Ellipse::~Ellipse() {
 
 }
 
-<<<<<<< HEAD
-void Ellipse::update(Point ellStart, Point ellEnd)
-{
-	bbox = new bbox(ellStart,ellEnd);
-=======
+
 void Ellipse::update(Point ellStart, Point ellEnd) {
 	bbox = new bbox(ellStart, ellEnd);
 
->>>>>>> origin/Joe
 }
 
 void Ellipse::setTranslation(float rx, float ry) {

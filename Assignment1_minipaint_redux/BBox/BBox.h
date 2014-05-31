@@ -32,10 +32,7 @@ public:
 	Point* getCorners();
 	Point getMax();
 	Point getMin();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Joe
 };
 
 #endif /* BBOX_H_ */

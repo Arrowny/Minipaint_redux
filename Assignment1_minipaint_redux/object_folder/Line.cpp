@@ -6,6 +6,8 @@
  */
 
 #include "Line.h"
+#include <math.h>
+#define PI 3.14159265
 
 namespace {
 
@@ -18,7 +20,7 @@ namespace {
  * @param start_p : the start point.
  * @param end_p : the end point.
  */
-void DrawLine(int line_type, float larger, float smaller, Point start_p,
+void BresenhamLine(int line_type, float larger, float smaller, Point start_p,
 		Point end_p) {
 	if (line_type == 1) {
 		float incy = (smaller != 0 ? smaller / (end_p.y - start_p.y) : 0);
@@ -66,8 +68,6 @@ void SwapPoints(Point &start_p, Point &end_p) {
 	std::swap(start_p.x, end_p.x);
 	std::swap(start_p.y, end_p.y);
 }
-
-
 void exchangePoints(Point &old_point, Point &new_point){
 	old_point.x=new_point.x;
 	old_point.y=new_point.y;
@@ -75,27 +75,36 @@ void exchangePoints(Point &old_point, Point &new_point){
 
 }//namespace
 
+
 Line::Line() {
-	start.update(-1.0f, 0.0f);
-	end.update(0.0f, 1.0f);
-//	start_vec.Tvec4(0.0f,0.0f,0.0f,1.0f);
-//	end_vec.Tvec4(0.0f,0.0f,0.0f,1.0f);
+	start.update(0.0f, 0.0f);
+	end.update(0.0f, 0.0f);
 
 	bbox = new BBox( start, end);
-	//transform = new Transformation(0.0f,0.0f,0.0f,1.0f,1.0f);
+	transform = new Transformation(0.0f,0.0f,0.0f,0.0f,0.0f);
 
 }
 
 Line::Line(Point lineStart, Point lineEnd) {
 	start = lineStart;
 	end = lineEnd;
-	if(start.x > end.x)
-//	start_vec.Tvec4(start.x, start.y, 0.0f, 1.0f);
-//	end_vec.Tvec4(end.x, end.y, 0.0f, 1.0f);
 
 	bbox = new BBox( start, end);
 
-	transform = new Transformation(0.0f, (start.x + end.x)/2, (start.y + end.y)/2,1.0f,1.0f);
+	Point translate;
+	Point scale;
+	float rotate;
+
+	translate.x = (start.x + end.x)/2;
+	translate.y = (start.y + end.y)/2;
+
+	scale.x = sqrt(pow(translate.x, 2.0) + pow(translate.y , 2.0));
+	scale.y = scale.x;
+
+	float ry = (end.y - start.x)/2;
+	float rx = (end.x - start.x)/2;
+	rotate = acos (rx/scale.x) * 180.0 / PI;
+	transform = new Transformation(rotate, translate.x, translate.y, scale.x, scale.y);
 }
 
 Line::~Line() {
@@ -110,29 +119,36 @@ Line::~Line() {
  */
 void Line::draw() {
 
-	Point start_p = start;
-	Point end_p = end;
+	Point start_p ;
+	Point end_p ;
+	start_vec.Tvec4(-1.0f , 0.0f, 0.0f, 1.0f);
+	end_vec.Tvec4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	start_vec = start_vec * transform ->getScale() * transform ->getTranslation() * transform ->getRotation();
+	end_vec = end_vec * transform ->getScale() * transform ->getTranslation() * transform ->getRotation();
+
+	start_p.x = start_vec[0];
+	start_p.y = start_vec[1];
+	end_p.x = end_vec[0];
+	end_p.y = end_vec[1];
 
 	glBegin (GL_POINTS);
 	float dy = abs(end_p.y - start_p.y);
 	float dx = abs(end_p.x - start_p.x);
 	if (dx >= dy) { // slop <=1
 		int line_type = 1;
-		DrawLine(line_type, dx, dy, start_p, end_p);
+		BresenhamLine(line_type, dx, dy, start_p, end_p);
 
 	} else { //slop>1
 		int line_type = 2;
 		if (start_p.y > end_p.y) {
 			SwapPoints(start_p, end_p);
 		}
-		DrawLine(line_type, dy, dx, start_p, end_p);
+		BresenhamLine(line_type, dy, dx, start_p, end_p);
 	}
 	glEnd();
 
-	//=============================用get 的function 新建向量 然后做矩阵乘法
 }
-
-
 
 /**
  * This getStart is used to get the position of the start point of the line.
@@ -176,7 +192,7 @@ void Line::setEnd(Point new_end){
  * Moves object across screen.
  */
 void Line::setTranslation(float xTrans, float yTrans){
-	transform = setTranslation(xTrans, yTrans);
+	transform -> setTranslation(xTrans, yTrans);
 
 }
 
@@ -184,13 +200,32 @@ void Line::setTranslation(float xTrans, float yTrans){
  * Rotate objects in a direction
  */
 void Line::setRotation(float theta){
-	transform = setRotation(theta);
+	transform -> setRotation(theta);
 }
 
 /**
  * Increase/Decrease size of an object
  */
 void Line::setScale(float xScale, float yScale){
-	transform = setScale(xScale, yScale);
+	transform -> setScale(xScale, yScale);
 }
 
+/**
+ * gets matrix of each transformation.
+ *
+ * @return 4x4 matrix representing transformation/translation/rotation/scale matrix of transformation.
+ * Note: this transformation requires that points be represented in the form
+ * 		 [x,y,0.0f,1.0f].
+ */
+void Line::getTransformation(){
+	transform -> getTransformation();
+}
+void Line::getTranslation(){
+	transform -> getTranslation();
+}
+void Line::getRotation(){
+	transform -> getRotation();
+}
+void Line::getScale(){
+	transform -> getScale();
+}

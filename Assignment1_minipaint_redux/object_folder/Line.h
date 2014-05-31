@@ -73,10 +73,10 @@ public:
 		 * Note: this transformation requires that points be represented in the form
 		 * 		 [x,y,0.0f,1.0f].
 		 */
-	vmath::mat4 getTransformation();
-	vmath::mat4 getTranslation();
-	vmath::mat4 getRotation();
-	vmath::mat4 getScale();
+	void getTransformation();
+	void getTranslation();
+	void getRotation();
+	void getScale();
 };
 
 #endif /* LINE_H_ */
