@@ -4,7 +4,7 @@
  *  Created on: May 27, 2014
  *      Author: DavidsMac
  */
-
+#include "vmath.h"
 #ifndef MISC_H_
 #define MISC_H_
 
@@ -38,9 +38,9 @@ public:
 		else
 		{return false;}
 	}
-	void printP(){
-		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )"<<std::endl;
-	}
+//	void printP(){
+//		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )"<<std::endl;
+//	}
 
 	//TODO Add assignment, addition, subtraction, multiplication operations if time allows
 
@@ -49,6 +49,12 @@ public:
 struct Color {
 public:
 	float red, green, blue;
+
+	Color() {
+		red = 0.0f;
+		green = 0.0f;
+		blue = 0.0f;
+	}
 
 	Color(float red, float green, float blue) {
 		this->red = red;

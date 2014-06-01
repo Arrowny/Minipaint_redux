@@ -20,7 +20,7 @@ public:
 	Line();
 	Line(Point lineStart, Point lineEnd);
 	virtual ~Line();
-	void draw();
+	std::vector<PointAndColor> draw();
 	Point getStart();
 	Point getEnd();
 	void setStart(Point new_start);

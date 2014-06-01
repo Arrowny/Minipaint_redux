@@ -9,6 +9,8 @@
 
 #include "Misc.h"
 #include "GL/gl.h"
+#include "vmath.h"
+#include "BBox.h"
 
 /////////////////////////////////////////////////////////////////Namespace/////////////////////////////////////////////////////////////////
 
@@ -50,7 +52,7 @@ namespace {
 	vmath::vec4* FindPointOctant2(Point start_p, float rx, float ry, float rxSq, float rySq,
 			float x, float y, float px, float py, float p) {
 
-		vmath::vec4 fourPoints[4];
+		vmath::Tvec4<float> fourPoints[4];
 
 		p = rySq - (rxSq * ry) + (0.25 * rxSq);
 
@@ -67,10 +69,29 @@ namespace {
 			p = p + rySq + px - py;
 		}
 
-		fourPoints[0] = new vmath::vec4(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
-		fourPoints[1] = new vmath::vec4(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
-		fourPoints[2] = new vmath::vec4(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
-		fourPoints[3] = new vmath::vec4(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
+		fourPoints[0][0] = start_p.x + x;
+		fourPoints[0][1] = start_p.y + y;
+		fourPoints[0][2] = 0.0;
+		fourPoints[0][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
+
+		fourPoints[1][0] = start_p.x - x;
+		fourPoints[1][1] = start_p.y + y;
+		fourPoints[1][2] = 0.0;
+		fourPoints[1][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
+
+		fourPoints[2][0] = start_p.x + x;
+		fourPoints[2][1] = start_p.y - y;
+		fourPoints[2][2] = 0.0;
+		fourPoints[2][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
+
+		fourPoints[3][0] = start_p.x - x;
+		fourPoints[3][1] = start_p.y - y;
+		fourPoints[3][2] = 0.0;
+		fourPoints[3][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
 
 		return fourPoints;
 
@@ -96,7 +117,7 @@ namespace {
 	vmath::vec4* FindPointOctant1(Point start_p, float rx, float ry, float rxSq, float rySq,
 			float x, float y, float px, float py, float p) {
 
-		vmath::vec4 fourPoints[4];
+		vmath::Tvec4<float> fourPoints[4];
 
 		y--;
 		py = py - 2 * rxSq;
@@ -111,10 +132,29 @@ namespace {
 			p = p + rxSq - py + px;
 		}
 
-		fourPoints[0] = new vmath::vec4(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
-		fourPoints[1] = new vmath::vec4(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
-		fourPoints[2] = new vmath::vec4(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
-		fourPoints[3] = new vmath::vec4(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
+		fourPoints[0][0] = start_p.x + x;
+		fourPoints[0][1] = start_p.y + y;
+		fourPoints[0][2] = 0.0;
+		fourPoints[0][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x + x, start_p.y + y, 0.0f, 1.0f);
+
+		fourPoints[1][0] = start_p.x - x;
+		fourPoints[1][1] = start_p.y + y;
+		fourPoints[1][2] = 0.0;
+		fourPoints[1][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x - x, start_p.y + y, 0.0f, 1.0f);
+
+		fourPoints[2][0] = start_p.x + x;
+		fourPoints[2][1] = start_p.y - y;
+		fourPoints[2][2] = 0.0;
+		fourPoints[2][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x + x, start_p.y - y, 0.0f, 1.0f);
+
+		fourPoints[3][0] = start_p.x - x;
+		fourPoints[3][1] = start_p.y - y;
+		fourPoints[3][2] = 0.0;
+		fourPoints[3][3] = 1.0;
+		//new vmath::Tvec4<float>(start_p.x - x, start_p.y - y, 0.0f, 1.0f);
 
 		return fourPoints;
 	}
@@ -167,7 +207,7 @@ namespace {
  *
  */
 Ellipse::Ellipse() {
-	bbox = new bbox(0.0, 0.0);
+	BBox bbox(0.0, 0.0);
 	start.update(0.0, 0.0);
 	float rx = 0.0;
 	float ry = 0.0;
@@ -183,17 +223,17 @@ Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 
 	start = ellStart;
 	end = ellEnd;
-	bbox = new bbox(ellStart, ellEnd);
+	BBox bbox(ellStart, ellEnd);
 
-	Point translate;
-	Point midpoint = bbox->getMin;
+	Point midpoint;
+	Point minimum = bbox->getMin;
 
-	float rx = abs(ellStart.x - ellEnd.x) / 2;
-	float ry = abs(ellStart.y - ellEnd.y) / 2;
-	translate.x = midpoint.x + rx;
-	translate.y = midpoint.y + ry;
+	float rx = abs(ellEnd.x - ellStart.x) / 2;
+	float ry = abs(ellEnd.y - ellStart.y) / 2;
+	midpoint.x = minimum.x + rx;
+	midpoint.y = minimum.y + ry;
 
-	transform = new Transformation(0.0, translate.x, translate.y, rx, ry);
+	transform = new Transformation(0.0, midpoint.x, midpoint.y, rx, ry);
 
 }
 
@@ -218,8 +258,8 @@ std::vector<PointAndColor> Ellipse::draw() {
 	PointAndColor ellPointColor;
 	std::vector<PointAndColor> PointColorVec;
 	vmath::vec4* ellPoints;
-	vmath::vec4 vecX = (1.0f, 0.0f, 0.0f, 1.0f);
-	vmath::vec4 vecY = (0.0f, 1.0f, 0.0f, 1.0f);
+	vmath::vec4<float> vecX = (1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::vec4<float> vecY = (0.0f, 1.0f, 0.0f, 1.0f);
 
 	vecX = vecX * transform->getScale();
 	vecY = vecY * transform->getScale();
@@ -271,7 +311,7 @@ std::vector<PointAndColor> Ellipse::draw() {
 }
 
 void Ellipse::update(Point ellStart, Point ellEnd) {
-	bbox = new bbox(ellStart, ellEnd);
+	BBox bbox(ellStart, ellEnd);
 
 }
 

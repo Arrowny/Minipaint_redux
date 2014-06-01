@@ -89,7 +89,7 @@ Line::~Line() {
  * @param start_p: the start point
  * @param end_p: the end point
  */
-void Line::draw() {
+std::vector<PointAndColor> Line::draw() {
 
 	Point start_p = start;
 	Point end_p = end;

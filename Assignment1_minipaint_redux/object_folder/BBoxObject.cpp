@@ -6,7 +6,10 @@
  */
 
 #include <BBox.h>
+#include <windows.h>
 #include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
 #include <Misc.h>
 #include <BBoxObject.h>
 
@@ -15,7 +18,7 @@
  */
 BBoxObject::BBoxObject() {
 
-	bbox = new BBox(0.0, 0.0);
+	bbox = new BBox(0.0f, 0.0f);
 }
 
 /**
@@ -29,7 +32,7 @@ BBoxObject::BBoxObject(Point a, Point b) {
 }
 
 BBoxObject::BBoxObject(BBox newBBox) {
-	bbox = newBBox;
+	bbox = new newBBox(newBBox.getMin(), newBBox.getMax());
 }
 
 BBoxObject::~BBoxObject() {
