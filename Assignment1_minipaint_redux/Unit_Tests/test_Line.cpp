@@ -11,6 +11,17 @@
 #include <cassert>
 
 
+
+/**
+ * here test setStart(), setEnd, getStrat, getEnd at the same time.
+ */
+void test_start_end(){
+//	Line L;
+
+
+
+}
+
 int main() {
 	std::cout<<"Welcome to Line test"<<std::endl;
 

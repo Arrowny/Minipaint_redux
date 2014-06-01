@@ -54,17 +54,17 @@ public:
 	/**
 	 * Moves object across screen.
 	 */
-	void setTranslation(float xTrans, float yTrans) = 0;
+	void setTranslation(float xTrans, float yTrans);
 
 	/**
 	 * Rotate objects in a direction
 	 */
-	void setRotation(float theta) = 0;
+	void setRotation(float theta);
 
 	/**
 	 * Increase/Decrease size of an object
 	 */
-	void setScale(float xScale, float yScale) = 0;
+	void setScale(float xScale, float yScale);
 
 	/**
 		 * gets matrix of each transformation.

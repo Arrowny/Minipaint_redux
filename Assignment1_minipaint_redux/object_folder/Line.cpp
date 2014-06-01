@@ -21,6 +21,7 @@ namespace {
  * @param start_p : the start point.
  * @param end_p : the end point.
  */
+
 std::vector<PointAndColor> BresenhamLine(
 		int line_type,
 		float larger,
