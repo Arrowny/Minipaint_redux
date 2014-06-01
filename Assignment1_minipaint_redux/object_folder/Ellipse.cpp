@@ -161,6 +161,48 @@ namespace {
 
 /////////////////////////////////////////////////////////////////End_Namespace/////////////////////////////////////////////////////////////////
 
+//Constructors & Destructor
+
+/** Default constructor for ellipse
+ *
+ */
+Ellipse::Ellipse() {
+	bbox = new bbox(0.0, 0.0);
+	start.update(0.0, 0.0);
+	float rx = 0.0;
+	float ry = 0.0;
+	transform = new Transformation(0.0, 0.0, 0.0, rx, ry);
+}
+
+/**Constructor for ellipse with a specified start and end point
+ *
+ * @param ellStart (x,y) coordinates of Start point
+ * @param ellEnd (x,y) coordinates of End point
+ */
+Ellipse::Ellipse(Point ellStart, Point ellEnd) {
+
+	start = ellStart;
+	end = ellEnd;
+	bbox = new bbox(ellStart, ellEnd);
+
+	Point translate;
+	Point midpoint = bbox->getMin;
+
+	float rx = abs(ellStart.x - ellEnd.x) / 2;
+	float ry = abs(ellStart.y - ellEnd.y) / 2;
+	translate.x = midpoint.x + rx;
+	translate.y = midpoint.y + ry;
+
+	transform = new Transformation(0.0, translate.x, translate.y, rx, ry);
+
+}
+
+/**Destructor for ellipse
+ *
+ */
+Ellipse::~Ellipse() {
+
+}
 
 //Functions
 
