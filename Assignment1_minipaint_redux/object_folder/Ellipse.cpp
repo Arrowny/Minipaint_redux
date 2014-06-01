@@ -207,7 +207,7 @@ namespace {
  *
  */
 Ellipse::Ellipse() {
-	BBox bbox(0.0, 0.0);
+	BBox bbox(0.0f, 0.0f);
 	start.update(0.0, 0.0);
 	float rx = 0.0;
 	float ry = 0.0;
@@ -226,7 +226,7 @@ Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 	BBox bbox(ellStart, ellEnd);
 
 	Point midpoint;
-	Point minimum = bbox->getMin;
+	Point minimum = bbox.getMin();
 
 	float rx = abs(ellEnd.x - ellStart.x) / 2;
 	float ry = abs(ellEnd.y - ellStart.y) / 2;
