@@ -7,10 +7,10 @@
 
 #include "Ellipse.h"
 
-#include "Misc.h"
-#include "GL/gl.h"
-#include "vmath.h"
-#include "BBox.h"
+//#include "Misc.h"
+//#include "GL/gl.h"
+//#include "vmath.h"
+//#include "BBox.h"
 
 /////////////////////////////////////////////////////////////////Namespace/////////////////////////////////////////////////////////////////
 

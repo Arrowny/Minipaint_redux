@@ -26,7 +26,8 @@ class Object {
 protected:
 	BBox* bbox;
 	Transformation* transform;
-	Ellipse* ellipse;
+
+
 	void updateBBox(Point a, Point b);
 
 public:

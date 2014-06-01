@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include "math.h"
+#include "Object.h"
 #include "Ellipse.h"
-#include "object.h"
 #include <cassert>
 
 void test_EllipseConstructor() {
@@ -21,8 +21,7 @@ void test_EllipseConstructor() {
 	ellEnd.x = 3.0;
 	ellEnd.y = 2.0;
 
-	Ellipse myEll = new Ellipse();
-	//Ellipse myEll = new Ellipse(ellStart,ellEnd);
+	Ellipse myEll(ellStart,ellEnd);
 	BBox bbox(ellStart,ellEnd);
 
 	Point tmpMax = bbox.getMax();
