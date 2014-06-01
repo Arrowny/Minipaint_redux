@@ -4,14 +4,14 @@
 
 C_UPPER_SRCS := 
 CXX_SRCS := 
-OBJ_SRCS := 
 C++_SRCS := 
+OBJ_SRCS := 
 CC_SRCS := 
 ASM_SRCS := 
 CPP_SRCS := 
 C_SRCS := 
-O_SRCS := 
 S_UPPER_SRCS := 
+O_SRCS := 
 CC_DEPS := 
 C++_DEPS := 
 EXECUTABLES := 
@@ -29,6 +29,11 @@ test_BBox \
 test_BBox/BBox \
 object_folder \
 Unit_Tests \
+Test/object_folder \
+Test/Unit_Tests \
+Test \
+Test/BBox \
+Misc \
 . \
 BBox \
 

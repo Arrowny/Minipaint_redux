@@ -14,6 +14,11 @@ RM := rm -rf
 -include test_BBox/subdir.mk
 -include object_folder/subdir.mk
 -include Unit_Tests/subdir.mk
+-include Test/object_folder/subdir.mk
+-include Test/Unit_Tests/subdir.mk
+-include Test/BBox/subdir.mk
+-include Test/subdir.mk
+-include Misc/subdir.mk
 -include BBox/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -49,7 +54,7 @@ all: Assignment1_minipaint_redux
 # Tool invocations
 Assignment1_minipaint_redux: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: MacOS X C++ Linker'
+	@echo 'Invoking: MinGW C++ Linker'
 	g++ -L"C:\Windows\System32\dll" -o "Assignment1_minipaint_redux" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '

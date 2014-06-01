@@ -2,7 +2,11 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-USER_OBJS :=
+# Add inputs and outputs from these tool invocations to the build variables 
+O_SRCS += \
+../test_BBox/Canvas.o \
+../test_BBox/GUI.o 
 
-LIBS := -lgdi32 -lglu32 -lglut32 -lopengl32
+
+# Each subdirectory must supply rules for building sources it contributes
 

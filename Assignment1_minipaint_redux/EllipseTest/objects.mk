@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lgdi32 -lglu32 -lglut32 -lopengl32
+LIBS := -lglu32 -lglut32 -lgdi32 -lopengl32
 
