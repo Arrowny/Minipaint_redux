@@ -21,8 +21,15 @@ namespace {
  * @param start_p : the start point.
  * @param end_p : the end point.
  */
-void BresenhamLine(int line_type, float larger, float smaller, Point start_p,
+std::vector<PointAndColor> BresenhamLine(
+		int line_type,
+		float larger,
+		float smaller,
+		Point start_p,
 		Point end_p) {
+
+	std::vector<PointAndColor> linePointColor;
+
 	if (line_type == 1) {
 		float incy = (smaller != 0 ? smaller / (end_p.y - start_p.y) : 0);
 		float p = 2 * smaller - larger;
@@ -31,11 +38,16 @@ void BresenhamLine(int line_type, float larger, float smaller, Point start_p,
 		float x, y = start_p.y;
 		for (x = start_p.x + 1; x <= end_p.x; ++x) {
 			if (p < 0) {
-				glVertex2f(x, y);
+//				drawpixel(x, y, a, b, c);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2i(x, y);
+				linePointColor.push_back(PointAndColor(Point(x,y), Color(0.0f,0.0f,0.0f)));
 				p += dd2;
 			} else {
 				y += incy;
-				glVertex2f(x, y);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2i(x, y);
+				linePointColor.push_back(PointAndColor(Point(x,y), Color(0.0f,0.0f,0.0f)));
 				p += dd2;
 			}
 		}
@@ -47,16 +59,21 @@ void BresenhamLine(int line_type, float larger, float smaller, Point start_p,
 		float x = start_p.x, y;
 		for (y = start_p.y + 1; y <= end_p.y; ++y) {
 			if (p < 0) {
-				glVertex2f(x, y);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2i(x, y);
+				linePointColor.push_back(PointAndColor(Point(x,y), Color(0.0f,0.0f,0.0f)));
 				p += dd2;
 			} else {
 				x += incx;
-				glVertex2f(x, y);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2i(x, y);
+				linePointColor.push_back(PointAndColor(Point(x,y), Color(0.0f,0.0f,0.0f)));
 				p += dd2;
 			}
 		}
 	}
 
+	return linePointColor;
 }
 
 /**
@@ -124,8 +141,15 @@ std::vector<PointAndColor>  Line::draw() {
 	Point end_p ;
 	std::vector<PointAndColor> linePointColor;
 
-	start_vec.Tvec4(-1.0f , 0.0f, 0.0f, 1.0f);
-	end_vec.Tvec4(1.0f, 0.0f, 0.0f, 1.0f);
+	start_vec[0] = -1.0f;
+	start_vec[1] = 0.0f;
+	start_vec[2] = -0.0f;
+	start_vec[3] = -0.0f;
+
+	end_vec[0] = 1.0f;
+	end_vec[1] = 0.0f;
+	end_vec[2] = 0.0f;
+	end_vec[3] = 0.0f;
 
 	start_vec = start_vec * transform ->getScale() * transform ->getTranslation() * transform ->getRotation();
 	end_vec = end_vec * transform ->getScale() * transform ->getTranslation() * transform ->getRotation();
