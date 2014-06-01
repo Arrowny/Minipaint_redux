@@ -30,10 +30,26 @@ namespace {
 		glEnd();
 	}
 
+	/**Find out the points needed to be drawn on 2nd Octant of 1st Quadrant
+	 * using Ellipse Midpoint Algorithm
+	 *
+	 * The variables below are passed from the main draw function:-
+	 *
+	 * @param start_p
+	 * @param rx
+	 * @param ry
+	 * @param rxSq
+	 * @param rySq
+	 * @param x
+	 * @param y
+	 * @param px
+	 * @param py
+	 * @param p
+	 * @return
+	 */
 	vmath::vec4* FindPointOctant2(Point start_p, float rx, float ry, float rxSq, float rySq,
 			float x, float y, float px, float py, float p) {
 
-		//Region 1: 2nd Octant of 1st Quadrant
 		vmath::vec4 fourPoints[4];
 
 		p = rySq - (rxSq * ry) + (0.25 * rxSq);
@@ -60,10 +76,26 @@ namespace {
 
 	}
 
+	/**Find out the points needed to be drawn on 1st Octant of 1st Quadrant
+	 * using Ellipse Midpoint Algorithm
+	 *
+	 * The variables below are passed from the main draw function:-
+	 *
+	 * @param start_p
+	 * @param rx
+	 * @param ry
+	 * @param rxSq
+	 * @param rySq
+	 * @param x
+	 * @param y
+	 * @param px
+	 * @param py
+	 * @param p
+	 * @return
+	 */
 	vmath::vec4* FindPointOctant1(Point start_p, float rx, float ry, float rxSq, float rySq,
 			float x, float y, float px, float py, float p) {
 
-		//Region 2: 1st Octant of 1st Quadrant
 		vmath::vec4 fourPoints[4];
 
 		y--;
@@ -87,52 +119,47 @@ namespace {
 		return fourPoints;
 	}
 
+	/**Adds points that are obtained from the FindOctant functions to a vector to be returned
+	 *
+	 * @param fourPoints vector of points that are obtained
+	 * @param ellColor struct with glColor3f information
+	 * @param ellPointColor struct to be inserted with point and color information
+	 * @param PointColorVec	vector with collection of point and color information
+	 */
+	void pushtoVector(vmath::vec4* fourPoints, Color ellColor, PointAndColor ellPointColor, std::vector<PointAndColor> PointColorVec)
+	{
+		ellPointColor(fourPoints[0], ellColor);
+		PointColorVec.push_back(ellPointColor);
+
+		ellPointColor(fourPoints[1], ellColor);
+		PointColorVec.push_back(ellPointColor);
+
+		ellPointColor(fourPoints[2], ellColor);
+		PointColorVec.push_back(ellPointColor);
+
+		ellPointColor(fourPoints[3], ellColor);
+		PointColorVec.push_back(ellPointColor);
+	}
+
+	/**The rest of the transformations needed to put the points in the correct position
+	 *
+	 * @param fourPoints vector of points that are obtained
+	 * @param transform pointer to transformation function
+	 * @return
+	 */
+	vmath::vec4* partialTransform(vmath::vec4* fourPoints, Transformation* transform)
+	{
+		fourPoints[0] = fourPoints[0]*transform->getRotation()*transform->getTranslation();
+		fourPoints[1] = fourPoints[1]*transform->getRotation()*transform->getTranslation();
+		fourPoints[2] = fourPoints[2]*transform->getRotation()*transform->getTranslation();
+		fourPoints[3] = fourPoints[3]*transform->getRotation()*transform->getTranslation();
+
+		return fourPoints;
+	}
+
 }
 
 /////////////////////////////////////////////////////////////////End_Namespace/////////////////////////////////////////////////////////////////
-
-//Constructors & Destructor
-
-/** Default constructor for ellipse
- *
- */
-Ellipse::Ellipse() {
-	bbox = new bbox(0.0, 0.0);
-	start.update(0.0, 0.0);
-	float rx = 0.0;
-	float ry = 0.0;
-	transform = new Transformation(0.0, 0.0, 0.0, rx, ry);
-}
-
-/**Constructor for ellipse with a specified start and end point
- *
- * @param ellStart (x,y) coordinates of Start point
- * @param ellEnd (x,y) coordinates of End point
- */
-Ellipse::Ellipse(Point ellStart, Point ellEnd) {
-
-	start = ellStart;
-	end = ellEnd;
-	bbox = new bbox(ellStart, ellEnd);
-
-	Point translate;
-	Point midpoint = bbox->getMin;
-
-	float rx = abs(ellStart.x - ellEnd.x) / 2;
-	float ry = abs(ellStart.y - ellEnd.y) / 2;
-	translate.x = midpoint.x + rx;
-	translate.y = midpoint.y + ry;
-
-	transform = new Transformation(0.0, translate.x, translate.y, rx, ry);
-
-}
-
-/**Destructor for ellipse
- *
- */
-Ellipse::~Ellipse() {
-
-}
 
 
 //Functions
@@ -144,8 +171,10 @@ std::vector<PointAndColor> Ellipse::draw() {
 
 	Point A;
 	Point B;
-	Color ellColor = glColor3f(0.5f, 0.0f, 1.0f);
+	int i;
+	Color ellColor = glColor3f(0.0f, 0.0f, 0.0f);
 	PointAndColor ellPointColor;
+	std::vector<PointAndColor> PointColorVec;
 	vmath::vec4* ellPoints;
 	vmath::vec4 vecX = (1.0f, 0.0f, 0.0f, 1.0f);
 	vmath::vec4 vecY = (0.0f, 1.0f, 0.0f, 1.0f);
@@ -165,27 +194,38 @@ std::vector<PointAndColor> Ellipse::draw() {
 	float x = 0, y = ry, p;
 	float px = 0, py = 2 * rxSq * y;
 
+	//Region 1: 2nd Octant of 1st Quadrant
 	p = rySq - (rxSq * ry) + (0.25 * rxSq);
 	while (px < py) {
+
+		//Transforming and plotting the points to where they should be
 		ellPoints = FindPointOctant2(start, rx, ry, rxSq, rySq, x, y, px, py, p);
-		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints = partialTransform(ellPoints, transform);
+
+		//Pushing the point and color information into the vector
+		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec);
+
+		//Draw the points
 		drawFourPoints(ellPoints);
+
 	}
 
+	//Region 2: 1st Octant of 1st Quadrant
 	p = rySq * (x + 0.5) * (x + 0.5) + rxSq * (y - 1) * (y - 1) - rxSq * rySq;
 	while (y > 0) {
+
+		//Transforming and plotting the points to where they should be
 		ellPoints = FindPointOctant1(start, rx, ry, rxSq, rySq, x, y, px, py, p);
-		ellPoints[0] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[1] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[2] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
-		ellPoints[3] = ellPoints[0]*transform->getTranslation()*transform->getRotation();
+		ellPoints = partialTransform(ellPoints, transform);
+
+		//Pushing the point and color information into the vector
+		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec);
+
+		//Draw the points
 		drawFourPoints(ellPoints);
 	}
 
-	return ellPointColor;
+	return PointColorVec;
 }
 
 void Ellipse::update(Point ellStart, Point ellEnd) {

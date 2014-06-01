@@ -10,6 +10,8 @@
 #include "Ellipse.h"
 #include <cassert>
 
-void test_EllipseDraw() {
+void test_EllipseDraw()
+{
+
 
 }
