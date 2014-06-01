@@ -8,20 +8,22 @@
 #include <iostream>
 #include "math.h"
 #include "Ellipse.h"
+#include "object.h"
 #include <cassert>
 
 void test_EllipseConstructor() {
 
-	Point A;
-	A.x = 1.0;
-	A.y = 1.0;
+	Point ellStart;
+	ellStart.x = 1.0;
+	ellStart.y = 1.0;
 
-	Point B;
-	B.x = 3.0;
-	B.y = 2.0;
+	Point ellEnd;
+	ellEnd.x = 3.0;
+	ellEnd.y = 2.0;
 
-	Ellipse myEll(A,B);
-	BBox bbox(A,B);
+	Ellipse myEll = new Ellipse();
+	//Ellipse myEll = new Ellipse(ellStart,ellEnd);
+	BBox bbox(ellStart,ellEnd);
 
 	Point tmpMax = bbox.getMax();
 	Point tmpMin = bbox.getMin();

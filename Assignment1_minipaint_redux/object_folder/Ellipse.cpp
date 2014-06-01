@@ -166,19 +166,32 @@ namespace {
 	 * @param ellPointColor struct to be inserted with point and color information
 	 * @param PointColorVec	vector with collection of point and color information
 	 */
-	void pushtoVector(vmath::vec4* fourPoints, Color ellColor, PointAndColor ellPointColor, std::vector<PointAndColor> PointColorVec)
+	void pushtoVector(vmath::vec4* fourPoints, Color ellColor, PointAndColor ellPointColor, std::vector<PointAndColor> PointColorVec, Point tmpPoint)
 	{
-		ellPointColor(fourPoints[0], ellColor);
+		tmpPoint.x = fourPoints[0][0];
+		tmpPoint.y = fourPoints[0][1];
+		ellPointColor.point = tmpPoint;
+		ellPointColor.color = ellColor;
 		PointColorVec.push_back(ellPointColor);
 
-		ellPointColor(fourPoints[1], ellColor);
+		tmpPoint.x = fourPoints[1][0];
+		tmpPoint.y = fourPoints[1][1];
+		ellPointColor.point = tmpPoint;
+		ellPointColor.color = ellColor;
 		PointColorVec.push_back(ellPointColor);
 
-		ellPointColor(fourPoints[2], ellColor);
+		tmpPoint.x = fourPoints[2][0];
+		tmpPoint.y = fourPoints[2][1];
+		ellPointColor.point = tmpPoint;
+		ellPointColor.color = ellColor;
 		PointColorVec.push_back(ellPointColor);
 
-		ellPointColor(fourPoints[3], ellColor);
+		tmpPoint.x = fourPoints[3][0];
+		tmpPoint.y = fourPoints[3][1];
+		ellPointColor.point = tmpPoint;
+		ellPointColor.color = ellColor;
 		PointColorVec.push_back(ellPointColor);
+
 	}
 
 	/**The rest of the transformations needed to put the points in the correct position
@@ -207,7 +220,11 @@ namespace {
  *
  */
 Ellipse::Ellipse() {
-	BBox bbox(0.0f, 0.0f);
+	Point A;
+	Point B;
+	A.x = A.y = B.x = B.y = 0.0;
+
+	BBox bbox(A, B);
 	start.update(0.0, 0.0);
 	float rx = 0.0;
 	float ry = 0.0;
@@ -253,13 +270,18 @@ std::vector<PointAndColor> Ellipse::draw() {
 
 	Point A;
 	Point B;
-	int i;
-	Color ellColor = glColor3f(0.0f, 0.0f, 0.0f);
-	PointAndColor ellPointColor;
+	Point tmpPoint;
+	Color ellColor;
+	ellColor.red = 0.0f;
+	ellColor.green = 0.0f;
+	ellColor.blue = 0.0f;
+
+	PointAndColor ellPointColor(tmpPoint, ellColor);
+
 	std::vector<PointAndColor> PointColorVec;
 	vmath::vec4* ellPoints;
-	vmath::vec4<float> vecX = (1.0f, 0.0f, 0.0f, 1.0f);
-	vmath::vec4<float> vecY = (0.0f, 1.0f, 0.0f, 1.0f);
+	vmath::vec4 vecX(1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::vec4 vecY(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vecX = vecX * transform->getScale();
 	vecY = vecY * transform->getScale();
@@ -285,7 +307,7 @@ std::vector<PointAndColor> Ellipse::draw() {
 		ellPoints = partialTransform(ellPoints, transform);
 
 		//Pushing the point and color information into the vector
-		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec);
+		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec, tmpPoint);
 
 		//Draw the points
 		drawFourPoints(ellPoints);
@@ -301,7 +323,7 @@ std::vector<PointAndColor> Ellipse::draw() {
 		ellPoints = partialTransform(ellPoints, transform);
 
 		//Pushing the point and color information into the vector
-		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec);
+		pushtoVector(ellPoints, ellColor, ellPointColor, PointColorVec, tmpPoint);
 
 		//Draw the points
 		drawFourPoints(ellPoints);
