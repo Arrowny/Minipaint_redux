@@ -18,11 +18,7 @@
  */
 BBoxObject::BBoxObject() {
 
-<<<<<<< HEAD
-	bbox = new BBox(0.0f, 0.0f);
-=======
 	bbox = new BBox();
->>>>>>> origin/Albert
 }
 
 /**

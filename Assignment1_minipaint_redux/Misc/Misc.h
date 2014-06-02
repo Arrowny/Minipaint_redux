@@ -7,7 +7,6 @@
 #include "vmath.h"
 #ifndef MISC_H_
 #define MISC_H_
-#include <iostream>
 /**
  * Simple 2D point struct. Represents point (x,y)
  */
@@ -50,11 +49,7 @@ struct Color {
 public:
 	float red, green, blue;
 
-<<<<<<< HEAD
-	Color() {
-=======
 	Color(){
->>>>>>> origin/Albert
 		red = 0.0f;
 		green = 0.0f;
 		blue = 0.0f;

@@ -22,7 +22,6 @@ public:
 	BBox();
 	BBox(Point min, Point max);
 	~BBox();
-
 	BBox unionBBox(Point uPoint);
 	BBox unionBBox(BBox uBox);
 	BBox expandBBox(float expX, float expY);
