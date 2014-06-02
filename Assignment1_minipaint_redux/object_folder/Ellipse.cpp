@@ -332,6 +332,7 @@ std::vector<PointAndColor> Ellipse::draw() {
 	return PointColorVec;
 }
 
+
 void Ellipse::update(Point ellStart, Point ellEnd) {
 	BBox bbox(ellStart, ellEnd);
 

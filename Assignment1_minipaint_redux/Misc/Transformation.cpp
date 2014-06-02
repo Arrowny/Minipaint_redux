@@ -15,17 +15,19 @@ Transformation::Transformation() {
 }
 
 Transformation::Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale) {
-
 	Translation = vmath::translate(xTrans, yTrans, 0.0f);
 	Rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	Scale = vmath::scale(xScale, yScale, 0.0f);
 	Transform.identity();
 	Transform = Translation * Rotation * Scale;
+
 }
 
 Transformation::~Transformation() {
 	// TODO Auto-generated destructor stub
 }
+
+
 
 /**  This setTranslation is used to move objects along vector ( xTrans , yTrans ), and then set the new Transformation matrix
 *
