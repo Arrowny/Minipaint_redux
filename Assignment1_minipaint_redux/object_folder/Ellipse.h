@@ -11,6 +11,7 @@
 #include "Object.h"
 
 class Ellipse: public Object {
+
 private:
 	Point start;
 	Point end;
@@ -18,7 +19,7 @@ private:
 public:
 	Ellipse();
 	Ellipse(Point ellStart, Point ellEnd);
-	~Ellipse();
+	virtual ~Ellipse();
 	std::vector<PointAndColor> draw();
 	void update(Point ellStart, Point ellEnd);
 	void setTranslation(float xTrans, float yTrans);

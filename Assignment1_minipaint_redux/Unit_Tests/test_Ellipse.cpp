@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "math.h"
-#include "Object.h"
 #include "Ellipse.h"
 #include <cassert>
 
@@ -21,8 +20,9 @@ void test_EllipseConstructor() {
 	ellEnd.x = 3.0;
 	ellEnd.y = 2.0;
 
-	Ellipse myEll(ellStart,ellEnd);
+	Object.Ellipse myEll;
 	BBox bbox(ellStart,ellEnd);
+
 
 	Point tmpMax = bbox.getMax();
 	Point tmpMin = bbox.getMin();
