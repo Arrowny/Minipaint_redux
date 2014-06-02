@@ -160,7 +160,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="object_folder/Line.cpp|Unit_Tests/test_BBox.cpp|object_folder/BBoxObject.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Unit_Tests/test_Line.cpp|object_folder/Line.cpp|Unit_Tests/test_BBox.cpp|object_folder/BBoxObject.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

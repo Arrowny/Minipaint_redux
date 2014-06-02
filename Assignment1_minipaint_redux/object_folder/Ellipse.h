@@ -8,27 +8,30 @@
 #ifndef ELLIPSE_H_
 #define ELLIPSE_H_
 
-#include "Object.h"
+#include "object.h"
 
-class Ellipse: public Object {
+class drawableEllipse: public Object {
 
 private:
 	Point start;
 	Point end;
 
 public:
-	Ellipse();
-	Ellipse(Point ellStart, Point ellEnd);
-	virtual ~Ellipse();
+	drawableEllipse();
+	drawableEllipse(Point ellStart, Point ellEnd);
+	virtual ~drawableEllipse();
 	std::vector<PointAndColor> draw();
 	void update(Point ellStart, Point ellEnd);
 	void setTranslation(float xTrans, float yTrans);
 	void setRotation(float theta);
 	void setScale(float xScale, float yScale);
-	void getTransformation();
-	void getTranslation();
-	void getRotation();
-	void getScale();
+	vmath::mat4 getTransformation();
+	vmath::mat4 getTranslation();
+	vmath::mat4 getRotation();
+	vmath::mat4 getScale();
+	void PrintTransform();
+	Point getMax();
+	Point getMin();
 
 
 };

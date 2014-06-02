@@ -6,11 +6,11 @@
  */
 
 #include "Ellipse.h"
-
+#include <math.h>
 //#include "Misc.h"
 //#include "GL/gl.h"
 //#include "vmath.h"
-//#include "BBox.h"
+#include "BBox.h"
 
 /////////////////////////////////////////////////////////////////Namespace/////////////////////////////////////////////////////////////////
 
@@ -219,7 +219,7 @@ namespace {
 /** Default constructor for ellipse
  *
  */
-Ellipse::Ellipse() {
+drawableEllipse::drawableEllipse() {
 	Point A;
 	Point B;
 	A.x = A.y = B.x = B.y = 0.0;
@@ -236,19 +236,27 @@ Ellipse::Ellipse() {
  * @param ellStart (x,y) coordinates of Start point
  * @param ellEnd (x,y) coordinates of End point
  */
-Ellipse::Ellipse(Point ellStart, Point ellEnd) {
+drawableEllipse::drawableEllipse(Point ellStart, Point ellEnd) {
 
-	start = ellStart;
-	end = ellEnd;
+//	start = ellStart;
+//	end = ellEnd;
 	BBox bbox(ellStart, ellEnd);
 
 	Point midpoint;
 	Point minimum = bbox.getMin();
 
-	float rx = abs(ellEnd.x - ellStart.x) / 2;
-	float ry = abs(ellEnd.y - ellStart.y) / 2;
+	std::cout<<"bbox minx ="<<minimum.x<<std::endl;
+	std::cout<<"bbox miny ="<<minimum.y<<std::endl;
+
+	float rx = abs(ellEnd.x - ellStart.x) / 2.0f;
+	float ry = abs(ellEnd.y - ellStart.y) / 2.0f;
 	midpoint.x = minimum.x + rx;
 	midpoint.y = minimum.y + ry;
+
+	std::cout<<"rx ="<<rx<<std::endl;
+	std::cout<<"ry ="<<ry<<std::endl;
+	std::cout<<"midpointx ="<<midpoint.x<<std::endl;
+	std::cout<<"midpointy ="<<midpoint.y<<std::endl;
 
 	transform = new Transformation(0.0, midpoint.x, midpoint.y, rx, ry);
 
@@ -257,7 +265,7 @@ Ellipse::Ellipse(Point ellStart, Point ellEnd) {
 /**Destructor for ellipse
  *
  */
-Ellipse::~Ellipse() {
+drawableEllipse::~drawableEllipse() {
 
 }
 
@@ -266,7 +274,7 @@ Ellipse::~Ellipse() {
 /**Draws Ellipse with parameters specified in the constructor
  *
  */
-std::vector<PointAndColor> Ellipse::draw() {
+std::vector<PointAndColor> drawableEllipse::draw() {
 
 	Point A;
 	Point B;
@@ -333,50 +341,69 @@ std::vector<PointAndColor> Ellipse::draw() {
 }
 
 
-void Ellipse::update(Point ellStart, Point ellEnd) {
+void drawableEllipse::update(Point ellStart, Point ellEnd) {
 	BBox bbox(ellStart, ellEnd);
 
 }
 
-void Ellipse::setTranslation(float rx, float ry) {
+void drawableEllipse::setTranslation(float rx, float ry) {
 
 	transform->setTranslation(rx, ry);
 
 }
 
-void Ellipse::setRotation(float theta) {
+void drawableEllipse::setRotation(float theta) {
 
 	transform->setRotation(theta);
 
 }
 
-void Ellipse::setScale(float rx, float ry) {
+void drawableEllipse::setScale(float rx, float ry) {
 
 	transform->setScale(rx, ry);
 
 }
 
-void Ellipse::getTransformation() {
+vmath::mat4 drawableEllipse::getTransformation() {
 
 	transform->getTransformation();
 
 }
 
 
-void Ellipse::getTranslation() {
+vmath::mat4 drawableEllipse::getTranslation() {
 
 	transform->getTranslation();
 
 }
 
-void Ellipse::getRotation() {
+vmath::mat4 drawableEllipse::getRotation() {
 
 	transform->getRotation();
 
 }
 
-void Ellipse::getScale() {
+vmath::mat4 drawableEllipse::getScale() {
 
 	transform->getScale();
 
+}
+
+Point drawableEllipse::getMax() {
+
+	start = bbox->getMax();
+	return start;
+
+}
+
+Point drawableEllipse::getMin() {
+
+	end = bbox->getMin();
+	return end;
+
+}
+
+void drawableEllipse::PrintTransform(){
+
+	transform->print();
 }

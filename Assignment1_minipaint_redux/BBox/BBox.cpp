@@ -196,13 +196,13 @@ Point* BBox::getCorners() {
  * return min of bounding box
  */
 Point BBox::getMax() {
-	return min;
+	return max;
 }
 
 /**
  * return max of bounding box
  */
 Point BBox::getMin() {
-	return max;
+	return min;
 }
 
