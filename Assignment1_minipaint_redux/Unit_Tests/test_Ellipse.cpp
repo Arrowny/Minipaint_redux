@@ -34,13 +34,13 @@ void test_EllipseConstructor() {
 	ScaleX = myEll.getScale();
 	myEll.PrintTransform();
 
-	ellPointMax = myEll.getMax();
-	ellPointMin = myEll.getMin();
+//	ellPointMax = myEll.getMax();
+//	ellPointMin = myEll.getMin();
 //	Point tmpMax(ScaleX[0][0],ScaleX[0][1]);
 //	Point tmpMin(ScaleX[1][0],ScaleX[2][2]);
 //
-	std::cout<<"ellPointMax ="<<ellPointMax.x<<","<<ellPointMax.y<<std::endl;
-	std::cout<<"ellPointMin ="<<ellPointMin.x<<","<<ellPointMin.y<<std::endl;
+//	std::cout<<"ellPointMax ="<<ellPointMax.x<<","<<ellPointMax.y<<std::endl;
+//	std::cout<<"ellPointMin ="<<ellPointMin.x<<","<<ellPointMin.y<<std::endl;
 
 //	assert(ellPointMax.x == 3.0f);
 //	assert(ellPointMax.y == 3.0f);
@@ -58,27 +58,19 @@ void test_EllipseDraw() {
 	ellEnd.x = 3.0;
 	ellEnd.y = 2.0;
 
+	std::vector<PointAndColor> PointColorVec;
+
 	drawableEllipse myEll(ellStart,ellEnd);
-	BBox bbox(ellStart,ellEnd);
+	PointColorVec = myEll.draw();
 
-	std::cout<<"ellStart ="<<ellStart.x<<","<<ellStart.y<<std::endl;
-	std::cout<<"ellEnd ="<<ellEnd.x<<","<<ellEnd.y<<std::endl;
+	std::cout<<"PointColorVec ="<<PointColorVec<<","<<PointColorVec[1]<<std::endl;
 
-	Point tmpMax = bbox.getMax();
-	Point tmpMin = bbox.getMin();
-
-	std::cout<<"tmpMax ="<<tmpMax.x<<","<<tmpMax.y<<std::endl;
-	std::cout<<"tmpMin ="<<tmpMin.x<<","<<tmpMin.y<<std::endl;
-
-	assert(tmpMax.x == 3.0f);
-	assert(tmpMax.y == 2.0f);
-	assert(tmpMin.x == 1.0f);
-	assert(tmpMin.y == 1.0f);
 }
 
 int main() {
 	std::cout<<"Welcome to Ellipse test"<<std::endl;
 	test_EllipseConstructor();
+	test_EllipseDraw();
 	std::cout<<"All Tests passed!"<<std::endl;
 	return 0;
 }
