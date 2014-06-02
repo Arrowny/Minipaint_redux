@@ -22,9 +22,6 @@ public:
 	Line();
 	Line(Point lineStart, Point lineEnd);
 	virtual ~Line();
-<<<<<<< HEAD
-	std::vector<PointAndColor> draw();
-=======
 	/**
 	 * inherit object draw function. Draws lines to screen
 	 */
@@ -34,7 +31,6 @@ public:
 	 * get the position of start point and return its coordinate.
 	 * @return: its coordinate
 	 */
->>>>>>> origin/Albert
 	Point getStart();
 
 	/**

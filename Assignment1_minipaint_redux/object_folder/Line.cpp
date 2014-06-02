@@ -136,15 +136,12 @@ Line::~Line() {
  * @param start_p: the start point
  * @param end_p: the end point
  */
-<<<<<<< HEAD
-std::vector<PointAndColor> Line::draw() {
-=======
+
 std::vector<PointAndColor>  Line::draw() {
 
 	Point start_p ;
 	Point end_p ;
 	std::vector<PointAndColor> linePointColor;
->>>>>>> origin/Albert
 
 	start_vec[0] = -1.0f;
 	start_vec[1] = 0.0f;
