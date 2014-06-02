@@ -20,7 +20,7 @@ void test_EllipseConstructor() {
 	ellEnd.x = 3.0;
 	ellEnd.y = 2.0;
 
-	Object.Ellipse myEll;
+	Ellipse myEll;
 	BBox bbox(ellStart,ellEnd);
 
 

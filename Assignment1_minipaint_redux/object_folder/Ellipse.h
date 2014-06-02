@@ -25,6 +25,7 @@ public:
 	void setTranslation(float xTrans, float yTrans);
 	void setRotation(float theta);
 	void setScale(float xScale, float yScale);
+	void getTransformation();
 	void getTranslation();
 	void getRotation();
 	void getScale();

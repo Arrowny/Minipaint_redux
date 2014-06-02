@@ -355,6 +355,13 @@ void Ellipse::setScale(float rx, float ry) {
 
 }
 
+void Ellipse::getTransformation() {
+
+	transform->getTransformation();
+
+}
+
+
 void Ellipse::getTranslation() {
 
 	transform->getTranslation();

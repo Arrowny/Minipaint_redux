@@ -51,6 +51,18 @@ public:
 	 * Increase/Decrease size of an object
 	 */
 	virtual void setScale(float xScale, float yScale) = 0;
+
+	/**
+	 * gets matrix of each transformation.
+	 *
+	 * @return 4x4 matrix representing transformation/translation/rotation/scale matrix of transformation.
+	 * Note: this transformation requires that points be represented in the form
+	 * 		 [x,y,0.0f,1.0f].
+	 */
+	vmath::mat4 getTransformation();
+	vmath::mat4 getTranslation();
+	vmath::mat4 getRotation();
+	vmath::mat4 getScale();
 };
 
 #endif /* OBJECT_H_ */
