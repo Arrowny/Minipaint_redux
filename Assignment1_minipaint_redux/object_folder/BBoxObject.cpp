@@ -6,7 +6,7 @@
  */
 
 #include <BBox.h>
-#include <GL/gl.h>
+#include <gl.h>
 #include <Misc.h>
 #include <BBoxObject.h>
 
@@ -15,7 +15,7 @@
  */
 BBoxObject::BBoxObject() {
 
-	bbox = new BBox(0.0, 0.0);
+	bbox = new BBox();
 }
 
 /**
@@ -40,16 +40,16 @@ std::vector<PointAndColor> BBoxObject::draw() {
 	Point start_p = bbox->getMin();
 	Point end_p = bbox->getMax();
 
-	glBegin(GL_LINES);
-	glVertex2f(start_p.x, start_p.y);
-	glVertex2f(end_p.x, start_p.y);
-	glVertex2f(end_p.x, start_p.y);
-	glVertex2f(end_p.x, end_p.y);
-	glVertex2f(end_p.x, end_p.y);
-	glVertex2f(start_p.x, end_p.y);
-	glVertex2f(start_p.x, end_p.y);
-	glVertex2f(start_p.x, start_p.y);
-	glEnd();
+//	glBegin(GL_LINES);
+//	glVertex2f(start_p.x, start_p.y);
+//	glVertex2f(end_p.x, start_p.y);
+//	glVertex2f(end_p.x, start_p.y);
+//	glVertex2f(end_p.x, end_p.y);
+//	glVertex2f(end_p.x, end_p.y);
+//	glVertex2f(start_p.x, end_p.y);
+//	glVertex2f(start_p.x, end_p.y);
+//	glVertex2f(start_p.x, start_p.y);
+//	glEnd();
 
 	return NULL;
 }

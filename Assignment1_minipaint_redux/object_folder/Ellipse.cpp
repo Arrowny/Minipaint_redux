@@ -39,6 +39,7 @@ namespace {
  * @param y y-coordinate
  */
 void FourPointSymmetry(Point start_p, float x, float y) {
+
 	glBegin (GL_POINTS);
 	glVertex2i(start_p.x + x, start_p.y + y);
 	glVertex2i(start_p.x - x, start_p.y + y);

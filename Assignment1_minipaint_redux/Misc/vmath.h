@@ -4,6 +4,7 @@
 
 #define _USE_MATH_DEFINES  1 // Include constants defined in math.h
 #include <math.h>
+#include <iostream>
 
 namespace vmath
 {
@@ -531,7 +532,7 @@ public:
     static inline int width(void) { return w; }
     static inline int height(void) { return h; }
 
-protected:
+public:
     // Column primary data (essentially, array of vectors)
     vecN<T,h> data[w];
 
@@ -634,7 +635,7 @@ static inline mat4 perspective(float fovy /* in degrees */, float aspect, float 
 	float  right = top * aspect; // left = -right
 	return frustum(-right, right, -top, top, n, f);
 }
-
+/*
 template <typename T>
 static inline Tmat4<T> lookat(vecN<T,3> eye, vecN<T,3> center, vecN<T,3> up)
 {
@@ -649,6 +650,7 @@ static inline Tmat4<T> lookat(vecN<T,3> eye, vecN<T,3> center, vecN<T,3> up)
 
     return M * translate<T>(-eye);
 }
+*/
 
 template <typename T>
 static inline Tmat4<T> translate(T x, T y, T z)
@@ -805,8 +807,10 @@ static inline vecN<T,N> operator*(const vecN<T,M>& vec, const matNM<T,N,M>& mat)
     {
         for (n = 0; n < N; n++)
         {
-            result[n] += vec[m] * mat[n][m];
+        	//Debug: std::cout<<vec[n]<<"*"<<mat[n][m]<<"+";
+            result[m] += vec[n] * mat[n][m];
         }
+        //Debug: std::cout<<"="<<result[m]<<std::endl;;
     }
 
     return result;
