@@ -52,6 +52,7 @@ void test_Union_Point_And_Assignment_Copy_Operators() {
 	BBox defaultBBox;
 
 	Point unionPoint(5.0,5.0);
+
 	BBox* originalAddress = &defaultBBox;
 	defaultBBox = defaultBBox.unionBBox(unionPoint);
 	BBox* newAddress = &defaultBBox;
@@ -86,6 +87,18 @@ void test_Union_Point_And_Assignment_Copy_Operators() {
 
 	//check copy constructor. Copy should not have same address as original.
 	assert (&(*newAddress) != &checkCopy);
+
+	//check whether bbox expands appropriately when unioned
+	Point unionPoint2(1.0,10.0);
+	defaultBBox = defaultBBox.unionBBox(unionPoint2);
+
+	tmpMax = defaultBBox.getMax();
+	tmpMin = defaultBBox.getMin();
+
+	assert(tmpMin.x == 1.0f);
+	assert(tmpMin.y == 5.0f);
+	assert(tmpMax.x == 5.0f);
+	assert(tmpMax.y == 10.0f);
 }
 
 void test_Union_BBox() {
