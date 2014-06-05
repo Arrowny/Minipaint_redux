@@ -6,10 +6,7 @@
  */
 
 #include <BBox.h>
-#include <windows.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/glu.h>
+#include <gl.h>
 #include <Misc.h>
 #include <BBoxObject.h>
 
@@ -32,7 +29,7 @@ BBoxObject::BBoxObject(Point a, Point b) {
 }
 
 BBoxObject::BBoxObject(BBox newBBox) {
-	bbox = new newBBox(newBBox.getMin(), newBBox.getMax());
+	bbox = newBBox;
 }
 
 BBoxObject::~BBoxObject() {
@@ -43,16 +40,16 @@ std::vector<PointAndColor> BBoxObject::draw() {
 	Point start_p = bbox->getMin();
 	Point end_p = bbox->getMax();
 
-	glBegin(GL_LINES);
-	glVertex2f(start_p.x, start_p.y);
-	glVertex2f(end_p.x, start_p.y);
-	glVertex2f(end_p.x, start_p.y);
-	glVertex2f(end_p.x, end_p.y);
-	glVertex2f(end_p.x, end_p.y);
-	glVertex2f(start_p.x, end_p.y);
-	glVertex2f(start_p.x, end_p.y);
-	glVertex2f(start_p.x, start_p.y);
-	glEnd();
+//	glBegin(GL_LINES);
+//	glVertex2f(start_p.x, start_p.y);
+//	glVertex2f(end_p.x, start_p.y);
+//	glVertex2f(end_p.x, start_p.y);
+//	glVertex2f(end_p.x, end_p.y);
+//	glVertex2f(end_p.x, end_p.y);
+//	glVertex2f(start_p.x, end_p.y);
+//	glVertex2f(start_p.x, end_p.y);
+//	glVertex2f(start_p.x, start_p.y);
+//	glEnd();
 
 	return NULL;
 }
@@ -86,4 +83,8 @@ bool BBoxObject::inside(Point a) {
  */
 void BBoxObject::update(Point a, Point b) {
 	updateBBox(a,b);
+}
+
+void BBoxObject::print() {
+	bbox->print();
 }

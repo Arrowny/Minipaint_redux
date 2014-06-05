@@ -21,6 +21,7 @@ public:
 	Point* getCorners();
 	bool inside(Point a);
 	void update(Point a, Point b);
+	void print()
 };
 
 #endif /* RECTANGLE_H_ */

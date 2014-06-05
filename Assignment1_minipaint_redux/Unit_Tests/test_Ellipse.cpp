@@ -9,16 +9,20 @@
 #include "math.h"
 #include "Ellipse.h"
 #include <cassert>
+#include <algorithm>
+#include <iterator>
+#include <string>
+#include <vector>
 
 void test_EllipseConstructor() {
 
 	Point ellStart;
 	ellStart.x = 1.0;
-	ellStart.y = 3.0;
+	ellStart.y = 1.0;
 
 	Point ellEnd;
-	ellEnd.x = 3.0;
-	ellEnd.y = 2.0;
+	ellEnd.x = 10.0;
+	ellEnd.y = 10.0;
 
 	vmath::mat4 ScaleX;
 	vmath::Tmat4<float> ScaleY;
@@ -50,26 +54,31 @@ void test_EllipseConstructor() {
 
 void test_EllipseDraw() {
 
-	Point ellStart;
-	ellStart.x = 1.0;
-	ellStart.y = 1.0;
+	Point A;
+	A.x = 1.0f;
+	A.y = 1.0f;
 
-	Point ellEnd;
-	ellEnd.x = 3.0;
-	ellEnd.y = 2.0;
+	Point B;
+	B.x = 20.0f;
+	B.y = 20.0f;
+
+	Point tmp;
 
 	std::vector<PointAndColor> PointColorVec;
 
-	drawableEllipse myEll(ellStart,ellEnd);
-	PointColorVec = myEll.draw();
+	drawableEllipse tryEll(A,B);
+	PointColorVec = tryEll.draw();
 
-	std::cout<<"PointColorVec ="<<PointColorVec<<","<<PointColorVec[1]<<std::endl;
+//	tmp.x = PointColorVec[1].color.red;
+//	tmp.y = PointColorVec[1].color.green;
+
+	std::cerr<<"PointColorVec = "<<PointColorVec.size()<<std::endl;
 
 }
 
 int main() {
 	std::cout<<"Welcome to Ellipse test"<<std::endl;
-	test_EllipseConstructor();
+	//test_EllipseConstructor();
 	test_EllipseDraw();
 	std::cout<<"All Tests passed!"<<std::endl;
 	return 0;

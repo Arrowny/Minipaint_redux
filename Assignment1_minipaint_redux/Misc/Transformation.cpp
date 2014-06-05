@@ -8,6 +8,7 @@
 #include <Transformation.h>
 #include <iostream>
 
+
 namespace {
 
 	bool invertMatrix(const float m[16], float invOut[16])
@@ -142,11 +143,11 @@ namespace {
 
 }
 Transformation::Transformation() {
-	translation.identity();
-	rotation.identity();
-	scale.identity();
-	transform.identity();
-	invTransform.identity();
+	translation = translation.identity();
+	rotation = rotation.identity();
+	scale = scale.identity();
+	transform = transform.identity();
+	invTransform = invTransform.identity();
 }
 
 Transformation::Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale) {
@@ -154,7 +155,7 @@ Transformation::Transformation(float theta, float xTrans, float yTrans, float xS
 	translation = vmath::translate(xTrans, yTrans, 0.0f);
 	rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	scale = vmath::scale(xScale, yScale, 1.0f);
-	transform.identity();
+	transform = transform.identity();
 	transform = scale * rotation * translation;
 	invTransform = setInvTransform();
 }
@@ -171,7 +172,7 @@ Transformation::~Transformation() {
 void Transformation::setTranslation(float xTrans, float yTrans){
 
 	translation = vmath::translate(xTrans, yTrans, 0.0f);
-	transform.identity();
+	transform = transform.identity();
 	transform = scale * rotation * translation;
 	invTransform = setInvTransform();
 }
@@ -183,7 +184,7 @@ void Transformation::setTranslation(float xTrans, float yTrans){
  */
 void Transformation::setRotation(float theta) {
 	rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
-	transform.identity();
+	transform = transform.identity();
 	transform = scale * rotation * translation;
 	invTransform = setInvTransform();
 }
@@ -197,7 +198,7 @@ void Transformation::setScale(float xScale, float yScale)
 {
 
 	scale = vmath::scale(xScale, yScale, 1.0f);
-	transform.identity();
+	transform = transform.identity();
 	transform = scale * rotation * translation;
 	invTransform = setInvTransform();
 }
@@ -251,8 +252,8 @@ vmath::Tmat4<float> Transformation::getTransformation() {
  * @return equivalent point in object space
  */
 Point Transformation::worldtoObj(Point worldPoint) {
-	vmath::vec4 worldVec(worldPoint.x, worldPoint.y, 0.0, 1.0);
-	vmath::vec4 objectVec = worldVec*invTransform;
+	vmath::Tvec4<float> worldVec(worldPoint.x, worldPoint.y, 0.0f, 1.0f);
+	vmath::Tvec4<float> objectVec = (worldVec*invTransform);
 	Point objPoint(objectVec[0], objectVec[1]);
 	return objPoint;
 }
@@ -264,8 +265,8 @@ Point Transformation::worldtoObj(Point worldPoint) {
  * @return equivalent point in world space
  */
 Point Transformation::objToWorld(Point objPoint) {
-	vmath::vec4 objVec(objPoint.x, objPoint.y, 0.0, 1.0);
-	vmath::vec4 worldVec = objVec*invTransform;
+	vmath::Tvec4<float> objVec(objPoint.x, objPoint.y, 0.0f, 1.0f);
+	vmath::Tvec4<float> worldVec = objVec*transform;
 	Point worldPoint(worldVec[0], worldVec[1]);
 	return worldPoint;
 }
@@ -353,7 +354,6 @@ void Transformation::print() {
 			if(j == 0) {
 				std::cout<<"|";
 			}
-
 			std::cout<<" "<<transform[i][j];
 
 			if(j == 3) {

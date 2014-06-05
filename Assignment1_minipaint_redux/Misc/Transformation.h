@@ -20,8 +20,8 @@ private:
 	vmath::Tmat4<float> scale;
 	vmath::Tmat4<float> transform;
 	vmath::Tmat4<float> invTransform;
-	vmath::Tmat4<float> setInvTransform();
 
+	vmath::Tmat4<float> setInvTransform();
 public:
 	Transformation();
 	Transformation(float theta, float xTrans, float yTrans, float xScale, float yScale);

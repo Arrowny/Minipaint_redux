@@ -4,6 +4,7 @@
 
 #define _USE_MATH_DEFINES  1 // Include constants defined in math.h
 #include <math.h>
+#include <iostream>
 
 namespace vmath
 {
@@ -531,7 +532,7 @@ public:
     static inline int width(void) { return w; }
     static inline int height(void) { return h; }
 
-protected:
+public:
     // Column primary data (essentially, array of vectors)
     vecN<T,h> data[w];
 
@@ -634,21 +635,22 @@ static inline mat4 perspective(float fovy /* in degrees */, float aspect, float 
 	float  right = top * aspect; // left = -right
 	return frustum(-right, right, -top, top, n, f);
 }
+/*
+template <typename T>
+static inline Tmat4<T> lookat(vecN<T,3> eye, vecN<T,3> center, vecN<T,3> up)
+{
+    const Tvec3<T> f = normalize(center - eye);
+    const Tvec3<T> upN = normalize(up);
+    const Tvec3<T> s = cross(f, upN);
+    const Tvec3<T> u = cross(s, f);
+    const Tmat4<T> M = Tmat4<T>(Tvec4<T>(s[0], u[0], -f[0], T(0)),
+                                Tvec4<T>(s[1], u[1], -f[1], T(0)),
+                                Tvec4<T>(s[2], u[2], -f[2], T(0)),
+                                Tvec4<T>(T(0), T(0), T(0), T(1)));
 
-//template <typename T>
-//static inline Tmat4<T> lookat(vecN<T,3> eye, vecN<T,3> center, vecN<T,3> up)
-//{
-//    const Tvec3<T> f = normalize(center - eye);
-//    const Tvec3<T> upN = normalize(up);
-//    const Tvec3<T> s = cross(f, upN);
-//    const Tvec3<T> u = cross(s, f);
-//    const Tmat4<T> M = Tmat4<T>(Tvec4<T>(s[0], u[0], -f[0], T(0)),
-//                                Tvec4<T>(s[1], u[1], -f[1], T(0)),
-//                                Tvec4<T>(s[2], u[2], -f[2], T(0)),
-//                                Tvec4<T>(T(0), T(0), T(0), T(1)));
-//
-//    return M * translate<T>(-eye);
-//}
+    return M * translate<T>(-eye);
+}
+*/
 
 template <typename T>
 static inline Tmat4<T> translate(T x, T y, T z)
@@ -805,8 +807,10 @@ static inline vecN<T,N> operator*(const vecN<T,M>& vec, const matNM<T,N,M>& mat)
     {
         for (n = 0; n < N; n++)
         {
-            result[n] += vec[m] * mat[n][m];
+        	//Debug: std::cout<<vec[n]<<"*"<<mat[n][m]<<"+";
+            result[m] += vec[n] * mat[n][m];
         }
+        //Debug: std::cout<<"="<<result[m]<<std::endl;;
     }
 
     return result;
