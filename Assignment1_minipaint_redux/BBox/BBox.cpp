@@ -195,7 +195,7 @@ BBox BBox::unionBBox(Point uPoint) {
 	Point uMinWorld = transform->objToWorld(uMinObj);
 	Point uMaxWorld = transform->objToWorld(uMaxObj);
 
-	BBox unionedBBox(uMinObj, uMaxObj);
+	BBox unionedBBox(uMinWorld, uMaxWorld);
 	return unionedBBox;
 }
 

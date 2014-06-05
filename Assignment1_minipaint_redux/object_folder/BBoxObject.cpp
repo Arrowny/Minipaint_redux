@@ -84,3 +84,7 @@ bool BBoxObject::inside(Point a) {
 void BBoxObject::update(Point a, Point b) {
 	updateBBox(a,b);
 }
+
+void BBoxObject::print() {
+	bbox->print();
+}
