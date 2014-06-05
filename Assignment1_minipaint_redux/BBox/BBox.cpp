@@ -260,12 +260,7 @@ BBox BBox::expandBBox(float expX, float expY) {
 	return expandedBBox;
 }
 
-/**
- * Const function tests whether or not a Point "testPt" is within the BBox's bounding box
- *
- * @param testPt Point to test insidedness on
- * @return boolean representing whether or not Point is inside BBox's bounding box
- */
+
 bool BBox::insideBBox(Point testPt) {
 
 	Point objTestPt = transform->worldtoObj(testPt);

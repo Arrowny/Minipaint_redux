@@ -17,14 +17,14 @@
 void test_EllipseConstructor() {
 
 	Point ellStart;
-	ellStart.x = 1.0;
-	ellStart.y = 1.0;
+	ellStart.x = 1.0f;
+	ellStart.y = 1.0f;
 
 	Point ellEnd;
-	ellEnd.x = 10.0;
-	ellEnd.y = 10.0;
+	ellEnd.x = 5.0f;
+	ellEnd.y = 5.0f;
 
-	vmath::mat4 ScaleX;
+	vmath::Tmat4<float> ScaleX;
 	vmath::Tmat4<float> ScaleY;
 	Point ellPointMax;
 	Point ellPointMin;
@@ -38,18 +38,18 @@ void test_EllipseConstructor() {
 	ScaleX = myEll.getScale();
 	myEll.PrintTransform();
 
-//	ellPointMax = myEll.getMax();
-//	ellPointMin = myEll.getMin();
+	ellPointMax = myEll.getMax();
+	ellPointMin = myEll.getMin();
 //	Point tmpMax(ScaleX[0][0],ScaleX[0][1]);
 //	Point tmpMin(ScaleX[1][0],ScaleX[2][2]);
 //
-//	std::cout<<"ellPointMax ="<<ellPointMax.x<<","<<ellPointMax.y<<std::endl;
-//	std::cout<<"ellPointMin ="<<ellPointMin.x<<","<<ellPointMin.y<<std::endl;
+	std::cout<<"ellPointMax ="<<ellPointMax.x<<","<<ellPointMax.y<<std::endl;
+	std::cout<<"ellPointMin ="<<ellPointMin.x<<","<<ellPointMin.y<<std::endl;
 
-//	assert(ellPointMax.x == 3.0f);
-//	assert(ellPointMax.y == 3.0f);
+//	assert(ellPointMax.x == 10.0f);
+//	assert(ellPointMax.y == 10.0f);
 //	assert(ellPointMin.x == 1.0f);
-//	assert(ellPointMin.y == 2.0f);
+//	assert(ellPointMin.y == 1.0f);
 }
 
 void test_EllipseDraw() {
@@ -62,15 +62,10 @@ void test_EllipseDraw() {
 	B.x = 20.0f;
 	B.y = 20.0f;
 
-	Point tmp;
-
 	std::vector<PointAndColor> PointColorVec;
 
 	drawableEllipse tryEll(A,B);
 	PointColorVec = tryEll.draw();
-
-//	tmp.x = PointColorVec[1].color.red;
-//	tmp.y = PointColorVec[1].color.green;
 
 	std::cerr<<"PointColorVec = "<<PointColorVec.size()<<std::endl;
 
@@ -78,27 +73,8 @@ void test_EllipseDraw() {
 
 int main() {
 	std::cout<<"Welcome to Ellipse test"<<std::endl;
-	//test_EllipseConstructor();
-	test_EllipseDraw();
+	test_EllipseConstructor();
+	//test_EllipseDraw();
 	std::cout<<"All Tests passed!"<<std::endl;
 	return 0;
 }
-
-//void test_EllipseDraw() {
-//
-//	Point A;
-//	A.x = 1.0;
-//	A.y = 1.0;
-//
-//	Point B;
-//	B.x = 3.0;
-//	B.y = 2.0;
-//
-//	std::vector<PointAndColor> PointColorVec;
-//
-//	Ellipse myEll = Ellipse(A,B);
-//	PointColorVec = myEll.draw();
-//
-//	assert(PointColorVec[0][0] == 2.0);
-//	assert(PointColorVec[0][1] == 2.0);
-//}

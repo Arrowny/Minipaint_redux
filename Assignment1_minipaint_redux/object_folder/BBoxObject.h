@@ -19,9 +19,8 @@ public:
 	virtual ~BBoxObject();
 	std::vector<PointAndColor> draw();
 	Point* getCorners();
-	bool inside(Point a);
 	void update(Point a, Point b);
-	void print()
+	void print();
 };
 
 #endif /* RECTANGLE_H_ */

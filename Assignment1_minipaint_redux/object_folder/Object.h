@@ -63,6 +63,8 @@ public:
 	vmath::mat4 getTranslation();
 	vmath::mat4 getRotation();
 	vmath::mat4 getScale();
+
+	bool inside(Point Pt);
 };
 
 #endif /* OBJECT_H_ */

@@ -25,3 +25,14 @@ Object::~Object() {
 void Object::updateBBox(Point a, Point b) {
 	bbox = new BBox(a,b);
 }
+
+/**
+ * Const function tests whether or not a Point "testPt" is within the BBox's bounding box
+ *
+ * @param Pt Point to test insidedness on
+ * @return boolean representing whether or not Point is inside BBox's bounding box
+ */
+bool Object::inside(Point Pt){
+
+	bbox->insideBBox(Pt);
+}
