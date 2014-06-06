@@ -34,6 +34,7 @@ public:
 	Point* getCorners();
 	Point getMax();
 	Point getMin();
+	Point getCenter();
 	void print();
 };
 

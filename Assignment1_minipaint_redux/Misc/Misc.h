@@ -8,6 +8,7 @@
 #ifndef MISC_H_
 #define MISC_H_
 #include <iostream>
+#include "vmath.h"
 
 /**
  * Simple 2D point struct. Represents point (x,y)
@@ -39,8 +40,22 @@ public:
 		else
 		{return false;}
 	}
+
 	void printP(){
 		std::cout<<"The Point is: ( "<<x<<" , "<<y<<" )"<<std::endl;
+	}
+
+	/**
+	 * creates a transformed Point by applying the transform trans to this point
+	 *
+	 * @param trans transformation
+	 * @return the transformed point resulting from applying the transform trans to the point p
+	 */
+	Point transform(vmath::Tmat4<float> trans) {
+		vmath::Tvec4<float> pVec(this->x,this->y,0.0f,1.0f);
+		vmath::Tvec4<float> transVec = pVec*trans;
+		Point transPoint(transVec[0],transVec[1]);
+		return transPoint;
 	}
 
 	//TODO Add assignment, addition, subtraction, multiplication operations if time allows

@@ -10,16 +10,30 @@
 
 #include "object.h"
 
-class Ellipse: public Object {
+class drawableEllipse: public Object {
+
 private:
 	Point start;
 	Point end;
+
 public:
-	Ellipse();
-	Ellipse(Point ellStart, Point ellEnd);
-	~Ellipse();
-	void draw(Point start_p, float rx, float ry);
+	drawableEllipse();
+	drawableEllipse(Point ellStart, Point ellEnd);
+	virtual ~drawableEllipse();
+	std::vector<PointAndColor> draw();
 	void update(Point ellStart, Point ellEnd);
+	void setTranslation(float xTrans, float yTrans);
+	void setRotation(float theta);
+	void setScale(float xScale, float yScale);
+	vmath::mat4 getTransformation();
+	vmath::mat4 getTranslation();
+	vmath::mat4 getRotation();
+	vmath::mat4 getScale();
+	void PrintTransform();
+	Point getMax();
+	Point getMin();
+
+
 };
 
 #endif /* ELLIPSE_H_ */
