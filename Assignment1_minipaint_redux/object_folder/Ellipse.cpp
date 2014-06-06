@@ -10,7 +10,6 @@
 //#include "Misc.h"
 //#include "GL/gl.h"
 //#include "vmath.h"
-#include "BBox.h"
 #include <string>
 #include <vector>
 
@@ -246,15 +245,9 @@ namespace {
  *
  */
 drawableEllipse::drawableEllipse() {
-	Point A;
-	Point B;
-	A.x = A.y = B.x = B.y = 0.0;
 
-	BBox bbox(A, B);
-	start.update(0.0, 0.0);
-	float rx = 0.0;
-	float ry = 0.0;
-	transform = new Transformation(0.0, 0.0, 0.0, rx, ry);
+	bbox = new BBox();
+	transform = new Transformation();
 }
 
 /**Constructor for ellipse with a specified start and end point
@@ -266,10 +259,11 @@ drawableEllipse::drawableEllipse(Point ellStart, Point ellEnd) {
 
 //	start = ellStart;
 //	end = ellEnd;
-	BBox bbox(ellStart, ellEnd);
+	//BBox bbox(ellStart, ellEnd);
+	bbox = new BBox(ellStart, ellEnd);
 
 	Point midpoint;
-	Point minimum = bbox.getMin();
+	Point minimum = bbox->getMin();
 
 //	std::cout<<"bbox minx ="<<minimum.x<<std::endl;
 //	std::cout<<"bbox miny ="<<minimum.y<<std::endl;
@@ -577,25 +571,67 @@ std::vector<PointAndColor> drawableEllipse::draw() {
 
 
 void drawableEllipse::update(Point ellStart, Point ellEnd) {
-	BBox bbox(ellStart, ellEnd);
+	bbox = new BBox(ellStart, ellEnd);
 
 }
 
 void drawableEllipse::setTranslation(float rx, float ry) {
 
+	Point A, B;
+	vmath::Tvec4<float> vecX(1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::Tvec4<float> vecY(0.0f, 1.0f, 0.0f, 1.0f);
+
 	transform->setTranslation(rx, ry);
+
+	vecX = vecX * transform->getTranslation();
+	vecY = vecY * transform->getTranslation();
+
+	A.x = vecX[0];
+	A.y = vecX[1];
+	B.x = vecY[0];
+	B.y = vecY[1];
+
+	bbox = new BBox(A, B);
 
 }
 
 void drawableEllipse::setRotation(float theta) {
 
+	Point A, B;
+	vmath::Tvec4<float> vecX(1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::Tvec4<float> vecY(0.0f, 1.0f, 0.0f, 1.0f);
+
 	transform->setRotation(theta);
+
+	vecX = vecX * transform->getRotation();
+	vecY = vecY * transform->getRotation();
+
+	A.x = vecX[0];
+	A.y = vecX[1];
+	B.x = vecY[0];
+	B.y = vecY[1];
+
+	bbox = new BBox(A, B);
 
 }
 
 void drawableEllipse::setScale(float rx, float ry) {
 
+	Point A, B;
+	vmath::Tvec4<float> vecX(1.0f, 0.0f, 0.0f, 1.0f);
+	vmath::Tvec4<float> vecY(0.0f, 1.0f, 0.0f, 1.0f);
+
 	transform->setScale(rx, ry);
+
+	vecX = vecX * transform->getScale();
+	vecY = vecY * transform->getScale();
+
+	A.x = vecX[0];
+	A.y = vecX[1];
+	B.x = vecY[0];
+	B.y = vecY[1];
+
+	bbox = new BBox(A, B);
 
 }
 
@@ -626,15 +662,13 @@ vmath::mat4 drawableEllipse::getScale() {
 
 Point drawableEllipse::getMax() {
 
-	start = bbox->getMax();
-	return start;
+	return bbox->getMax();
 
 }
 
 Point drawableEllipse::getMin() {
 
-	end = bbox->getMin();
-	return end;
+	return bbox->getMin();
 
 }
 

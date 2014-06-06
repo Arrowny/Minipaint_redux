@@ -5,7 +5,7 @@
  *      Author: yellow
  */
 
-#include "Object.h"
+#include <Object.h>
 
 Object::Object() {
 	// TODO Auto-generated constructor stub
@@ -34,5 +34,10 @@ void Object::updateBBox(Point a, Point b) {
  */
 bool Object::inside(Point Pt){
 
-	bbox->insideBBox(Pt);
+	return bbox->insideBBox(Pt);
+}
+
+BBox Object::getBBox(){
+
+	return *bbox;
 }

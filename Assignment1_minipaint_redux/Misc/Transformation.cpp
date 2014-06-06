@@ -361,5 +361,7 @@ void Transformation::print() {
 			}
 		}
 	}
+
+	std::cout<<std::endl;
 }
 

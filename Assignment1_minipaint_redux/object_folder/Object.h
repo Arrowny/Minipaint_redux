@@ -65,6 +65,7 @@ public:
 	vmath::mat4 getScale();
 
 	bool inside(Point Pt);
+	BBox getBBox();
 };
 
 #endif /* OBJECT_H_ */

@@ -6,7 +6,7 @@
  */
 
 #include <BBox.h>
-#include <gl.h>
+#include <GL/gl.h>
 #include <Misc.h>
 #include <BBoxObject.h>
 
