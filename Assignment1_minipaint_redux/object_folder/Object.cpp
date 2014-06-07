@@ -37,7 +37,16 @@ bool Object::inside(Point Pt){
 	return bbox->insideBBox(Pt);
 }
 
+/**
+ * @return BBox representing the bounding box for this object
+ */
 BBox Object::getBBox(){
-
 	return *bbox;
+}
+
+/**
+ * @return Point representing the center of this object
+ */
+Point Object::getCenter() {
+	return bbox->getCenter();
 }

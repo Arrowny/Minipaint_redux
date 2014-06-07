@@ -15,8 +15,10 @@ class drawableEllipse: public Object {
 private:
 	Point start;
 	Point end;
+	Point color;
 
 public:
+	Point midpoint;
 	drawableEllipse();
 	drawableEllipse(Point ellStart, Point ellEnd);
 	virtual ~drawableEllipse();
@@ -32,6 +34,7 @@ public:
 	void PrintTransform();
 	Point getMax();
 	Point getMin();
+	void print();
 
 
 };

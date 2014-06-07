@@ -252,10 +252,7 @@ vmath::Tmat4<float> Transformation::getTransformation() {
  * @return equivalent point in object space
  */
 Point Transformation::worldtoObj(Point worldPoint) {
-	vmath::Tvec4<float> worldVec(worldPoint.x, worldPoint.y, 0.0f, 1.0f);
-	vmath::Tvec4<float> objectVec = (worldVec*invTransform);
-	Point objPoint(objectVec[0], objectVec[1]);
-	return objPoint;
+	return worldPoint.transform(invTransform);
 }
 
 /**
@@ -265,10 +262,7 @@ Point Transformation::worldtoObj(Point worldPoint) {
  * @return equivalent point in world space
  */
 Point Transformation::objToWorld(Point objPoint) {
-	vmath::Tvec4<float> objVec(objPoint.x, objPoint.y, 0.0f, 1.0f);
-	vmath::Tvec4<float> worldVec = objVec*transform;
-	Point worldPoint(worldVec[0], worldVec[1]);
-	return worldPoint;
+	return objPoint.transform(transform);
 }
 
 vmath::Tmat4<float> Transformation::getInverseTransformation() {
@@ -361,7 +355,6 @@ void Transformation::print() {
 			}
 		}
 	}
-
 	std::cout<<std::endl;
 }
 

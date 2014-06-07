@@ -65,6 +65,17 @@ Point* BBoxObject::getCorners() {
 }
 
 /**
+ * function tests whether or not a Point "testPt" is within the BBoxObject's
+ * bounding box
+ *
+ * @param testPt Point to test insidedness on bounding box.
+ * @return boolean representing whether or not Point is inside Rectangle's bounding box
+ */
+bool BBoxObject::inside(Point a) {
+	return bbox->insideBBox(a);
+}
+
+/**
  * updates BBoxObject to minVert(min(a.x, b.x),min(a.y,b.y)), maxVert(max(a.x, b.x), max(a.y,b.y)).
  *
  * @param a
@@ -75,5 +86,7 @@ void BBoxObject::update(Point a, Point b) {
 }
 
 void BBoxObject::print() {
+	std::cout<<"Object Type: BBoxObject"<<std::endl;
+	std::cout<<"Bounding Box information"<<std::endl;
 	bbox->print();
 }

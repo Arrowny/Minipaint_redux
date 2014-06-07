@@ -53,6 +53,11 @@ public:
 	virtual void setScale(float xScale, float yScale) = 0;
 
 	/**
+	 * print pertinent information about object
+	 */
+	virtual void print() = 0;
+
+	/**
 	 * gets matrix of each transformation.
 	 *
 	 * @return 4x4 matrix representing transformation/translation/rotation/scale matrix of transformation.
@@ -66,6 +71,7 @@ public:
 
 	bool inside(Point Pt);
 	BBox getBBox();
+	Point getCenter();
 };
 
 #endif /* OBJECT_H_ */

@@ -260,7 +260,12 @@ BBox BBox::expandBBox(float expX, float expY) {
 	return expandedBBox;
 }
 
-
+/**
+ * Const function tests whether or not a Point "testPt" is within the BBox's bounding box
+ *
+ * @param testPt Point to test insidedness on
+ * @return boolean representing whether or not Point is inside BBox's bounding box
+ */
 bool BBox::insideBBox(Point testPt) {
 
 	Point objTestPt = transform->worldtoObj(testPt);
@@ -306,6 +311,22 @@ Point BBox::getMax() {
  */
 Point BBox::getMin() {
 	return transform->objToWorld(*min);
+}
+
+/**
+ * find the center of this bounding box
+ *
+ * @return Point representing the center of this bounding box
+ */
+Point BBox::getCenter() {
+	Point worldMax = transform->objToWorld(*max);
+	Point worldMin = transform->objToWorld(*min);
+
+	float midX = (worldMax.x - worldMin.x)/2.0f + worldMin.x;
+	float midY = (worldMax.y - worldMin.y)/2.0f + worldMin.y;
+
+	Point midPoint(midX,midY);
+	return midPoint;
 }
 
 void BBox::print() {

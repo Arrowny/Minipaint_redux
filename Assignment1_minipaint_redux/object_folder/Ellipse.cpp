@@ -257,12 +257,12 @@ drawableEllipse::drawableEllipse() {
  */
 drawableEllipse::drawableEllipse(Point ellStart, Point ellEnd) {
 
-//	start = ellStart;
-//	end = ellEnd;
+	start = ellStart;
+	end = ellEnd;
 	//BBox bbox(ellStart, ellEnd);
 	bbox = new BBox(ellStart, ellEnd);
 
-	Point midpoint;
+	//Point midpoint;
 	Point minimum = bbox->getMin();
 
 //	std::cout<<"bbox minx ="<<minimum.x<<std::endl;
@@ -321,6 +321,9 @@ std::vector<PointAndColor> drawableEllipse::draw() {
 	A.y = vecX[1];
 	B.x = vecY[0];
 	B.y = vecY[1];
+
+	start = A;
+	end = B;
 
 //	std::cout<<"A.x = "<<A.x<<" "<<"A.y = "<<A.y<<std::endl;
 //	std::cout<<"B.x = "<<B.x<<" "<<"B.y = "<<B.y<<std::endl;
@@ -591,6 +594,9 @@ void drawableEllipse::setTranslation(float rx, float ry) {
 	B.x = vecY[0];
 	B.y = vecY[1];
 
+	start = A;
+	end = B;
+
 	bbox = new BBox(A, B);
 
 }
@@ -611,6 +617,9 @@ void drawableEllipse::setRotation(float theta) {
 	B.x = vecY[0];
 	B.y = vecY[1];
 
+	start = A;
+	end = B;
+
 	bbox = new BBox(A, B);
 
 }
@@ -630,6 +639,9 @@ void drawableEllipse::setScale(float rx, float ry) {
 	A.y = vecX[1];
 	B.x = vecY[0];
 	B.y = vecY[1];
+
+	start = A;
+	end = B;
 
 	bbox = new BBox(A, B);
 
@@ -675,4 +687,17 @@ Point drawableEllipse::getMin() {
 void drawableEllipse::PrintTransform(){
 
 	transform->print();
+}
+
+void drawableEllipse::print(){
+
+	std::cerr<<"Object Type: Ellipse"<<std::endl;
+	std::cout<<"Bounding Box Information:"<<std::endl;
+	bbox->print();
+	std::cout<<"Object Information:"<<std::endl;
+	midpoint = bbox->getCenter();
+	std::cout<<"Midpoint = "<<midpoint.x<<","<<midpoint.y<<std::endl;
+	std::cout<<"rx = "<<fabs(end.x - start.x) / 2.0f<<std::endl;
+	std::cout<<"ry = "<<fabs(end.y - start.y) / 2.0f<<std::endl;
+
 }
