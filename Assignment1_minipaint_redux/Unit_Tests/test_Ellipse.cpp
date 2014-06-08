@@ -82,12 +82,12 @@ void test_EllipseConstructor() {
 void test_EllipseDraw() {
 
 	Point A;
-	A.x = 1.0f;
-	A.y = 1.0f;
+	A.x = 0.0f;
+	A.y = 0.0f;
 
 	Point B;
-	B.x = 10.0f;
-	B.y = 10.0f;
+	B.x = 4.0f;
+	B.y = 4.0f;
 
 	std::vector<PointAndColor> PointColorVec;
 
@@ -132,18 +132,18 @@ void test_EllipseTranslate() {
 void test_EllipseScale() {
 
 	Point A;
-	A.x = 1.0f;
-	A.y = 1.0f;
+	A.x = 0.0f;
+	A.y = 0.0f;
 
 	Point B;
-	B.x = 10.0f;
-	B.y = 10.0f;
+	B.x = 5.0f;
+	B.y = 5.0f;
 
 	Point ellPointMax;
 	Point ellPointMin;
 
 	drawableEllipse myEll(A,B);
-	std::cerr<<"Before set:- "<<std::endl;
+	std::cout<<"\n>>>>>> Before set:- \n"<<std::endl;
 	myEll.PrintTransform();
 	ellPointMax = myEll.getMax();
 	ellPointMin = myEll.getMin();
@@ -151,7 +151,7 @@ void test_EllipseScale() {
 	std::cout<<"ellPointMin1 ="<<ellPointMin.x<<","<<ellPointMin.y<<std::endl<<std::endl;
 
 	myEll.setScale(10.0,10.0);
-	std::cerr<<"After set:- "<<std::endl;
+	std::cout<<">>>>>> After set:- \n"<<std::endl;
 	myEll.PrintTransform();
 	ellPointMax = myEll.getMax();
 	ellPointMin = myEll.getMin();

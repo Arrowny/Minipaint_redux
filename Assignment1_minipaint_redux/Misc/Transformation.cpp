@@ -156,7 +156,7 @@ Transformation::Transformation(float theta, float xTrans, float yTrans, float xS
 	rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	scale = vmath::scale(xScale, yScale, 1.0f);
 	transform = transform.identity();
-	transform = scale * rotation * translation;
+	transform = translation * rotation * scale;
 	invTransform = setInvTransform();
 }
 
@@ -173,7 +173,7 @@ void Transformation::setTranslation(float xTrans, float yTrans){
 
 	translation = vmath::translate(xTrans, yTrans, 0.0f);
 	transform = transform.identity();
-	transform = scale * rotation * translation;
+	transform = translation * rotation * scale;
 	invTransform = setInvTransform();
 }
 
@@ -185,7 +185,7 @@ void Transformation::setTranslation(float xTrans, float yTrans){
 void Transformation::setRotation(float theta) {
 	rotation = vmath::rotate(theta, 0.0f, 0.0f, 1.0f);
 	transform = transform.identity();
-	transform = scale * rotation * translation;
+	transform = translation * rotation * scale;
 	invTransform = setInvTransform();
 }
 
@@ -199,7 +199,7 @@ void Transformation::setScale(float xScale, float yScale)
 
 	scale = vmath::scale(xScale, yScale, 1.0f);
 	transform = transform.identity();
-	transform = scale * rotation * translation;
+	transform = translation * rotation * scale;
 	invTransform = setInvTransform();
 }
 

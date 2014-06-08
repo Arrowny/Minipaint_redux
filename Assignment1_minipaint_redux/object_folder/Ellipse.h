@@ -18,7 +18,6 @@ private:
 	Point color;
 
 public:
-	Point midpoint;
 	drawableEllipse();
 	drawableEllipse(Point ellStart, Point ellEnd);
 	virtual ~drawableEllipse();

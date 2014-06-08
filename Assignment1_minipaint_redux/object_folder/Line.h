@@ -1,8 +1,8 @@
 /*
  * Line.h
  *
- *  Created on: 2014Äê5ÔÂ27ÈÕ
- *      Author: yellow
+ *  Created on:
+ *      Author: Super Albert Chen & Super Sherry
  */
 
 #ifndef LINE_H_
@@ -11,21 +11,59 @@
 #include "object.h"
 
 class Line: public Object {
-
-private:
+public:
+//private:
 	Point start;
 	Point end;
+	Color line_color;
 	vmath::Tvec4<float> start_vec;
 	vmath::Tvec4<float> end_vec;
-public:
+//public:
 
 	Line();
-	Line(Point lineStart, Point lineEnd);
+	//Line(Point lineStart, Point lineEnd, Color line_color);
+	Line(Point lineStart, Point lineEnd, Color color);
 	virtual ~Line();
 	/**
 	 * inherit object draw function. Draws lines to screen
 	 */
 	std::vector<PointAndColor>  draw();
+
+
+
+	/**
+	 * The Algorithm of drawing a line
+	 *
+	 * @param line_type
+	 * @param larger
+	 * @param smaller
+	 * @param start_p
+	 * @param end_p
+	 * @return
+	 */
+	std::vector<PointAndColor> BresenhamLine(
+			int line_type,
+			float larger,
+			float smaller,
+			Point start_p,
+			Point end_p,
+			Color line_color);
+
+	/**
+	 *
+	 * @param x1
+	 * @param x2
+	 */
+	void swap(float& x1, float& x2);
+
+	/**
+	 *
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
+	void drawLine(float x1, float y1, float x2, float y2);
 
 	/**
 	 * get the position of start point and return its coordinate.
@@ -77,6 +115,8 @@ public:
 	void getTranslation();
 	void getRotation();
 	void getScale();
+	void printTransform();
+	void print();
 };
 
 #endif /* LINE_H_ */

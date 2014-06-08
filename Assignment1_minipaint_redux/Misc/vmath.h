@@ -808,7 +808,7 @@ static inline vecN<T,N> operator*(const vecN<T,M>& vec, const matNM<T,N,M>& mat)
         for (n = 0; n < N; n++)
         {
         	//Debug: std::cout<<vec[n]<<"*"<<mat[n][m]<<"+";
-            result[m] += vec[n] * mat[n][m];
+        	result[m] += vec[n] * mat[n][m];
         }
         //Debug: std::cout<<"="<<result[m]<<std::endl;;
     }

@@ -259,24 +259,25 @@ drawableEllipse::drawableEllipse(Point ellStart, Point ellEnd) {
 
 	start = ellStart;
 	end = ellEnd;
-	//BBox bbox(ellStart, ellEnd);
 	bbox = new BBox(ellStart, ellEnd);
 
-	//Point midpoint;
+	Point midpoint;
 	Point minimum = bbox->getMin();
 
-//	std::cout<<"bbox minx ="<<minimum.x<<std::endl;
-//	std::cout<<"bbox miny ="<<minimum.y<<std::endl;
+	std::cout<<"bbox minx = "<<minimum.x<<std::endl;
+	std::cout<<"bbox miny = "<<minimum.y<<std::endl;
+	std::cout<<"ellStart = "<<ellStart.x<<","<<ellStart.y<<std::endl;
+	std::cout<<"ellEnd = "<<ellEnd.x<<","<<ellEnd.y<<std::endl;
 
 	float rx = fabs(ellEnd.x - ellStart.x) / 2.0f;
 	float ry = fabs(ellEnd.y - ellStart.y) / 2.0f;
 	midpoint.x = minimum.x + rx;
 	midpoint.y = minimum.y + ry;
 
-//	std::cout<<"rx ="<<rx<<std::endl;
-//	std::cout<<"ry ="<<ry<<std::endl;
-//	std::cout<<"midpointx ="<<midpoint.x<<std::endl;
-//	std::cout<<"midpointy ="<<midpoint.y<<std::endl;
+	std::cout<<"rx = "<<rx<<std::endl;
+	std::cout<<"ry = "<<ry<<std::endl;
+	std::cout<<"midpointx = "<<midpoint.x<<std::endl;
+	std::cout<<"midpointy = "<<midpoint.y<<std::endl;
 
 	transform = new Transformation(0.0f, midpoint.x, midpoint.y, rx, ry);
 
@@ -305,6 +306,7 @@ std::vector<PointAndColor> drawableEllipse::draw() {
 	ellColor.blue = 0.0f;
 
 	PointAndColor ellPointColor(tmpPoint, ellColor);
+	//PointAndColor ellPointColorStart()
 
 	std::vector<PointAndColor> PointColorVec;
 	vmath::Tvec4<float>* ellPoints;
@@ -312,6 +314,7 @@ std::vector<PointAndColor> drawableEllipse::draw() {
 	vmath::Tvec4<float> vecY(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vecX = vecX * transform->getScale();
+	//transform->print();
 	vecY = vecY * transform->getScale();
 
 	std::cout<<"vecX = ("<<vecX[0]<<","<<vecX[1]<<","<<vecX[2]<<","<<vecX[3]<<")"<<std::endl;
@@ -325,20 +328,22 @@ std::vector<PointAndColor> drawableEllipse::draw() {
 	start = A;
 	end = B;
 
-//	std::cout<<"A.x = "<<A.x<<" "<<"A.y = "<<A.y<<std::endl;
-//	std::cout<<"B.x = "<<B.x<<" "<<"B.y = "<<B.y<<std::endl;
+	std::cout<<"A = ("<<A.x<<","<<A.y<<")"<<std::endl;
+	std::cout<<"B = ("<<B.x<<","<<B.y<<")"<<std::endl;
+	std::cout<<"A.x = "<<A.x<<" "<<"A.y = "<<A.y<<std::endl;
+	std::cout<<"B.x = "<<B.x<<" "<<"B.y = "<<B.y<<std::endl;
 
 	float rx = A.x;
 	float ry = B.y;
-//	float rx = abs(A.x - B.x) / 2.0f;
-//	float ry = abs(A.y - B.y) / 2.0f;
+//	float rx = fabs(B.x - A.x) / 2.0f;
+//	float ry = fabs(B.y - A.y) / 2.0f;
 
 //	std::cout<<"rx = "<<rx<<" "<<"ry = "<<ry<<std::endl;
 
 	float rxSq = rx * rx;
 	float rySq = ry * ry;
-	float x = 0, y = ry, p;
-	float px = 0, py = 2 * rxSq * y;
+	float x = -rx, y = ry, p;
+	float px = 0, py = 2.0f * rxSq * y;
 
 	std::cout<<"I'm outside region check"<<std::endl;
 
@@ -627,24 +632,53 @@ void drawableEllipse::setRotation(float theta) {
 void drawableEllipse::setScale(float rx, float ry) {
 
 	Point A, B;
+	Point magRx, magRy;
+	Point midpoint;
 	vmath::Tvec4<float> vecX(1.0f, 0.0f, 0.0f, 1.0f);
 	vmath::Tvec4<float> vecY(0.0f, 1.0f, 0.0f, 1.0f);
 
 	transform->setScale(rx, ry);
 
-	vecX = vecX * transform->getScale();
-	vecY = vecY * transform->getScale();
+	vecX = vecX * transform->getScale() * transform->getRotation();
+	vecY = vecY * transform->getScale() * transform->getRotation();
 
-	A.x = vecX[0];
-	A.y = vecX[1];
-	B.x = vecY[0];
-	B.y = vecY[1];
+	if(vecX[0] > vecY[1])
+	{
+		magRx.x = vecX[0];
+		magRx.y = 0.0f;
+		magRy.x = 0.0f;
+		magRy.y = vecX[0];
 
-	start = A;
-	end = B;
+	}
+	else
+	{
+		magRx.x = vecY[1];
+		magRx.y = 0.0f;
+		magRy.x = 0.0f;
+		magRy.y = vecY[1];
+
+	}
+
+	vecX = vecX * transform->getTranslation();
+	vecY = vecY * transform->getTranslation();
+
+	std::cout<<"vecX = ("<<vecX[0]<<","<<vecX[1]<<","<<vecX[2]<<","<<vecX[3]<<")"<<std::endl;
+	std::cout<<"vecY = ("<<vecY[0]<<","<<vecY[1]<<","<<vecY[2]<<","<<vecY[3]<<")\n"<<std::endl;
+
+	std::cout<<"newRx = ("<<magRx.x<<","<<magRx.y<<")"<<std::endl;
+	std::cout<<"newRy = ("<<magRy.x<<","<<magRy.y<<")"<<std::endl;
+
+	midpoint.x = vecX[0] - magRx.x;
+	midpoint.y = vecY[1] - magRy.y;
+
+	std::cout<<"midpoint = ("<<midpoint.x<<","<<midpoint.y<<")"<<std::endl;
+
+	A.x = magRx.x + midpoint.x;
+	A.y = magRx.x + midpoint.x;
+	B.x = -(magRx.x - midpoint.x);
+	B.y = -(magRx.x - midpoint.x);
 
 	bbox = new BBox(A, B);
-
 }
 
 vmath::mat4 drawableEllipse::getTransformation() {
@@ -691,13 +725,13 @@ void drawableEllipse::PrintTransform(){
 
 void drawableEllipse::print(){
 
-	std::cerr<<"Object Type: Ellipse"<<std::endl;
+	std::cout<<"[Object Type: Ellipse]"<<std::endl<<std::endl;
 	std::cout<<"Bounding Box Information:"<<std::endl;
 	bbox->print();
 	std::cout<<"Object Information:"<<std::endl;
-	midpoint = bbox->getCenter();
-	std::cout<<"Midpoint = "<<midpoint.x<<","<<midpoint.y<<std::endl;
+	Point A = bbox->getCenter();
+	std::cout<<"Midpoint = "<<A.x<<","<<A.y<<std::endl;
 	std::cout<<"rx = "<<fabs(end.x - start.x) / 2.0f<<std::endl;
-	std::cout<<"ry = "<<fabs(end.y - start.y) / 2.0f<<std::endl;
+	std::cout<<"ry = "<<fabs(end.y - start.y) / 2.0f<<std::endl<<std::endl;
 
 }
