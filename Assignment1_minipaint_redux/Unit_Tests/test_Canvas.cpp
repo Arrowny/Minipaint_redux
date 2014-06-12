@@ -29,7 +29,7 @@ void test_CanvasConstructor_Object(){
 	Color color(0.0f, 0.0f, 0.0f);
 
 	Object* object1;
-	object1 = new Line(start, end, color);
+	object1 = new drawableLine(start, end, color);
 			//new Line(start, end, Color(0.0f,0.0f,0.0f));
 	Canvas myCanvas(object1);
 
@@ -51,9 +51,9 @@ void test_CanvasConstructor_Vector(){
 
 	std::vector<Object*> Objs;
 
-	Object* object1 = new Line(start, end, Color(0.0f,0.0f,0.0f));
+	Object* object1 = new drawableLine(start, end, Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object1);
-	Object* object2 = new Line(Point(2.0f, 2.0f), Point(5.0f, 5.0f), Color(0.0f,0.0f,0.0f));
+	Object* object2 = new drawableLine(Point(2.0f, 2.0f), Point(5.0f, 5.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object2);
 
 	std::cout<<Objs.size()<<std::endl;
@@ -72,9 +72,9 @@ void test_CanvasDraw(){
 
 	std::vector<Object*> Objs;
 
-	Object* object1 = new Line(start, end, Color(0.0f,0.0f,0.0f));
+	Object* object1 = new drawableLine(start, end, Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object1);
-	Object* object2 = new Line(Point(2.0f, 2.0f), Point(5.0f, 5.0f), Color(0.0f,0.0f,0.0f));
+	Object* object2 = new drawableLine(Point(2.0f, 2.0f), Point(5.0f, 5.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object2);
 	Object* object3 = new drawableEllipse(Point(1.0f, 1.0f), Point(10.0f, 10.0f));
 	Objs.push_back(object3);
@@ -97,13 +97,13 @@ void test_CanvasFill(){
 	std::cout<<"test of CanvasConstructor_Fill"<<std::endl;
 	std::vector<Object*> Objs;
 
-	Object* object1 = new Line(Point(1.0f, 1.0f), Point(1.0f, 4.0f), Color(0.0f,0.0f,0.0f));
+	Object* object1 = new drawableLine(Point(1.0f, 1.0f), Point(1.0f, 4.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object1);
-	Object* object2 = new Line(Point(1.0f, 4.0f), Point(4.0f, 4.0f), Color(0.0f,0.0f,0.0f));
+	Object* object2 = new drawableLine(Point(1.0f, 4.0f), Point(4.0f, 4.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object2);
-	Object* object3 = new Line(Point(4.0f, 4.0f), Point(4.0f, 1.0f), Color(0.0f,0.0f,0.0f));
+	Object* object3 = new drawableLine(Point(4.0f, 1.0f), Point(4.0f, 4.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object3);
-	Object* object4 = new Line(Point(4.0f, 1.0f), Point(1.0f, 1.0f), Color(0.0f,0.0f,0.0f));
+	Object* object4 = new drawableLine(Point(1.0f, 1.0f), Point(4.0f, 1.0f), Color(0.0f,0.0f,0.0f));
 	Objs.push_back(object4);
 //	Object* object5 = new drawableEllipse(Point(1.0f, 1.0f), Point(4.0f, 4.0f));
 //	Objs.push_back(object5);
@@ -113,7 +113,7 @@ void test_CanvasFill(){
 
 	PointAndColor PAC(Point(2.0f, 2.0f), Color(0.0f,0.0f,0.0f));
 
-	std::vector<PointAndColor> fillVector = myCanvas.fill(PAC);
+	std::vector<PointAndColor> fillVector = myCanvas.fill(PAC, 1000, 1000);
 
 	for(int ii = 0; ii < fillVector.size(); ii++) {
 
@@ -146,7 +146,7 @@ void test_CanvasReapplyFill(){
 
 	PointAndColor PAC(Point(4.0f, 2.0f), Color(0.0f,0.0f,0.0f));
 
-	std::vector<PointAndColor> fillVector = myCanvas.fill(PAC);
+	std::vector<PointAndColor> fillVector = myCanvas.fill(PAC, 1000, 1000);
 
 	for(int ii = 0; ii < fillVector.size(); ii++) {
 
@@ -165,13 +165,13 @@ void test_CanvasReapplyFill(){
 void test_Scale() {
 	std::cout << "\ntest_Scale" << std::endl;
 
-	Point lStart(1.0f, 1.0f);
-	Point lEnd(3.0f, 3.0);
+	Point lStart(2.0f, 2.0f);
+	Point lEnd(4.0f, 4.0);
 
-	Point eStart(4.0f, 1.0f);
-	Point eEnd(6.0f, 7.0f);
+	Point eStart(1.0f, 1.0f);
+	Point eEnd(3.0f, 3.0f);
 
-	Object* line = new Line(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
+	Object* line = new drawableLine(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
 	Object* ellipse = new drawableEllipse(eStart, eEnd);
 
 	std::vector<Object*> canvasObjs;
@@ -190,13 +190,13 @@ void test_Scale() {
 void test_Translation() {
 	std::cout << "\ntest_Translation" << std::endl;
 
-	Point lStart(1.0f, 1.0f);
-	Point lEnd(3.0f, 5.0f);
+	Point lStart(2.0f, 2.0f);
+	Point lEnd(4.0f, 4.0f);
 
-	Point eStart(4.0f, 1.0f);
-	Point eEnd(6.0f, 7.0f);
+	Point eStart(1.0f, 1.0f);
+	Point eEnd(3.0f, 3.0f);
 
-	Object* line = new Line(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
+	Object* line = new drawableLine(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
 	Object* ellipse = new drawableEllipse(eStart, eEnd);
 
 	std::vector<Object*> canvasObjs;
@@ -205,7 +205,7 @@ void test_Translation() {
 
 	Canvas transCanvas(canvasObjs);
 	transCanvas.print();
-	transCanvas.setTranslation(0.0f, 0.0f);
+	transCanvas.setTranslation(3.0f, 3.0f);
 	transCanvas.print();
 }
 
@@ -215,22 +215,22 @@ void test_Translation() {
 void test_Rotation() {
 	std::cout << "\ntest_Rotation" << std::endl;
 
-	Point lStart(1.0f, 1.0f);
-	Point lEnd(3.0f, 5.0f);
+	Point lStart(0.0f, 2.0f);
+	Point lEnd(0.0f, -2.0f);
 
-	Point eStart(4.0f, 1.0f);
-	Point eEnd(6.0f, 7.0f);
+	Point eStart(1.0f, 1.0f);
+	Point eEnd(3.0f, 3.0f);
 
-	Object* line = new Line(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
-	Object* ellipse = new drawableEllipse(eStart, eEnd);
+	Object* line = new drawableLine(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
+	//Object* ellipse = new drawableEllipse(eStart, eEnd);
 
 	std::vector<Object*> canvasObjs;
 	canvasObjs.push_back(line);
-	canvasObjs.push_back(ellipse);
+	//canvasObjs.push_back(ellipse);
 
 	Canvas transCanvas(canvasObjs);
 	transCanvas.print();
-	transCanvas.setRotation(30.0f);
+	transCanvas.setRotation(45.0f);
 	transCanvas.print();
 }
 
@@ -239,24 +239,35 @@ void test_fill_Transform() {
 	Point lStart(1.0f, 1.0f);
 	Point lEnd(3.0f, 5.0f);
 
-	Point eStart(4.0f, 1.0f);
-	Point eEnd(6.0f, 7.0f);
+	Point eStart(0.0f, 0.0f);
+	Point eEnd(4.0f, 4.0f);
 
-	Object* line = new Line(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
+	//Object* line = new Line(lStart, lEnd, Color(0.0f, 0.0f, 0.0f));
+//	Object* object1 = new Line(Point(1.0f, 1.0f), Point(1.0f, 4.0f), Color(0.0f,0.0f,0.0f));
+//	Object* object2 = new Line(Point(1.0f, 4.0f), Point(4.0f, 4.0f), Color(0.0f,0.0f,0.0f));
+//	Object* object3 = new Line(Point(4.0f, 4.0f), Point(4.0f, 1.0f), Color(0.0f,0.0f,0.0f));
+//	Object* object4 = new Line(Point(4.0f, 1.0f), Point(1.0f, 1.0f), Color(0.0f,0.0f,0.0f));
 	Object* ellipse = new drawableEllipse(eStart, eEnd);
 
 	std::vector<Object*> canvasObjs;
-	canvasObjs.push_back(line);
+	//canvasObjs.push_back(line);
 	canvasObjs.push_back(ellipse);
+//	canvasObjs.push_back(object1);
+//	canvasObjs.push_back(object2);
+//	canvasObjs.push_back(object3);
+//	canvasObjs.push_back(object4);
 
 	Canvas transCanvas(canvasObjs);
-	Point fillPoint(transCanvas.getCenter());
+//	Point fillPoint(transCanvas.getCenter());
+	Point fillPoint(3.0f,2.0f);
 	Color fillColor(0.5, 0.5, 0.5);
-	transCanvas.fill(PointAndColor(fillPoint, fillColor));
+	transCanvas.fill(PointAndColor(fillPoint, fillColor), 1000, 1000);
 
 	transCanvas.print();
 	transCanvas.setTranslation(0.0f, 0.0f);
+	transCanvas.setRotation(45.0f);
 	transCanvas.print();
+//	transCanvas.reapplyAllFills();
 }
 
 int main() {
@@ -266,10 +277,10 @@ int main() {
 //	test_CanvasDraw();
 //	test_CanvasFill();
 //	test_CanvasReapplyFill();
-	test_Scale();
+//	test_Scale();
 //	test_Translation();
 //	test_Rotation();
-//	test_fill_Transform();
+	test_fill_Transform();
 
 	std::cout<<"All Tests passed!"<<std::endl;
 	return 0;
