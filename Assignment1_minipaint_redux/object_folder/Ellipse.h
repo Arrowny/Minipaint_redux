@@ -9,6 +9,7 @@
 #define ELLIPSE_H_
 
 #include "object.h"
+#include <limits>
 
 class drawableEllipse: public Object {
 
@@ -18,6 +19,7 @@ private:
 	Point color;
 
 public:
+	Point midpoint;
 	drawableEllipse();
 	drawableEllipse(Point ellStart, Point ellEnd);
 	virtual ~drawableEllipse();

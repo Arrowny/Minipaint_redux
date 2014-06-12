@@ -10,20 +10,27 @@
 
 #include "object.h"
 
-class Line: public Object {
+class drawableLine: public Object {
 public:
 //private:
 	Point start;
 	Point end;
 	Color line_color;
+
+	Point translate;
+	Point scale;
+	float rotate;
+
 	vmath::Tvec4<float> start_vec;
 	vmath::Tvec4<float> end_vec;
 //public:
 
-	Line();
+	drawableLine();
 	//Line(Point lineStart, Point lineEnd, Color line_color);
-	Line(Point lineStart, Point lineEnd, Color color);
-	virtual ~Line();
+	drawableLine(Point lineStart, Point lineEnd, Color color);
+	virtual ~drawableLine();
+	void UpdateTransformation(Point lineStart, Point lineEnd, Color color);
+
 	/**
 	 * inherit object draw function. Draws lines to screen
 	 */

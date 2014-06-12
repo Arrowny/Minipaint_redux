@@ -29,7 +29,7 @@ BBoxObject::BBoxObject(Point a, Point b) {
 }
 
 BBoxObject::BBoxObject(BBox newBBox) {
-	bbox = newBBox;
+	bbox = new BBox();
 }
 
 BBoxObject::~BBoxObject() {
@@ -51,7 +51,15 @@ std::vector<PointAndColor> BBoxObject::draw() {
 //	glVertex2f(start_p.x, start_p.y);
 //	glEnd();
 
-	return NULL;
+	Point* corners = bbox->getCorners();
+	Color lineColor(0.0f,0.0f,0.0f);
+	std::vector<PointAndColor> cornersVec;
+
+	for(int ii = 0; ii < 4; ii++) {
+		PointAndColor newPAC(corners[ii],lineColor);
+		cornersVec.push_back(newPAC);
+	}
+	return cornersVec;
 }
 
 /**

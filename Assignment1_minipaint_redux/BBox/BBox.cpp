@@ -285,8 +285,8 @@ bool BBox::insideBBox(Point testPt) {
  *
  * @return Point array representing 4 corners of BBox's bounding box
  */
-Point* BBox::getCorners() {
-	Point corners[4];
+void BBox::getCorners(Point* &corners) {
+	//Point corners[4];
 
 	Point minWorld = transform->objToWorld(*min);
 	Point maxWorld = transform->objToWorld(*max);
@@ -296,7 +296,7 @@ Point* BBox::getCorners() {
 	corners[2].update(maxWorld.x,maxWorld.y);
 	corners[3].update(minWorld.x,maxWorld.y);
 
-	return corners;
+	//return corners;
 }
 
 /**

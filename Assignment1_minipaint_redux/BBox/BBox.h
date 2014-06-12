@@ -31,7 +31,7 @@ public:
 	BBox unionBBox(BBox uBox);
 	BBox expandBBox(float expX, float expY);
 	bool insideBBox(Point testPt);
-	Point* getCorners();
+	void getCorners(Point* &corners);
 	Point getMax();
 	Point getMin();
 	Point getCenter();

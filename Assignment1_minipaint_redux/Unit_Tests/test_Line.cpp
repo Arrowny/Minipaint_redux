@@ -16,7 +16,7 @@
  * here test setStart(), setEnd, getStrat, getEnd at the same time.
  */
 void test_start_end(){
-	Line L;
+	drawableLine L;
 	Point start(0.11,0.22);
 	Point end(0.33,0.44);
 

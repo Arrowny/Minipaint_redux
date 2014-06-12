@@ -13,9 +13,11 @@
 #include <stddef.h>
 #include <utility>
 #include <vector>
+#include <queue>
 #include "Misc.h"
 #include "Object.h"
 #include "vmath.h"
+
 
 class Canvas {
 
@@ -26,21 +28,23 @@ private:
 	std::map<std::pair<int,int>, bool> boundaryPoints;
 
 	void fill_helper(	std::pair<int,int> fillLocation,
-						std::map<std::pair<int,int>, bool> &locationColored,
+						std::vector<std::vector<bool> > &locationColored,
 						Color fillColor,
-						std::vector<PointAndColor> &coloredPoints);
+						std::vector<PointAndColor> &coloredPoints,
+						int width, int height);
 	bool isOccupied(std::pair<int,int> chkLocation);
 public:
 	Canvas();
 	Canvas(Object* initialObj);
 	Canvas(std::vector<Object*> initialObjs);
 	std::vector<PointAndColor> draw();
-	std::vector<PointAndColor> fill(PointAndColor fillPAC);
-	std::vector<PointAndColor> reapplyAllFills();
+	std::vector<PointAndColor> fill(PointAndColor fillPAC, int width, int height);
+	std::vector<PointAndColor> reapplyAllFills(int width, int height);
 	void setScale(float xScale, float yScale);
 	void setTranslation(float xTrans, float yTrans);
-	void setRotation(float theta);
+	void setRotation(float theta, Point canvasCenter);
 	Point getCenter();
+	BBox getBBox();
 	bool inside(Point a);
 	void add(Object* newObj);
 	void print();

@@ -51,8 +51,8 @@ namespace {
 	 */
 	void setFillPoint(std::map<std::pair<int,int>, PointAndColor> &fillStartPointMap, Color fillColor, Point fillPoint) {
 		const std::pair<int,int> fillLocation(fillPoint.x,fillPoint.y);
-		PointAndColor newFill = PointAndColor(fillPoint,fillColor);
 		clearFillPoint(fillStartPointMap,fillLocation);
+		PointAndColor newFill(fillPoint,fillColor);
 		fillStartPointMap[fillLocation] = newFill; //set new fill in empty fill slot
 	}
 
@@ -116,10 +116,29 @@ namespace {
 		return newFSPMap;
 	}
 
+	/**
+	 * Check to see if fill location is colored or not
+	 *
+	 * @param locationColored map representing all currently colored locations
+	 * @param fillLocation location to check for coloredness
+	 * @return bool representing whether or not fillLocation was colored
+	 */
+	bool isColored(std::map<std::pair<int,int>, bool> locationColored,std::pair<int,int> fillLocation) {
+		std::map<std::pair<int,int>,bool>::iterator it;
+		it = locationColored.find(fillLocation);
+		bool chkColored = (it != locationColored.end());
+		return chkColored;
+	}
+
+	bool isOutOfBounds(std::pair<int,int> fillLocation, int width, int height) {
+		int xLoc = fillLocation.first;
+		int yLoc = fillLocation.second;
+		return 	!((xLoc < width  ) && (xLoc > 0)	&& (yLoc < height )	&& (yLoc > 0));
+	}
 }
 
 Canvas::Canvas() {
-	// TODO Auto-generated constructor stub
+	bbox = new BBox();
 }
 
 Canvas::Canvas(Object* initialObject) {
@@ -156,32 +175,46 @@ std::vector<PointAndColor> Canvas::draw() {
  * @param fillLocation location of start of this recursion
  * @param locationColored map of already colored locations
  * @param fillColor	color of floodfill
+ * @param width screen width
+ * @param height screen height
  * @param coloredPoints	vector representing all of the filled points and the colors at those points
  */
 void Canvas::fill_helper(	std::pair<int,int> fillLocation,
-							std::map<std::pair<int,int>, bool> &locationColored,
+							std::vector<std::vector<bool> > &locationColored,
 							Color fillColor,
-							std::vector<PointAndColor> &coloredPoints) {
+							std::vector<PointAndColor> &coloredPoints,
+							int width, int height) {
 
+	int xLoc = fillLocation.first;
+	int yLoc = fillLocation.second;
 	Point fillPoint(fillLocation.first,fillLocation.second);
 	PointAndColor fillPAC(fillPoint,fillColor);
 
-	//end recursion if point represents a boundary point or the location has alread been colored
-	if(!isOccupied(fillLocation) && !locationColored[fillLocation]) {
-		coloredPoints.push_back(fillPAC); 				//add new fill point to vector
-		clearFillPoint(fillStartPointMap,fillLocation);	//remove fill point to prevent filling with incorrect color after transformation
-		locationColored[fillLocation] = true;			//mark location as colored
+	//end recursion if point represents a boundary point or the location has already been colored
+	if(	!isOccupied(fillLocation) 	&&
+		(xLoc < width  )			&&
+		(xLoc > 0)				&&
+		(yLoc < height )			&&
+		(yLoc > 0)			) {
 
-		std::pair<int,int> north(fillLocation.first,fillLocation.second+1);
-		std::pair<int,int> south(fillLocation.first,fillLocation.second-1);
-		std::pair<int,int> east (fillLocation.first+1,fillLocation.second);
-		std::pair<int,int> west (fillLocation.first-1,fillLocation.second);
+		if (!locationColored[xLoc][yLoc]) {
+			coloredPoints.push_back(fillPAC); 				//add new fill point to vector
+			clearFillPoint(fillStartPointMap,fillLocation);	//remove fill point to prevent filling with incorrect color after transformation
+			locationColored[xLoc][yLoc] = true;			//mark location as colored
 
-		//recurse
-		fill_helper(north,locationColored,fillColor,coloredPoints);
-		fill_helper(south,locationColored,fillColor,coloredPoints);
-		fill_helper(east ,locationColored,fillColor,coloredPoints);
-		fill_helper(west ,locationColored,fillColor,coloredPoints);
+
+			std::pair<int,int> north(fillLocation.first,fillLocation.second+1);
+			std::pair<int,int> south(fillLocation.first,fillLocation.second-1);
+			std::pair<int,int> east (fillLocation.first+1,fillLocation.second);
+			std::pair<int,int> west (fillLocation.first-1,fillLocation.second);
+
+			//recurse
+			fill_helper(north,locationColored,fillColor,coloredPoints,width,height);
+			fill_helper(south,locationColored,fillColor,coloredPoints,width,height);
+			fill_helper(east ,locationColored,fillColor,coloredPoints,width,height);
+			fill_helper(west ,locationColored,fillColor,coloredPoints,width,height);
+
+		}
 	}
 }
 
@@ -190,50 +223,123 @@ void Canvas::fill_helper(	std::pair<int,int> fillLocation,
  *
  * @param fillPoint Point at which fill is called
  * @param fillColor color at fill point
+ * @param width screen width
+ * @param height screen height
  */
-std::vector<PointAndColor> Canvas::fill(PointAndColor fillPAC) {
-
-	std::map<std::pair<int,int>, bool>::iterator it;
-	std::cout<<"boundary points"<<std::endl;
-	for(it = boundaryPoints.begin(); it != boundaryPoints.end(); ++it){
-		std::cout<<"("<<it->first.first<<","<<it->first.second<<")"<<std::endl;
-	}
+std::vector<PointAndColor> Canvas::fill(PointAndColor fillPAC, int width, int height) {
 
 	std::vector<PointAndColor> coloredPoints;
-
 	Point fillPoint = fillPAC.point;
 	Color fillColor = fillPAC.color;
-	std::pair<int,int> fillLocation(fillPoint.x, fillPoint.y);
+	int xLoc = fillPoint.x;
+	int yLoc = fillPoint.y;
+	std::pair<int,int> fillLocation(xLoc, yLoc);
+	std::queue<std::pair<int,int> > fillLocations;
 
-	//occupied points cannot be filled
-	if(!isOccupied(fillLocation)) {
-		std::map<std::pair<int,int>, bool> locationColored;
+	if(	!isOccupied(fillLocation) 	&&
+		!isOutOfBounds(fillLocation,width,height)) {
 
+		std::vector<std::vector<bool> > locationColored(width,std::vector<bool>(height,false));
+
+		locationColored[xLoc][yLoc] = true;						//mark location as colored
 		coloredPoints.push_back(fillPAC);						//add fill Point and Color to vector
 		setFillPoint(fillStartPointMap, fillColor, fillPoint); 	//set a new fill point
-		locationColored[fillLocation] = true;					//mark location as colored
 
 		std::pair<int,int> north(fillLocation.first,fillLocation.second+1);
 		std::pair<int,int> south(fillLocation.first,fillLocation.second-1);
 		std::pair<int,int> east (fillLocation.first+1,fillLocation.second);
 		std::pair<int,int> west (fillLocation.first-1,fillLocation.second);
 
-		fill_helper(north,locationColored,fillColor,coloredPoints);
-		fill_helper(south,locationColored,fillColor,coloredPoints);
-		fill_helper(east ,locationColored,fillColor,coloredPoints);
-		fill_helper(west ,locationColored,fillColor,coloredPoints);
+		fillLocations.push(north);
+		fillLocations.push(south);
+		fillLocations.push(east);
+		fillLocations.push(west);
+
+		while(!fillLocations.empty()) {
+			fillLocation = fillLocations.front();
+			fillLocations.pop();
+
+			if(	!isOccupied(fillLocation) 	&&
+				!isOutOfBounds(fillLocation,width,height)) {
+
+				xLoc = fillLocation.first;
+				yLoc = fillLocation.second;
+
+				if(!locationColored[xLoc][yLoc]) {
+
+					fillPoint = Point(xLoc,yLoc);
+					fillPAC = PointAndColor(fillPoint,fillColor);
+
+					locationColored[xLoc][yLoc] = true;				//mark location as colored
+					coloredPoints.push_back(fillPAC);				//add fill Point and Color to vector
+					clearFillPoint(fillStartPointMap,fillLocation); //set a new fill point
+
+					north = std::make_pair(fillLocation.first,fillLocation.second+1);
+					south = std::make_pair(fillLocation.first,fillLocation.second-1);
+					east  = std::make_pair(fillLocation.first+1,fillLocation.second);
+					west  = std::make_pair(fillLocation.first-1,fillLocation.second);
+
+					fillLocations.push(north);
+					fillLocations.push(south);
+					fillLocations.push(east);
+					fillLocations.push(west);
+				}
+			}
+		}
+	}
+}
+
+/**
+ * fills until boundary (ie the lines of the objects) a color passed in using floodfill algorithm
+ *
+ * @param fillPoint Point at which fill is called
+ * @param fillColor color at fill point
+ * @param width screen width
+ * @param height screen height
+
+std::vector<PointAndColor> Canvas::fill(PointAndColor fillPAC, int width, int height) {
+
+	std::vector<PointAndColor> coloredPoints;
+	Point fillPoint = fillPAC.point;
+	Color fillColor = fillPAC.color;
+	int xLoc = fillPoint.x;
+	int yLoc = fillPoint.y;
+	std::pair<int,int> fillLocation(xLoc, yLoc);
+
+	//occupied points cannot be filled. Points outside of screen cannot be filled
+	if(	!isOccupied(fillLocation) 	&&
+		(xLoc < width)				&&
+		(xLoc > 0)					&&
+		(yLoc < height)				&&
+		(yLoc > 0)			) {
+
+		std::vector<std::vector<bool> > locationColored(width,std::vector<bool>(height,false));
+		locationColored[xLoc][yLoc] = true;						//mark location as colored
+		coloredPoints.push_back(fillPAC);						//add fill Point and Color to vector
+		setFillPoint(fillStartPointMap, fillColor, fillPoint); 	//set a new fill point
+
+		std::pair<int,int> north(fillLocation.first,fillLocation.second+1);
+		std::pair<int,int> south(fillLocation.first,fillLocation.second-1);
+		std::pair<int,int> east (fillLocation.first+1,fillLocation.second);
+		std::pair<int,int> west (fillLocation.first-1,fillLocation.second);
+
+		fill_helper(north,locationColored,fillColor,coloredPoints,width,height);
+		fill_helper(south,locationColored,fillColor,coloredPoints,width,height);
+		fill_helper(east ,locationColored,fillColor,coloredPoints,width,height);
+		fill_helper(west ,locationColored,fillColor,coloredPoints,width,height);
 	}
 
 	return coloredPoints;
 }
+ */
 
-std::vector<PointAndColor> Canvas::reapplyAllFills() {
+std::vector<PointAndColor> Canvas::reapplyAllFills(int width, int height) {
 	std::vector<PointAndColor> coloredPoints;
 	std::vector<PointAndColor> takePACs;
 
 	std::map<std::pair<int,int>,PointAndColor>::iterator it;
 	for(it = fillStartPointMap.begin(); it != fillStartPointMap.end(); it++){
-		takePACs = fill((*it).second);
+		takePACs = fill((*it).second,width,height);
 		coloredPoints.insert(coloredPoints.end(),takePACs.begin(),takePACs.end());
 	}
 
@@ -298,14 +404,13 @@ void Canvas::setTranslation(float xTrans, float yTrans) {
 	fillStartPointMap = transformFillPoints(translation,fillStartPointMap);
 }
 
-void Canvas::setRotation(float theta) {
+void Canvas::setRotation(float theta, Point canvasCenter) {
 
 	//calculate pipe line for rotation
-	Point canvasCenter = bbox->getCenter();
 	vmath::Tmat4<float> translation		= vmath::translate(- canvasCenter.x, - canvasCenter.y, 0.0f);
 	vmath::Tmat4<float> rotation		= vmath::rotate(theta,0.0f,0.0f,1.0f);
 	vmath::Tmat4<float> invTranslation	= vmath::translate(  canvasCenter.x,   canvasCenter.y, 0.0f);
-	vmath::Tmat4<float> tPipeline		= (translation*rotation)*invTranslation;
+	vmath::Tmat4<float> tPipeline		= invTranslation*rotation*translation;
 
 	//transform all objects
 	boundaryPoints.clear();	//boundary points must be reinitialized
@@ -352,6 +457,10 @@ void Canvas::add(Object* newObj) {
  */
 Point Canvas::getCenter() {
 	bbox->getCenter();
+}
+
+BBox Canvas::getBBox() {
+	return *bbox;
 }
 
 Canvas::~Canvas() {
